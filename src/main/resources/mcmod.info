@@ -1,0 +1,16 @@
+[
+{
+  "modid": "mputils",
+  "name": "ModPack Utilities",
+  "description": "will add various tools for modpack developers",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "http://minecraft.curseforge.com/members/GenDeathrow/projects",
+  "updateUrl": "",
+  "authorList": ["GenDeathrow", "Darkosto"],
+  "credits": "Darkosto for original idea to this mod! And all my Patreon supporters!",
+  "logoFile": "MPUTILS_small.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]
