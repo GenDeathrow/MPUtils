@@ -10,8 +10,6 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 
-import com.gendeathrow.mputils.commands.common.MP_BaseCommand;
-
 public class MP_ClientCommands  extends CommandBase
 {
 	ArrayList<MP_ClientBaseCommand> coms = new ArrayList<MP_ClientBaseCommand>();
@@ -19,6 +17,7 @@ public class MP_ClientCommands  extends CommandBase
 	public MP_ClientCommands()
 	{
 		coms.add(new MP_LookAtCommand());
+		coms.add(new MP_ReloadTips());
 	}
 	
 	@Override
@@ -81,7 +80,7 @@ public class MP_ClientCommands  extends CommandBase
 	@Override
     public int getRequiredPermissionLevel()
     {
-        return 2;
+        return 0;
     }
 	
 	@Override

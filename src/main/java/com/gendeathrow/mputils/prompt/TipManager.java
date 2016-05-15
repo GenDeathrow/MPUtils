@@ -165,11 +165,11 @@ public class TipManager
             	nbt.setTag(tip.tipId, tipTag);
             }
             
-//            NBTTagCompound TipSettings = new NBTTagCompound();
-//            
-//            TipSettings.setBoolean("showTips", Settings.showTips);
-//            
-//            nbt.setTag("Settings", TipSettings);
+            NBTTagCompound TipSettings = new NBTTagCompound();
+            
+            TipSettings.setBoolean("showTips", Settings.showTips);
+            
+            nbt.setTag("Settings", TipSettings);
             
             CompressedStreamTools.writeCompressed(nbt, fileOutputStream);
             fileOutputStream.close();
@@ -214,7 +214,7 @@ public class TipManager
             
             if(nbt.hasKey("Settings"))
             {
-            	// Settings.showTips = nbt.getCompoundTag("Settings").getBoolean("showTips");
+            	 Settings.showTips = nbt.getCompoundTag("Settings").getBoolean("showTips");
             }
            
   

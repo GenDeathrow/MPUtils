@@ -51,11 +51,18 @@ public class ConfigHandler
 		
 		generateChangeLog();
 
+		loadTips();
+		
+		
+		
+		
+	}
+	
+	public static void loadTips()
+	{
 		TipList.ReadJsonTips(ReadJsonFile(generateDefaultTips()));
 		
 		MPUtils.tipHandler.ReadNBTFile();
-		
-		
 	}
 	
 	

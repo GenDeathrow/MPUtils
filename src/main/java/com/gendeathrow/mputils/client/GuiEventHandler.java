@@ -1,9 +1,13 @@
 package com.gendeathrow.mputils.client;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiIngameMenu;
 import net.minecraft.client.gui.GuiMainMenu;
+import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.GuiScreenEvent.ActionPerformedEvent;
 import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -24,19 +28,6 @@ public class GuiEventHandler
 	SideTabButton tabTips;
 	SideTabButton support;
 	
-//	  @SubscribeEvent(priority=EventPriority.HIGHEST)
-//	  public void openGui(GuiOpenEvent event)
-//	  {
-//			if(event.getGui() instanceof GuiMainMenu || event.getGui() instanceof GuiIngameMenu || ccmUtils.isInstanceofCMM(event.getGui()))
-//			{
-//
-//				whatsNew = new SideTabButton(400, event.getGui().width - 80 , event.getGui().height/2, 80, 20, "Whats New!");
-//				event.getGui().getButtonList().add(whatsNew);
-//			}
-//	  }
-	  
-	  
-	
 	private int yOffset;
 	private ArrayList<SideTabButton> tablist = new ArrayList<SideTabButton>();
 	
@@ -53,10 +44,11 @@ public class GuiEventHandler
 		if(event.getGui() instanceof GuiMainMenu  || event.getGui() instanceof GuiIngameMenu)
 		{
 			tablist.clear();
+			
 			yOffset = (event.getGui().height / 4) + 28;
-
-			changelog = new SideTabButton(400, event.getGui().width - 90 + 2, 0, 90, 20, Settings.changeLogTitle).setIcon(0, 0);
-			tabTips =  new SideTabButton(401, event.getGui().width - 90 + 2, 0, 90, 20, "Tips").setIcon(1, 0);
+			
+			changelog = new SideTabButton(400, event.getGui().width - 100 + 2, 0, 100, 20, Settings.changeLogTitle).setIcon(0, 0);
+			tabTips =  new SideTabButton(401, event.getGui().width - 100 + 2, 0, 100, 20, "HelpFul Tips").setIcon(1, 0);
 			//support =  new SideTabButton(402, event.getGui().width - 90 + 2, 0, 90, 20, "Tips").setIcon(2, 0);
 
 			if(Settings.showChangeLogButton) 
@@ -73,7 +65,7 @@ public class GuiEventHandler
 				
 			for(SideTabButton tab : tablist)
 			{
-				event.getButtonList().add(tab);
+					event.getButtonList().add(tab);
 			}
 			
 
@@ -87,7 +79,7 @@ public class GuiEventHandler
 	public void action(ActionPerformedEvent.Post event)
 	{
 
-		if(event.getGui() instanceof GuiMainMenu || event.getGui() instanceof GuiIngameMenu || ccmUtils.isInstanceofCMM(event.getGui()))
+		if(event.getGui() instanceof GuiMainMenu || event.getGui() instanceof GuiIngameMenu)
 		{
 			if(event.getButton() == changelog)
 			{

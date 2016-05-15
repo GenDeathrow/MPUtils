@@ -33,8 +33,19 @@ public class TipList
 	
 	public static HashMap<Integer, TipDimension> dimensionList = new HashMap<Integer, TipDimension>();
 	
+	public static void clearTips()
+	{
+		idToTips.clear();
+		blockLookTipList.clear();
+		entityLookTipList.clear();
+		toolTipList.clear();
+		dimensionList.clear();
+	}
+	
 	public static void ReadJsonTips(JsonObject jsonObject) 
 	{
+		clearTips();
+		
 		if(jsonObject.has(TipType.DIMENSION.toString()))
 		{
 			for(JsonElement element : jsonObject.get(TipType.DIMENSION.toString()).getAsJsonArray())

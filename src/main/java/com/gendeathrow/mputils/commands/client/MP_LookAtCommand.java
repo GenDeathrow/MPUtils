@@ -1,5 +1,9 @@
 package com.gendeathrow.mputils.commands.client;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
@@ -14,38 +18,6 @@ public class MP_LookAtCommand extends MP_ClientBaseCommand
 {
 
 	public static IBlockState currentBlock;
-	
-//	@Override
-//	public String getCommand() 
-//	{
-//		return "lookingAt";
-//	}
-//
-//	@Override
-//	public void runCommand(CommandBase command, ICommandSender sender, String[] args) 
-//	{
-//		System.out.println("runCommand");
-//		if(!sender.getEntityWorld().isRemote) return;
-//		System.out.println("Remote");
-//		
-//		if(sender instanceof EntityPlayer)
-//		{
-//			EntityPlayer player = (EntityPlayer)sender;
-//			
-//			if(currentBlock == null) 
-//			{
-//				player.addChatMessage(new TextComponentTranslation("No block found."));
-//			}
-//			else 
-//			{
-//				player.addChatMessage(new TextComponentTranslation("Looking at: "+ Block.getIdFromBlock(currentBlock.getBlock())));
-//				currentBlock = null;
-//			}
-//	
-//			
-//		}
-//	}
-
 
 	@Override
 	public String getCommand() 
@@ -67,13 +39,27 @@ public class MP_LookAtCommand extends MP_ClientBaseCommand
 				{
 					IBlockState block = sender.getEntityWorld().getBlockState(Minecraft.getMinecraft().objectMouseOver.getBlockPos());
 					
-					sender.addChatMessage(new TextComponentTranslation("Looking at: "+ block.getBlock().getRegistryName()  +"  Meta:"+ block.getBlock().getMetaFromState(block)));
+					String string = "Looking at: §2"+ block.getBlock().getRegistryName()  +"  §rMeta: §2"+ block.getBlock().getMetaFromState(block);
+					
+					
+					try
+					{
+						StringSelection selection = new StringSelection(block.getBlock().getRegistryName()+ " " + block.getBlock().getMetaFromState(block));
+						Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+						clipboard.setContents(selection, selection);
+						string += " §6Copied to Clipboard";
+					}catch(Exception e)
+					{
+						System.out.println(e);
+					}
+					
+					sender.addChatMessage(new TextComponentTranslation(string));
 				}
 				
 				if(type == Type.ENTITY)
 				{
 					Entity lookingAt = Minecraft.getMinecraft().objectMouseOver.entityHit; 
-					sender.addChatMessage(new TextComponentTranslation("Looking at: "+ EntityList.getEntityString(lookingAt) +" ID:"+ EntityList.getEntityID(lookingAt)));
+					sender.addChatMessage(new TextComponentTranslation("Looking at: §2"+ EntityList.getEntityString(lookingAt) +" §rID: §2"+ EntityList.getEntityID(lookingAt)));
 				}
 			}
 			

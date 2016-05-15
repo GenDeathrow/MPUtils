@@ -1,6 +1,7 @@
 package com.gendeathrow.mputils.client.elements;
 
 import com.gendeathrow.mputils.core.MPUtils;
+import com.gendeathrow.mputils.core.Settings;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -29,7 +30,10 @@ public class SideTabButton extends GuiButton
 	public SideTabButton(int buttonId, int x, int y, int widthIn, int heightIn,	String buttonText) 
 	{
 		super(buttonId, x, y, widthIn, heightIn, buttonText);
-        this.xOffset = this.width - 25;
+		
+		int textInt = Minecraft.getMinecraft().fontRendererObj.getStringWidth(buttonText);
+
+	    this.xOffset = this.width - 25;
 	}
 	
 	int iconX;
@@ -94,7 +98,7 @@ public class SideTabButton extends GuiButton
             mc.getTextureManager().bindTexture(iconTexture);
             
             //if(!this.isFullOpen) 
-            	this.drawTexturedModalRect(this.xPosition + 4 + xOffset, this.yPosition + 1, iconX, iconY, 16, 16);
+            	this.drawTexturedModalRect(this.xPosition + 4 + xOffset, this.yPosition + 2, iconX, iconY, 16, 16);
         }
     }
 

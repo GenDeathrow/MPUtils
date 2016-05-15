@@ -76,16 +76,26 @@ public class GuiShowTips extends GuiScreen
 		GuiButton next = new GuiButton(3, (newTip.xPosition + newTip.width) + 2, newTip.yPosition,20, 20, ">");
 		GuiButton prev = new GuiButton(4, newTip.xPosition - 22, newTip.yPosition , 20, 20, "<");
 		
-		GuiButton resetTips = new GuiButton(5, posX + (scrollWindow.width / 2) - 100, scrollWindow.height + posY + 6 + 22, "Reset Notifications");
+		GuiButton resetTips = new GuiButton(5, posX + (scrollWindow.width / 2) - 100, scrollWindow.height + posY + 6 + 22, "Reset Notifications Cache");
 		
-		//dontShow = new GuiCheckBox(6, 10 , 10 , "Do not show tips", Settings.showTips);
+		dontShow = new GuiCheckBox(6, 10 , 10 , "Do not show tips notifications", !Settings.showTips);
 		
 		this.buttonList.add(newTip);
 		this.buttonList.add(close);
 		this.buttonList.add(next);
 		this.buttonList.add(prev);
 		this.buttonList.add(resetTips);
-		//this.buttonList.add(dontShow);
+		this.buttonList.add(dontShow);
+	}
+	
+	public void onGuiClosed()
+	{
+		if(!dontShow.isChecked() != Settings.showTips)
+		{
+			Settings.showTips = !dontShow.isChecked();
+			MPUtils.tipHandler.SaveNBTFile();	
+		}
+		
 	}
 	
 	protected void actionPerformed(GuiButton button) throws IOException
