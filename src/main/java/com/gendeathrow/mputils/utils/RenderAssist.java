@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
@@ -26,6 +27,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
+
 
 
 
@@ -54,6 +56,7 @@ public class RenderAssist {
 	private static TextureManager manager = Minecraft.getMinecraft().getTextureManager();
 	private static FontRenderer fontObj = Minecraft.getMinecraft().fontRendererObj;
 
+	public static String mcColorUni = "\u00A74";
 
     /** 
      *  Draws an unfilled Circle
@@ -553,6 +556,28 @@ public class RenderAssist {
         worldrenderer.pos((double)(x + (width * scale)), (double)(y + 0), 0).tex((double)((float)(u + width) * f), (double)((float)(v + 0) * f1)).endVertex();
         worldrenderer.pos((double)(x + 0), (double)(y + 0), 0).tex((double)((float)(u + 0) * f), (double)((float)(v + 0) * f1)).endVertex();
 		tessellator.draw();
+	}
+	
+	public static void renderItem(ItemStack stack, int x, int y, float scale)
+	{
+		GlStateManager.pushMatrix();
+		
+			RenderHelper.enableGUIStandardItemLighting();
+//			GlStateManager.disableLighting();
+//			GlStateManager.enableRescaleNormal();
+//			GlStateManager.enableColorMaterial();
+//			GlStateManager.enableLighting();
+				
+				GlStateManager.translate(-x, -y, 0);
+				GlStateManager.scale(scale, scale, 0);
+        			Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(stack, x, y);
+        		GlStateManager.translate(x, y, 0);
+        		
+//            	GlStateManager.disableLighting();
+//            	GlStateManager.depthMask(true);
+//            	GlStateManager.enableDepth();
+
+        GlStateManager.popMatrix();
 	}
 	
 

@@ -1,4 +1,4 @@
-package com.gendeathrow.mputils.commands.common;
+package com.gendeathrow.mputils.commands;
 
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.gendeathrow.mputils.client.elements;
+package com.gendeathrow.mputils.api.client.gui.elements;
 
 import com.gendeathrow.mputils.core.MPUtils;
 import com.gendeathrow.mputils.core.Settings;

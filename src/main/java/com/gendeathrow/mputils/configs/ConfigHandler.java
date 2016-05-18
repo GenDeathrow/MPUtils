@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.config.Configuration;
 
 import org.apache.logging.log4j.Level;
@@ -42,20 +43,14 @@ public class ConfigHandler
 	public static void load()
 	{
 		config = new Configuration(configFile, ConfigVer);
-		
-		//config.load();
-		
-		//preLoad(); 
+		config.load();	
 		
 		loadConfiguration();
 		
 		generateChangeLog();
 
 		loadTips();
-		
-		
-		
-		
+	
 	}
 	
 	public static void loadTips()
@@ -68,10 +63,6 @@ public class ConfigHandler
 	
 	private static void preLoad()
 	{
-
-		//System.out.println(config.getLoadedConfigVersion()+" != "+ config.getDefinedConfigVersion());
-		
-		
 		if(config.getLoadedConfigVersion() != config.getDefinedConfigVersion())
 		{
 			loadLegacyConfig(config.getLoadedConfigVersion());
@@ -84,24 +75,19 @@ public class ConfigHandler
 	private final static String tabMenuCat = "menu_tabs";
 	private final static String changelogCat = "changeLog_settings";
 	
-	private static void loadConfiguration()
+	public static void loadConfiguration()
 	{
-		config.load();
-		
-		Settings.showTips = config.getBoolean("Show Tip Notification", Configuration.CATEGORY_CLIENT, Settings.showTips, "Turns tip notification on/off");
+		Settings.showTips = config.getBoolean("Show Tip Notification", Configuration.CATEGORY_CLIENT, true, "Turns tip notification on/off");
 		
 		// Menu buttons
-		Settings.tipsMenuButton = config.get(tabMenuCat, "Tips Tab", Settings.tipsMenuButton, "Adds 'Tips!' button to menu").getBoolean();
+		Settings.tipsMenuButton = config.get(tabMenuCat, "Tips Tab", true, "Adds 'Tips!' button to menu").getBoolean();
 
 		Settings.showChangeLogButton = config.get(tabMenuCat, "ChangeLogs Tab", Settings.showChangeLogButton, "Adds Changelog button to menu").getBoolean();
 			
-			Settings.changeLogTitle = config.getString("ChangeLog Title", changelogCat, Settings.changeLogTitle, "Change button and Title of change log");
-			Settings.isHttp = config.getBoolean("isHttp", changelogCat, Settings.isHttp, "If change log file is located on a web url");
-			Settings.url = config.getString("File Address", changelogCat, Settings.url, "Location of the file http or filename");
+			Settings.changeLogTitle = config.getString("ChangeLog Title", changelogCat, "What's New!", "Change button and Title of change log");
+			Settings.isHttp = config.getBoolean("isHttp", changelogCat, false, "If change log file is located on a web url");
+			Settings.url = config.getString("File Address", changelogCat, "changelog.txt", "Location of the file http or filename");
 			
-			 //ishttp
-			// url
-		
 		
 		//Settings.showSupportButton = config.get(tabMenuCat, "Support Tab", Settings.showSupportButton, "Adds a Support you button to menu, Also ").getBoolean();
 
@@ -150,8 +136,6 @@ public class ConfigHandler
 
                 buffer.write("# Add Your ChangeLog to 'changelog.txt' in the config files" + NEW_LINE + NEW_LINE + "You can use Minecrafts Color Codes to make your changlogs look Good.");
 
-                
-                
                 buffer.close();
                 fos.close();
             }

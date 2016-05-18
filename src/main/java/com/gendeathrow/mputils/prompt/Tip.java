@@ -55,6 +55,8 @@ public class Tip extends TipBase
     	{
     		Item item = Item.getByNameOrId(json.get("item").getAsString());
     		
+    		
+    		// COLOR FORMATING CODE \u00A7
     		if(item == null) 
     		{
     			MPUtils.logger.log(Level.ERROR, "Cant find Item "+ (json.get("block").getAsString()) +" , Not Loading this Tip: "+ this.getStatName());
@@ -67,6 +69,20 @@ public class Tip extends TipBase
 
     	}
     	else if(json.has("block"))
+    	{
+    		Block block = Block.getBlockFromName(json.get("block").getAsString());
+    		
+    		if(block == null) 
+    		{
+    			MPUtils.logger.log(Level.ERROR, "Cant find Block "+ (json.get("block").getAsString()) +" , Not Loading this Tip: "+ this.getStatName());
+    			return null;
+    		}
+    		
+    		this.theItemStack = new ItemStack(Item.getItemFromBlock(block));
+    		this.theItemStack.setItemDamage(metaID);
+    	}
+    	
+    	if(json.has("blockImg"))
     	{
     		Block block = Block.getBlockFromName(json.get("block").getAsString());
     		

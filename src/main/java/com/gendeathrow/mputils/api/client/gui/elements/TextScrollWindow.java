@@ -1,4 +1,4 @@
-package com.gendeathrow.mputils.client.elements;
+package com.gendeathrow.mputils.api.client.gui.elements;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -17,6 +17,8 @@ import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.event.ClickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -28,7 +30,7 @@ public class TextScrollWindow extends GuiListExtended
 {
 	private final List<Line> Lines = Lists.newArrayList();
 	
-	private String rawData;
+	private String rawData = "no data";
 	
 	public TextScrollWindow(Minecraft mcIn, String text, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn) 
 	{
@@ -56,13 +58,12 @@ public class TextScrollWindow extends GuiListExtended
 		 return this.width;
 	 }
 	 
+ 	 @Override
 	 protected int getScrollBarX()
 	 {
 		 return this.width + this.left;
 	 }
 
-	
-	
 	public void parseLines(Minecraft mc)
 	{
 		String[] parsedData = rawData.replace("\r", "").split("\n");
@@ -257,6 +258,7 @@ public class TextScrollWindow extends GuiListExtended
 		@Override
 		public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected) 
 		{
+			//ClickEvent.Action.OPEN_URL;
 			mc.fontRendererObj.drawString(textTypeText(type, line), x, y, textTypeColor(type));
 		}
 		

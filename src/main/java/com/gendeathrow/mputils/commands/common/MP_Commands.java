@@ -10,6 +10,7 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 
+import com.gendeathrow.mputils.commands.MP_BaseCommand;
 import com.gendeathrow.mputils.commands.client.MP_LookAtCommand;
 
 public class MP_Commands extends CommandBase

@@ -14,6 +14,7 @@ import com.gendeathrow.mputils.client.GuiEventHandler;
 import com.gendeathrow.mputils.commands.client.MP_ClientCommands;
 import com.gendeathrow.mputils.configs.ConfigHandler;
 import com.gendeathrow.mputils.core.MPUtils;
+import com.gendeathrow.mputils.modsupport.ccmUtils;
 import com.gendeathrow.mputils.prompt.TipManager;
 
 public class MPClientProxy extends MPCommonProxy
@@ -66,7 +67,9 @@ public class MPClientProxy extends MPCommonProxy
 		
 		registerEventHandlers();
 		
-	   ClientCommandHandler.instance.registerCommand(new MP_ClientCommands());
+		//new ccmUtils();
+		
+		ClientCommandHandler.instance.registerCommand(new MP_ClientCommands());
 		
 	}
 	
@@ -82,7 +85,15 @@ public class MPClientProxy extends MPCommonProxy
 		super.postInit(event);
 		
 		ConfigHandler.load();
+		
+		registerTabButtons();
 		//VoxelMenu();
+	}
+	
+	public void registerTabButtons()
+	{
+		
+		
 	}
 	
 	

@@ -39,7 +39,6 @@ public class ccmUtils
     
     public static boolean isInstanceofCMM(GuiScreen gui)
     {
-
     	if(cmmExist && cMainMenu != null)
     	{
     		if(cMainMenu.isInstance(gui) || cFMainMenu.isInstance(gui))

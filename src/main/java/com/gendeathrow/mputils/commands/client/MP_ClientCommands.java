@@ -10,9 +10,11 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 
+import com.gendeathrow.mputils.commands.MP_BaseCommand;
+
 public class MP_ClientCommands  extends CommandBase
 {
-	ArrayList<MP_ClientBaseCommand> coms = new ArrayList<MP_ClientBaseCommand>();
+	ArrayList<MP_BaseCommand> coms = new ArrayList<MP_BaseCommand>();
 	
 	public MP_ClientCommands()
 	{
@@ -33,7 +35,7 @@ public class MP_ClientCommands  extends CommandBase
 		
 		for(int i = 0; i < coms.size(); i++)
 		{
-			MP_ClientBaseCommand c = coms.get(i);
+			MP_BaseCommand c = coms.get(i);
 			txt += "/mputil " + c.getCommand();
 			
 			if(c.getUsageSuffix().length() > 0)
@@ -58,14 +60,14 @@ public class MP_ClientCommands  extends CommandBase
 		if(strings.length == 1)
 		{
 			ArrayList<String> base = new ArrayList<String>();
-			for(MP_ClientBaseCommand c : coms)
+			for(MP_BaseCommand c : coms)
 			{
 				base.add(c.getCommand());
 			}
         	return getListOfStringsMatchingLastWord(strings, base.toArray(new String[0]));
 		} else if(strings.length > 1)
 		{
-			for(MP_ClientBaseCommand c : coms)
+			for(MP_BaseCommand c : coms)
 			{
 				if(c.getCommand().equalsIgnoreCase(strings[0]))
 				{
@@ -91,7 +93,7 @@ public class MP_ClientCommands  extends CommandBase
 			throw new WrongUsageException(this.getCommandUsage(sender));
 		}
 		
-		for(MP_ClientBaseCommand c : coms)
+		for(MP_BaseCommand c : coms)
 		{
 			if(c.getCommand().equalsIgnoreCase(args[0]))
 			{

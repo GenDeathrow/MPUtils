@@ -15,6 +15,7 @@ import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
@@ -28,6 +29,7 @@ import org.lwjgl.input.Keyboard;
 import com.gendeathrow.mputils.client.tips.TipsNotification;
 import com.gendeathrow.mputils.core.MPUtils;
 import com.gendeathrow.mputils.core.Settings;
+import com.gendeathrow.mputils.utils.RenderAssist;
 import com.google.common.collect.Lists;
 
 public class TipManager 
@@ -95,21 +97,6 @@ public class TipManager
 		
 	}
 	
-//	@SubscribeEvent	
-//	public void onItemPickup(EntityItemPickupEvent event)
-//	{
-//		if(!Settings.showTips) return;
-//		
-//	}
-//	
-//	@SubscribeEvent
-//	public void onItemCrafted(ItemCraftedEvent event)
-//	{
-//		
-//	}
-//	
-//	public void onKill(){}
-	
 	@SubscribeEvent
 	public void itemToolTip(ItemTooltipEvent event) 
 	{
@@ -123,12 +110,13 @@ public class TipManager
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
 		{
-			event.getToolTip().add("§eHelpful Tip:");
+			event.getToolTip().add(TextFormatting.YELLOW +"Helpful Tip:");
 			event.getToolTip().addAll(Lists.newArrayList(tip.desc.replaceAll("\t", "").split("\n"))); //.add(tip.desc);
 		}
 		else
 		{
-			event.getToolTip().add("§4<Hold shift for helpful tip>");
+			// COLOR FORMATING CODE \u00A7
+			event.getToolTip().add(TextFormatting.RED +"<Hold shift for helpful tip>");
 		}
 		
 	}

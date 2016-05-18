@@ -48,6 +48,11 @@ public class TipsNotification extends Gui
 	        this.permanentNotification = false;
 	    }
 	    
+	    public Tip getLastTip()
+	    {
+	    	return this.theTip;
+	    }
+	    
 	    public void addQueue(Tip tip)
 	    {
 	    	if(tip.shouldNotifiy())

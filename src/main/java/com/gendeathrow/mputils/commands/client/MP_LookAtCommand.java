@@ -13,8 +13,14 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
 
-public class MP_LookAtCommand extends MP_ClientBaseCommand
+import org.apache.logging.log4j.Level;
+
+import com.gendeathrow.mputils.commands.MP_BaseCommand;
+import com.gendeathrow.mputils.core.MPUtils;
+
+public class MP_LookAtCommand extends MP_BaseCommand
 {
 
 	public static IBlockState currentBlock;
@@ -39,18 +45,18 @@ public class MP_LookAtCommand extends MP_ClientBaseCommand
 				{
 					IBlockState block = sender.getEntityWorld().getBlockState(Minecraft.getMinecraft().objectMouseOver.getBlockPos());
 					
-					String string = "Looking at: §2"+ block.getBlock().getRegistryName()  +"  §rMeta: §2"+ block.getBlock().getMetaFromState(block);
+					String string = "Looking at: "+ TextFormatting.ITALIC.YELLOW + block.getBlock().getRegistryName() + TextFormatting.RESET +"  Meta: "+ TextFormatting.ITALIC.YELLOW + block.getBlock().getMetaFromState(block) + TextFormatting.RESET;
 					
 					
 					try
 					{
-						StringSelection selection = new StringSelection(block.getBlock().getRegistryName()+ " " + block.getBlock().getMetaFromState(block));
+						StringSelection selection = new StringSelection(block.getBlock().getRegistryName()+ ":" + block.getBlock().getMetaFromState(block));
 						Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 						clipboard.setContents(selection, selection);
-						string += " §6Copied to Clipboard";
+						string += TextFormatting.YELLOW +" --Copied to Clipboard--";
 					}catch(Exception e)
 					{
-						System.out.println(e);
+						MPUtils.logger.log(Level.ERROR, e);
 					}
 					
 					sender.addChatMessage(new TextComponentTranslation(string));
@@ -59,7 +65,7 @@ public class MP_LookAtCommand extends MP_ClientBaseCommand
 				if(type == Type.ENTITY)
 				{
 					Entity lookingAt = Minecraft.getMinecraft().objectMouseOver.entityHit; 
-					sender.addChatMessage(new TextComponentTranslation("Looking at: §2"+ EntityList.getEntityString(lookingAt) +" §rID: §2"+ EntityList.getEntityID(lookingAt)));
+					sender.addChatMessage(new TextComponentTranslation("Looking at: "+ EntityList.getEntityString(lookingAt) +" ID: "+ EntityList.getEntityID(lookingAt)));
 				}
 			}
 			

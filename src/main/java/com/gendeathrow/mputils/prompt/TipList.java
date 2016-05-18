@@ -1,10 +1,9 @@
 package com.gendeathrow.mputils.prompt;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
-
-import org.apache.logging.log4j.Level;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -13,9 +12,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
+import org.apache.logging.log4j.Level;
+
 import com.gendeathrow.mputils.core.MPUtils;
 import com.google.common.collect.Lists;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -40,6 +40,16 @@ public class TipList
 		entityLookTipList.clear();
 		toolTipList.clear();
 		dimensionList.clear();
+		
+		erroredLoads = 0;
+		
+	}
+	
+	private static int erroredLoads;
+	
+	public static int getErroredLoads()
+	{
+		return erroredLoads;
 	}
 	
 	public static void ReadJsonTips(JsonObject jsonObject) 
@@ -53,7 +63,7 @@ public class TipList
 				JsonObject data = element.getAsJsonObject();
 				TipDimension tip = new TipDimension(data.get("tipID").getAsString(), data.get("tipName").getAsString()).ReadFromJson(data);
 				
-				if (tip == null) continue;
+				if (tip == null){ erroredLoads++; continue;}
 			    TIPS.add(tip);
 			    idToTips.put(tip.tipId, tip);
 			    dimensionList.put(data.get("dimid").getAsInt(), tip);
@@ -68,7 +78,7 @@ public class TipList
 				JsonObject data = element.getAsJsonObject();
 				Tip tip = new Tip(data.get("tipID").getAsString(), data.get("tipName").getAsString(), TipType.BLOCK_LOOKING_AT).ReadFromJson(data);
 				
-				if (tip == null) continue;
+				if (tip == null){ erroredLoads++; continue;}
 			    TIPS.add(tip);
 			    idToTips.put(tip.tipId, tip);
 			    blockLookTipList.put(tip.getItemStack(), tip);
@@ -84,7 +94,7 @@ public class TipList
 				JsonObject data = element.getAsJsonObject();
 				Tip tip = new Tip(data.get("tipID").getAsString(), data.get("tipName").getAsString(), TipType.TOOLTIP).ReadFromJson(data);
 				
-				if (tip == null) continue;
+				if (tip == null){ erroredLoads++; continue;}
 			    TIPS.add(tip);
 			    idToTips.put(tip.tipId, tip);
 			    toolTipList.put(tip.getItemStack(), tip);
@@ -99,7 +109,7 @@ public class TipList
 				JsonObject data = element.getAsJsonObject();
 				Tip tip = new Tip(data.get("tipID").getAsString(), data.get("tipName").getAsString(), TipType.INFO).ReadFromJson(data);
 				
-				if (tip == null) continue;
+				if (tip == null){ erroredLoads++; continue;}
 			    TIPS.add(tip);
 			    idToTips.put(tip.tipId, tip);
 			}

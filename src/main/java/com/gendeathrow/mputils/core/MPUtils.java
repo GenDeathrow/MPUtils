@@ -18,11 +18,12 @@ import com.gendeathrow.mputils.core.proxies.MPCommonProxy;
 import com.gendeathrow.mputils.prompt.TipManager;
 
 // 1.9 
-@Mod(modid = MPUtils.MODID, version = MPUtils.VERSION)
+@Mod(modid = MPUtils.MODID, version = MPUtils.VERSION, guiFactory = "com.gendeathrow.mputils.configs.ConfigGuiFactory")
 public class MPUtils 
 {
     public static final String MODID = "mputils";
-    public static final String VERSION = "0.0.11";
+    public static final String VERSION = "0.0.12";
+    public static final String MCVERSION = "0.0.12";
     public static final String NAME = "ModPack Utils";
     public static final String PROXY = "com.gendeathrow.mputils.core.proxies";
     

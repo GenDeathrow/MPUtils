@@ -24,6 +24,9 @@ public class TipBase
     
     public ItemStack theItemStack;
     
+    /** used to override the image */
+    public ItemStack theImageStack;
+    
     private Class <? extends IJsonSerializable > jelment;
     
     private static NumberFormat numberFormat = NumberFormat.getIntegerInstance(Locale.US);
