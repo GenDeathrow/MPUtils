@@ -1,0 +1,16 @@
+[
+{
+  "modid": "mpbasic",
+  "name": "ModPack Basic Tools",
+  "description": "Adds Change logs, info, and bug reporting tab.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["GenDeathrow"],
+  "credits": "Funwayguy for moding help, and Darkosto for initial idea.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": ["mputils"]
+}
+]

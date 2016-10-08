@@ -1,0 +1,16 @@
+[
+{
+  "modid": "tipalert",
+  "name": "Helpful Tip Alerts",
+  "description": "Gives players helpful tips notifications ingame.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://minecraft.curseforge.com/projects/mputils-tip-alert",
+  "updateUrl": "",
+  "authorList": ["GenDeathrow"],
+  "credits": "Darkosto, FunwayGuy",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": ["MPutils"]
+}
+]
