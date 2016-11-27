@@ -12,6 +12,7 @@ import org.lwjgl.input.Keyboard;
 
 import com.gendeathrow.mputils.core.MPUtils;
 import com.gendeathrow.mputils.utils.MPInfo;
+import com.gendeathrow.mputils.utils.Tools;
 
 public class MPInfoEditor extends GuiScreen
 {
@@ -72,39 +73,30 @@ public class MPInfoEditor extends GuiScreen
         this.description.setMaxStringLength(32500);
         this.description.setFocused(false);
         this.description.setText(MPInfo.description);
-        int[] verions = null;
-		try
-		{
-			String[] verionRaw = MPInfo.version.split("\\.");
+        
 
-			verions = new int[]{Integer.valueOf(verionRaw[0]),Integer.valueOf(verionRaw[1]),Integer.valueOf(verionRaw[2])};
-		} catch(IndexOutOfBoundsException e)
-		{
-			MPUtils.logger.warn("An IndexOutOfBoundsException occured while checking version! Make sure all your Version Numbers are formated as (MajorVersion.MinorVersion.RevesionVersion = 1.2.0) And Contain no special characters or text.", e);
-		} catch(NumberFormatException e)
-		{
-			MPUtils.logger.warn("A NumberFormatException occured while checking version!\n", e);
-		}
+        //String[] verionRaw = MPInfo.version.split("\\.");
+        int[] versions = MPInfo.getFormatedMPVer();
 		
         this.verMax = new GuiTextField(4, this.fontRendererObj, this.width / 2 - 150, pos + j * spacing, 30, 20);
         this.verMax.setMaxStringLength(4);
         this.verMax.setFocused(false);
-        this.verMax.setText(""+(verions != null ? verions[0] : 0));
+        this.verMax.setText(""+(versions != null ? versions[0] : 0));
         
         this.verMin = new GuiTextField(5, this.fontRendererObj, (this.width / 2) - 150 + 50, pos + j * spacing, 30, 20);
         this.verMin.setMaxStringLength(4);
         this.verMin.setFocused(false);
-        this.verMin.setText(""+(verions != null ? verions[1] : 0));
+        this.verMin.setText(""+(versions != null ? versions[1] : 0));
         
         
         this.verRev = new GuiTextField(6, this.fontRendererObj, this.width / 2 - 150 + 100, pos + j++ * spacing, 30, 20);
         this.verRev.setMaxStringLength(4);
         this.verRev.setFocused(false);
-        this.verRev.setText(""+(verions != null ? verions[1] : 0));
+        this.verRev.setText(""+(versions != null ? versions[2] : 0));
         
-        System.out.println("1:"+ this.verMax.xPosition +","+ this.verMax.yPosition);
-        System.out.println("1:"+ this.verMin.xPosition +","+ this.verMin.yPosition);
-        System.out.println("1:"+ this.verRev.xPosition +","+ this.verRev.yPosition);
+      //  System.out.println("1:"+ this.verMax.xPosition +","+ this.verMax.yPosition);
+      //  System.out.println("1:"+ this.verMin.xPosition +","+ this.verMin.yPosition);
+      //  System.out.println("1:"+ this.verRev.xPosition +","+ this.verRev.yPosition);
         
         this.url = new GuiTextField(7, this.fontRendererObj, this.width / 2 - 150, pos + j++ * spacing, 300, 20);
         this.url.setMaxStringLength(32500);

@@ -40,10 +40,10 @@ public class BasicNotifcationManager extends NotificationManager
 		{
 			return;
 		}
-		hasChecked = true;
+		hasChecked = true;  
 		
-		String CurrentVersion = MPInfo.version;
-		String LastVersion = BTSaveHandler.savedVersion;
+		 int[] CurrentVersion = MPInfo.getFormatedMPVer();
+		 int[] LastVersion = MPInfo.getFormatedMPVer(BTSaveHandler.savedVersion);
 
 		if(compareVersions(LastVersion, CurrentVersion) == -1)
 		{
@@ -62,6 +62,8 @@ public class BasicNotifcationManager extends NotificationManager
 	 * @param newVer
 	 * @return
 	 */
+
+	
 	public static int compareVersions(String oldVer, String newVer)
 	{
 		if(oldVer == null || newVer == null || oldVer.isEmpty() || newVer.isEmpty())
@@ -72,16 +74,12 @@ public class BasicNotifcationManager extends NotificationManager
 		int result = 0;
 		int[] oldNum;
 		int[] newNum;
-		String[] oldNumStr;
-		String[] newNumStr;
 		
 		try
 		{
-			oldNumStr = oldVer.split("\\.");
-			newNumStr = newVer.split("\\.");
+			oldNum = MPInfo.getFormatedMPVer(oldVer);
+			newNum = MPInfo.getFormatedMPVer();
 			
-			oldNum = new int[]{Integer.valueOf(oldNumStr[0]),Integer.valueOf(oldNumStr[1]),Integer.valueOf(oldNumStr[2])};
-			newNum = new int[]{Integer.valueOf(newNumStr[0]),Integer.valueOf(newNumStr[1]),Integer.valueOf(newNumStr[2])};
 		} catch(IndexOutOfBoundsException e)
 		{
 			MPBasic.logger.warn("An IndexOutOfBoundsException occured while checking version! Make sure all your Version Numbers are formated as (MajorVersion.MinorVersion.RevesionVersion = 1.2.0) And Contain no special characters or text.", e);
@@ -102,6 +100,31 @@ public class BasicNotifcationManager extends NotificationManager
 				return 1;
 			}
 		}
+		return result;
+	}
+	
+	
+	
+	public static int compareVersions(int[] oldVer, int[] newVer)
+	{
+		if(oldVer == null || newVer == null || oldVer.length == 0 || oldVer.length == 0)
+		{
+			return -2;
+		}
+		
+		int result = 0;
+		
+		for(int i = 0; i < 3; i++)
+		{
+			if(oldVer[i] < newVer[i])
+			{
+				return -1;
+			} else if(oldVer[i] > newVer[i])
+			{
+				return 1;
+			}
+		}
+		
 		return result;
 	}
 	

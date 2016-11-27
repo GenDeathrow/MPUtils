@@ -5,7 +5,9 @@ import java.awt.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiListExtended;
+import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraftforge.fml.common.Loader;
 
 import com.gendeathrow.mputils.core.MPUtils;
 import com.gendeathrow.mputils.core.Settings;
@@ -67,7 +69,11 @@ public class ScrollWindowBase extends GuiScreen
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks)
 	{
-		 this.parent.drawScreen(0, 0, partialTicks);
+		if(Loader.isModLoaded("CustomMainMenu") && this.parent instanceof GuiMainMenu)
+		{
+			this.drawDefaultBackground();
+		}
+		else this.parent.drawScreen(0, 0, partialTicks);
 		 
 		 drawRect(0, 0, width, height, RenderAssist.getColorFromRGBA(0, 0, 0, 150));
 		 
@@ -95,8 +101,6 @@ public class ScrollWindowBase extends GuiScreen
 	 public void setWorldAndResolution(Minecraft mcIn, int w, int h)
 	 {
 		 this.parent.setWorldAndResolution(mcIn, w, h);
-		// updateSize(w, h);
-		 //updatePositions();
 		 super.setWorldAndResolution(mcIn, w, h);
 	 }
 	 

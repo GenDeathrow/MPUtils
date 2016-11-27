@@ -65,7 +65,7 @@ public class ConfigHandler
 			
 			Settings.useMPInfo = config.getBoolean("Use MPInfo", config.CATEGORY_GENERAL, false, "Set to true, Will create a \"mpinfo.info\" file to input modpack data");
 			
-			Settings.editMode = config.getBoolean("Edit Mode", config.CATEGORY_GENERAL, true, "Edit mode opens up a set of new tools to use with MPUtils and its addons.");
+			Settings.editMode = config.getBoolean("Edit Mode", config.CATEGORY_GENERAL, false, "Edit mode opens up a set of new tools to use with MPUtils and its addons.");
 
 		config.save();
 	}

@@ -28,10 +28,15 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import org.apache.logging.log4j.Level;
 
+import scala.util.parsing.json.JSONObject;
+
 import com.gendeathrow.mputils.configs.ConfigHandler;
 import com.gendeathrow.mputils.core.MPUtils;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class Tools 
 {
@@ -54,7 +59,8 @@ public class Tools
 	}
     
     
-    public static void DownloadFile(String url, String fileName) throws IOException {
+    public static void DownloadFile(String url, String fileName) throws IOException 
+    {
 		 
 		 URL link = new URL(url); //The file that you want to download
 		
@@ -105,29 +111,32 @@ public class Tools
     @SuppressWarnings("resource")
 	public static String URLReader(String urlString) throws Exception 
     {
-    	String string = "";
-    		try {
-    		   URL url = new URL(urlString);
-    		   Scanner s = new Scanner(url.openStream());
-    		   // read from your scanner
-    		   
-    		   while(s.hasNextLine())
-    		   {
-    			  string += s.nextLine() + ConfigHandler.NEW_LINE;
-    		   }
-    		   
+    		String string = "";
+            URL url = new URL(urlString);
+            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
 
-    		   
-    		}
-    		catch(IOException ex) {
-
-    		   ex.printStackTrace(); 
-    		   return null;
-    		}
-    		
-    		return string;
+            String inputLine;
+            while ((inputLine = in.readLine()) != null)
+            	string += inputLine + ConfigHandler.NEW_LINE;
+            in.close();
+        
+    	
+    	return removeUTF8BOM(string);
     }
     
+    
+    public static final String UTF8_BOM = "\uFEFF";
+
+    private static String removeUTF8BOM(String s) 
+    {
+    	//System.out.println("checking for boom");
+        if (s.startsWith(UTF8_BOM)) 
+        {
+        	//System.out.println("boom found");
+            s = s.substring(1);
+        }
+        return s;
+    }
     
 	public static File lastFileModified(String dir) 
 	{
@@ -151,35 +160,35 @@ public class Tools
 	public static String readFile(String path, Charset encoding) throws IOException 
 	{
 		byte[] encoded = Files.readAllBytes(Paths.get(path));
-		return new String(encoded, encoding);
+		return removeUTF8BOM(new String(encoded, encoding));
 	}
 	
-	 public static String sendJsonHttpPost(String url, JsonObject postData) throws IOException
-	    {
-	    	URL object=new URL(url);
-	    	HttpURLConnection con = (HttpURLConnection) object.openConnection();
-	    	con.setDoOutput(true);
-	    	con.setDoInput(true);
-	    	con.setRequestProperty("Content-Type", "application/json"); 
-	    	con.setRequestProperty("Accept", "application/json");
-	    	con.setRequestMethod("POST");
+	public static String sendJsonHttpPost(String url, JsonObject postData) throws IOException
+	{
+		URL object=new URL(url);
+		HttpURLConnection con = (HttpURLConnection) object.openConnection();
+		con.setDoOutput(true);
+		con.setDoInput(true);
+		con.setRequestProperty("Content-Type", "application/json"); 
+		con.setRequestProperty("Accept", "application/json");
+		con.setRequestMethod("POST");
 
-	    	con.getOutputStream().write(postData.toString().getBytes());
-
-	    	BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-	        StringBuilder stringBuilder = new StringBuilder();
+		con.getOutputStream().write(postData.toString().getBytes());
+		
+		BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		StringBuilder stringBuilder = new StringBuilder();
 	   
-	        String line = null;
-	        while ((line = reader.readLine()) != null)
-	        {
-	          stringBuilder.append(line + "\n");
-	          System.out.println(line);
-	        }
+		String line = null;
+		while ((line = reader.readLine()) != null)
+		{
+			stringBuilder.append(line + "\n");
+			//System.out.println(line);
+		}
 	    	
-	        con.connect();
+		con.connect();
 	        
-	        return stringBuilder.toString();
-	    }
+		return stringBuilder.toString();
+	}
 	 
     public static void sendpost() throws IOException
     {
@@ -202,12 +211,63 @@ public class Tools
         while ((line = reader.readLine()) != null)
         {
           stringBuilder.append(line + "\n");
-          System.out.println(line);
+          //System.out.println(line);
         }
     	
         con.connect();
+    }
+    
+    public static String createGist(String filename, String data, String title) throws IOException
+    {
+    	URL object=new URL("https://api.github.com/gists");
+
+    	Gson gson = new Gson();
     	
+    	HttpURLConnection con = (HttpURLConnection) object.openConnection();
+    	con.setDoOutput(true);
+    	con.setDoInput(true);
+    	con.setRequestProperty("Content-Type", "application/json");
+    	con.setRequestProperty("Accept", "application/vnd.github.v3+json");
+    	con.setRequestMethod("POST");
+    	
+    	JsonObject payload = new JsonObject();
+    	
+    	payload.addProperty("description", "CrashLog MPUtils: "+ title);
+    	payload.addProperty("public", true);
+    	
+    		JsonObject files = new JsonObject();
+    			JsonObject sendfile = new JsonObject();
+    				sendfile.addProperty("content", data);
+    	
+    			files.add(filename, sendfile);
+    		payload.add("files", files);
+    		
+    	
+    	con.getOutputStream().write(payload.toString().getBytes());
+    	
+    	BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        StringBuilder stringBuilder = new StringBuilder();
+   
+        String line = null;
+        while ((line = reader.readLine()) != null)
+        {
+          stringBuilder.append(line + "\n");
+          //System.out.println(line);
+        }
+   
         
+        
+        JsonParser jsonParser = new JsonParser();
+        JsonObject json = jsonParser.parse(stringBuilder.toString()).getAsJsonObject();
+        
+        
+        con.connect();
+        if( json.has("html_url") )
+        {
+        	return json.get("html_url").getAsString();
+        }
+        
+        return line;
     }
 
 
@@ -226,6 +286,7 @@ public class Tools
 		}
 	}
 	
+
 	
 	public static String getItemInfo(String[] args, String itemID, ItemStack stack)
 	{

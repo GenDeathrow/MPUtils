@@ -24,6 +24,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.gendeathrow.mputils.configs.ConfigHandler;
+import com.gendeathrow.mputils.core.MPUtils;
 import com.gendeathrow.mputils.core.Settings;
 import com.google.common.eventbus.EventBus;
 import com.google.gson.Gson;
@@ -54,6 +55,41 @@ public class MPInfo implements ModContainer
 	public static List<Integer> getVersionList()
 	{
 		return null;
+	}
+	public static int[] getFormatedMPVer(String vernum)
+	{
+		int[] version = new int[]{0,0,0};
+		
+		try
+		{
+			String[] versionRaw = vernum.split("\\.");
+			for(int i=0; i < 3; i++)
+			{
+				if(i < versionRaw.length)
+				{
+					try
+					{
+						version[i] = Integer.valueOf(versionRaw[i]);
+					}catch(NumberFormatException e)
+					{
+						MPUtils.logger.warn("A NumberFormatException occured while checking version!\n", e);
+						version[i] = 0;
+					}
+				}
+				else version[i] = 0;  
+			}
+			
+		} catch(IndexOutOfBoundsException e)
+		{
+			MPUtils.logger.warn("An IndexOutOfBoundsException occured while checking version! Make sure all your Version Numbers are formated as (MajorVersion.MinorVersion.RevesionVersion = 1.2.0) And Contain no special characters or text.", e);
+		}
+		
+		return version; 
+	}
+	
+	public static int[] getFormatedMPVer()
+	{
+		return getFormatedMPVer(MPInfo.version);
 	}
 // File Read & Writers	
 	public static void LoadMPInfo()
