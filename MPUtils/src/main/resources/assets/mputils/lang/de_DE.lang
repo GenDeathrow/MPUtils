@@ -1,0 +1,26 @@
+tips.get=Hilfreicher Tipp!
+
+mp.mpinfoedit.title
+
+mp.quickCommands.edit.title=Bestimme deinen Schnellbefehl
+mp.quickCommands.title=Schnellbefehle
+mp.quickCommands.hover=%d drücken zum Ausführen
+mp.quickCommands.hover2=oder klicke
+mp.quickCommands.pause=Spiel pausieren
+
+mp.text.title=Titel
+mp.text.newCmd=Neuer Befehl
+advMode.toggleBoolean=Verwende "@t" zum Umschalten (true, false)
+
+
+mp.text.mpinfoedit.title=MPInfo.info-Datei bearbeiten
+mp.text.mpinfo.name=Packname
+mp.text.mpinfo.desc=Beschreibung
+mp.text.mpinfo.ver=Ver(Max.Min.Rev)
+mp.text.mpinfo.url=Webseite
+mp.text.mpinfo.authors=Autoren
+mp.text.mpinfo.credits=Mitwirkende
+
+mp.text.settingsgui.title=MPUtils Einstellungen
+mp.buttontext.mpinfoedit=MPInfo bearbeiten
+mp.buttontext.configfile=MPUtils.cfg bearbeiten
