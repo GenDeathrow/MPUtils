@@ -19,11 +19,11 @@ public class MP_ClientCommands  extends CommandBase
 	
 	public MP_ClientCommands()
 	{
-		coms.add(new MP_EditMode());
 		coms.add(new MP_Hand());
 		coms.add(new MP_Hotbar());
 		coms.add(new MP_Inventory());
 		coms.add(new MP_LookAtCommand());
+		coms.add(new MP_EditMode());
 		coms.add(new MP_RecipeDoubles());
 	}
 	

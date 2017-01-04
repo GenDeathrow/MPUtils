@@ -10,6 +10,9 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
 
 import org.apache.logging.log4j.Logger;
 
@@ -21,7 +24,7 @@ import com.gendeathrow.mputils.core.proxies.MPCommonProxy;
 public class MPUtils 
 {
     public static final String MODID = "mputils";
-    public static final String VERSION = "1.2.3";
+    public static final String VERSION = "1.2.4";
     public static final String NAME = "MPUtils";
     public static final String PROXY = "com.gendeathrow.mputils.core.proxies";
     
@@ -37,20 +40,29 @@ public class MPUtils
 	@SidedProxy(clientSide = PROXY + ".MPClientProxy", serverSide = PROXY + ".MPCommonProxy")
 	public static MPCommonProxy proxy;
     
+	private SimpleNetworkWrapper network;
+	
     public static Logger logger;
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
+    	
     	logger = event.getModLog();
     	
     	proxy.preInit(event);
+    	
+    	
+		this.network = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
+		//this.network.registerMessage(PacketReaderInfo.Handler.class, PacketReaderInfo.class, 0, Side.SERVER);
     }
 	
+   
     @EventHandler
     public void init(FMLInitializationEvent event) throws IOException
     {
     	//Tools.sendpost();
+    	NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
     	
     	proxy.init(event);
      }
