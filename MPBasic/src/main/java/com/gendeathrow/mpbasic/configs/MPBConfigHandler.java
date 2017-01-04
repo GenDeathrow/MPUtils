@@ -1,5 +1,6 @@
 package com.gendeathrow.mpbasic.configs;
 
+import java.awt.Desktop;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -85,9 +86,35 @@ public class MPBConfigHandler
 			MPBSettings.useInGameForm = config.getBoolean("Use in game form", issueTrackerCat, false, "Use an in game form, If false the issue tracker button will just link to the tracker url.");
 			MPBSettings.crashlogsToGist = config.getBoolean("Crashlogs to Gist default", issueTrackerCat, true, "This just changes default setting to create a Gist like for change log. May break if git hub changes api.");
 			MPBSettings.sendJsonData = config.getBoolean("Use Automated issue tracker", issueTrackerCat, false, "This is an Advance Settings, The web address must accept Json data to be able to automate issue reporting."+ NEW_LINE +" It is up to you how you accept the json data on your website. "+ NEW_LINE +" A simple database Example with Google Sheets & Scripts is here: "+ NEW_LINE +" https://minecraft.curseforge.com/projects/mputils-basic-tools/pages/issue-tracker");
-			MPBSettings.collectEmails = config.getBoolean("Collect Emails", issueTrackerCat, true, "If 'useInGameForm' && 'sendJsonData' = true, than As users for thier email address.");
+			
+			config.renameProperty(issueTrackerCat, "Collect Emails", "Collect Contact Info");
+			
+			MPBSettings.collectContact = config.getBoolean("Collect Contact Info", issueTrackerCat, true, "If 'useInGameForm' && 'sendJsonData' = true, than ask users for thier contact info.");
+			
+			MPBSettings.useDisclaimer = config.getBoolean("Use Disclaimer", issueTrackerCat, true, "This adds a check box if user should accept your Issue trackers to send data from thier computer");
+			MPBSettings.disclaimerFile = config.getString("Disclaimer File", issueTrackerCat, "config/mputils/addons/mpbasic/disclaimer.txt", "Sets your disclaimer file. Suggested that you use this.");
+			MPBSettings.contactTypes = config.getStringList("Contact Info Types", issueTrackerCat,new String[] {"Email", "Curse", "GitHub"}, "Types of contact info you would like to collect from ppl.");		
+			MPBSettings.issueTypes = config.getStringList("Issue Types", issueTrackerCat,new String[] {"Bug", "Game Crash", "Config Issue", "Mod Conflict"}, "Types of Issues you would like to catogrize");
+			
+			
+			if(MPBSettings.useDisclaimer) 
+			{
+				File disclamerfile = new File(MPBSettings.disclaimerFile);
+				if(!disclamerfile.exists())
+					try 
+					{
+						disclamerfile.createNewFile();
+					} catch (IOException e) 
+					{
+						e.printStackTrace();
+					}
+			}
+
+			
+			
 			config.save();
 		}
+		
 		
 		/**
 		 * Creates Default ChangeLogs
@@ -131,7 +158,5 @@ public class MPBConfigHandler
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
-		
-		
+		}	
 }
