@@ -33,12 +33,14 @@ public class Gui_Edit_Command extends GuiScreen
     private GuiButton doneBtn;
     private GuiButton cancelBtn;
     private int index;
+    private int commandList;
     
-    public Gui_Edit_Command(CommandElement commandIn, int index)
+    public Gui_Edit_Command(int commandList, CommandElement commandIn, int index)
     {
     	if(commandIn == null) this.command = QuickCommandManager.instance.new CommandElement(I18n.format("mp.text.newCmd", new Object[0]),"");
     	else this.command = commandIn;
     	this.index = index;
+    	this.commandList = commandList;
     	
     }
 
@@ -109,7 +111,7 @@ public class Gui_Edit_Command extends GuiScreen
             {
             	this.command.setCommand(this.commandTextField.getText());
             	this.command.setTitle(this.titleTextField.getText());
-            	QuickCommandManager.instance.addCommand(this.index , this.command);
+            	QuickCommandManager.instance.addCommand(QuickCommandManager.instance.getList(this.commandList), this.index , this.command);
             	MPUtils_SaveHandler.saveSettings();
             	this.mc.displayGuiScreen(new Gui_QuickMenu());
             }

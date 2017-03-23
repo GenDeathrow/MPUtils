@@ -24,7 +24,7 @@ import com.gendeathrow.mputils.core.proxies.MPCommonProxy;
 public class MPUtils 
 {
     public static final String MODID = "mputils";
-    public static final String VERSION = "1.2.4";
+    public static final String VERSION = "1.2.5";
     public static final String NAME = "MPUtils";
     public static final String PROXY = "com.gendeathrow.mputils.core.proxies";
     

@@ -18,11 +18,13 @@ import com.gendeathrow.mputils.core.MPUtils;
 public class MPUtils_SaveHandler 
 {
 	public static final File settingsDir = new File("mputils");
-	
 	public static final File settingsFile = new File(settingsDir, "settings.dat");
+
+	public static final File globalQuickDir = new File(System.getProperty("user.home"), "."+settingsDir);
+	public static final File globalQuickFile = new File(globalQuickDir, "settings.dat");
 	
 	public static boolean firstSave = false;
-	
+	private static boolean globalFirstSave = true;
 	
 	public static final ArrayList<IMPSaveHandler> extraSaveData = new ArrayList<IMPSaveHandler>();
 
@@ -37,25 +39,46 @@ public class MPUtils_SaveHandler
 	
 	public static void loadSettings()
 	{
+		// Read Normal File
 		NBTTagCompound mainTag = ReadNBTFile(getSettingsFile());
 		
-		if(mainTag == null || mainTag.hasNoTags()) return;
-		
-		Iterator<IMPSaveHandler> ite = extraSaveData.iterator();
-		while(ite.hasNext())
+		if(mainTag != null && !mainTag.hasNoTags())
 		{
-			IMPSaveHandler obj = ite.next();
-			obj.ReadNBT(mainTag);
+		
+			Iterator<IMPSaveHandler> ite = extraSaveData.iterator();
+			while(ite.hasNext())
+			{
+				IMPSaveHandler obj = ite.next();
+				obj.ReadNBT(mainTag);
+			}
+
+			QuickCommandManager.load(QuickCommandManager.getList(0), mainTag);
 		}
 		
-		QuickCommandManager.load(mainTag);
+		// Read GlobalFile
+		NBTTagCompound globalTag = ReadNBTFile(getGlobalFile());
+		
+		if(globalTag != null && !globalTag.hasNoTags())
+		{
+			QuickCommandManager.load(QuickCommandManager.getList(1), globalTag);
+		}
+		
+		
 	}
 	
 	public static void saveSettings()
 	{	
+		saveLocal();
+		
+		saveGlobal();
+	}
+	
+	private static void saveLocal()
+	{
+		// Save Instance File
 		NBTTagCompound mainTag = new NBTTagCompound();
 		
-		QuickCommandManager.save(mainTag);
+		QuickCommandManager.save(QuickCommandManager.getList(0), mainTag);
 		
 		Iterator<IMPSaveHandler> ite = extraSaveData.iterator();
 		while(ite.hasNext())
@@ -63,9 +86,18 @@ public class MPUtils_SaveHandler
 			IMPSaveHandler obj = ite.next();
 			obj.SaveNBT(mainTag);
 		}
+		SaveNBTFile(settingsFile, mainTag);			
+	}
+	
+	private static void saveGlobal()
+	{
+		// Save Global File
+		NBTTagCompound globalTag = new NBTTagCompound();
 		
-		SaveNBTFile(mainTag);
-			
+		QuickCommandManager.save(QuickCommandManager.getList(1), globalTag);
+		
+		System.out.println(globalQuickFile.getAbsolutePath());
+		SaveNBTFile(globalQuickFile, globalTag);
 	}
 	
 	private static File getSettingsFile()
@@ -81,8 +113,36 @@ public class MPUtils_SaveHandler
 				firstSave = true;
 				settingsDir.mkdirs();
 				settingsFile.createNewFile();
-				saveSettings();	
+				saveLocal();	
 			}
+			
+
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return settingsFile;
+	}
+	
+	private static File getGlobalFile()
+	{
+		try 
+		{	
+			if (globalQuickFile.exists())
+			{
+				globalFirstSave = false;
+				return globalQuickFile;
+			} else 
+			{
+				globalFirstSave = true;
+				globalQuickDir.mkdirs();
+				globalQuickFile.createNewFile();
+				saveGlobal();	
+			}
+			
+			System.out.println("::"+ globalQuickFile.getAbsolutePath());
 		} 
 		catch (IOException e) 
 		{
@@ -92,12 +152,12 @@ public class MPUtils_SaveHandler
 		return settingsFile;
 	}
 
-	public static void SaveNBTFile(NBTTagCompound nbt)
+	public static void SaveNBTFile(File file, NBTTagCompound nbt)
 	{
         try 
         {
             
-            FileOutputStream fileOutputStream = new FileOutputStream(settingsFile);
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
 
             CompressedStreamTools.writeCompressed(nbt, fileOutputStream);
             fileOutputStream.close();

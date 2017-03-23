@@ -82,6 +82,9 @@ public class MPInfo implements ModContainer
 		} catch(IndexOutOfBoundsException e)
 		{
 			MPUtils.logger.warn("An IndexOutOfBoundsException occured while checking version! Make sure all your Version Numbers are formated as (MajorVersion.MinorVersion.RevesionVersion = 1.2.0) And Contain no special characters or text.", e);
+		}catch(NullPointerException e)
+		{
+			MPUtils.logger.warn("An NullPointerException occured while checking version! Make sure all your Version Numbers are formated as (MajorVersion.MinorVersion.RevesionVersion = 1.2.0) And Contain no special characters or text.", e);
 		}
 		
 		return version; 

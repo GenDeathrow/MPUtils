@@ -12,6 +12,8 @@ public class QuickCommandManager
 	
 	public static ArrayList<CommandElement> commandList = new ArrayList<CommandElement>(10);
 	
+	public static ArrayList<CommandElement> globalCommandList = new ArrayList<CommandElement>(10);
+	
 
 	// set Defaults
 	static
@@ -26,35 +28,47 @@ public class QuickCommandManager
 		commandList.add(null);
 		commandList.add(null);
 		commandList.add(null);
+		
+		
+		globalCommandList.add(instance.new CommandElement("Survival", "/gamemode s"));
+		globalCommandList.add(instance.new CommandElement("Creative", "/gamemode c"));
+		globalCommandList.add(instance.new CommandElement("Toggle Rain", "/toggledownfall"));
+		globalCommandList.add(instance.new CommandElement("MPHand", "/mp hand"));
+		globalCommandList.add(instance.new CommandElement("MPHotbar", "/mputil hotbar"));
+		globalCommandList.add(instance.new CommandElement("MPInv", "/mp inventory"));
+		globalCommandList.add(instance.new CommandElement("Looking At", "/mputil lookingat"));
+		globalCommandList.add(null);
+		globalCommandList.add(null);
+		globalCommandList.add(null);
 	}
 	
-	public void removeCommand(int rmv)
+	public void removeCommand(ArrayList<CommandElement> list, int rmv)
 	{
-		this.commandList.set(rmv, null);
+		list.set(rmv, null);
 		
     	MPUtils_SaveHandler.saveSettings();
 		
 	}
 	
-	public void addCommand(int id, CommandElement cmd)
+	public void addCommand(ArrayList<CommandElement> list, int id, CommandElement cmd)
 	{
-		if(this.commandList.get(id) == null) this.commandList.set(id, cmd);
+		if(list.get(id) == null) list.set(id, cmd);
 		
     	MPUtils_SaveHandler.saveSettings();
 		
 	}
 	
 
-	public static void load(NBTTagCompound tag)
+	public static void load(ArrayList<CommandElement> list, NBTTagCompound tag)
 	{
-		commandList.clear();
+		list.clear();
 		
 		NBTTagCompound nbtCom = tag.getCompoundTag("quickcommands");
 		
-		ReadNBT(nbtCom);
+		ReadNBT(list, nbtCom);
 	}
 	
-	public static void save(NBTTagCompound mainTag)
+	public static void save(ArrayList<CommandElement> list, NBTTagCompound mainTag)
 	{
 		NBTTagCompound cmdCatTag = new NBTTagCompound();
 
@@ -62,7 +76,7 @@ public class QuickCommandManager
 		{
 			NBTTagCompound cmdTag = new NBTTagCompound();
 			
-			CommandElement commandElement = commandList.get(i);
+			CommandElement commandElement = list.get(i);
 			
 			if(commandElement != null)
 			{
@@ -71,19 +85,24 @@ public class QuickCommandManager
 				cmdCatTag.setTag("c"+i, cmdTag);
 			}
 			
-			cmdCatTag.setBoolean("isPaused", Gui_QuickMenu.isPaused.isChecked());
+			cmdCatTag.setBoolean("isPaused", Gui_QuickMenu.pauseGame);
 		}
 		
 		mainTag.setTag("quickcommands", cmdCatTag);
 	}
 	
 	
-	public static ArrayList<CommandElement> getList()
+	public static ArrayList<CommandElement> getList(int list)
 	{
-		return commandList;
+		if(list == 0)
+			return commandList;
+		else if(list == 1)
+			return globalCommandList;
+		else 
+			return commandList;
 	}
 	
-	private static void ReadNBT(NBTTagCompound nbt)
+	private static void ReadNBT(ArrayList<CommandElement> list, NBTTagCompound nbt)
 	{	
 		
 		for(int i = 0; i <= 9; i++)
@@ -93,17 +112,16 @@ public class QuickCommandManager
 			{
 				NBTTagCompound cmd = nbt.getCompoundTag(key);
 				CommandElement element = instance.new CommandElement(cmd.getString("title"), cmd.getString("cmd"));
-				commandList.add(element);
+				list.add(element);
 			}
 			else
 			{
-				//CommandElement element = instance.new CommandElement("*******", "No Command", true);
-				commandList.add(null);
+				list.add(null);
 			}
 			
 			if(nbt.hasKey("isPaused"))
 			{
-				Gui_QuickMenu.isPaused.setIsChecked(nbt.getBoolean("isPaused"));
+				Gui_QuickMenu.pauseGame = (nbt.getBoolean("isPaused"));
 			}
 		}
 		
@@ -111,11 +129,11 @@ public class QuickCommandManager
 	
 	
 	@SuppressWarnings("unused")
-	private static void SaveNBT(NBTTagCompound nbt)
+	private static void SaveNBT(ArrayList<CommandElement> list, NBTTagCompound nbt)
 	{
 		for(int i = 0; i <= 9; i++)
 		{
-			CommandElement cmd = commandList.get(i);
+			CommandElement cmd = list.get(i);
 			NBTTagCompound cmdTag = new NBTTagCompound();
 			if(cmd != null)
 			{

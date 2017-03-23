@@ -321,25 +321,27 @@ public class TextScrollWindow extends GuiListExtended
 	            else
 	            {
 	                this.initialClickY = -1;
-	            }
+	                
+	                
+	                try {
+	                	for (; !this.mc.gameSettings.touchscreen && Mouse.next(); this.mc.currentScreen.handleMouseInput())
+	                	{
+	                		float j1 = Mouse.getEventDWheel();
 
-	            int i2 = Mouse.getEventDWheel();
+	                		if (j1 != 0)
+	                		{
+	                			j1 *= -1F;
 
-	            if (i2 != 0)
-	            {
-	                if (i2 > 0)
-	                {
-	                    i2 = -1;
-	                }
-	                else if (i2 < 0)
-	                {
-	                    i2 = 1;
-	                }
-
-	                this.amountScrolled += (float)(i2 * this.slotHeight / 2);
+	                			this.scrollByMultiplied(j1 * (float)this.slotHeight / 2F);
+	                		}
+	                	}
+	        		} catch (IOException e) {
+	    				// TODO Auto-generated catch block
+	    				e.printStackTrace();
+	    			}
 	            }
 	        }
-	    }
+	}
 
 	   
 	@Override

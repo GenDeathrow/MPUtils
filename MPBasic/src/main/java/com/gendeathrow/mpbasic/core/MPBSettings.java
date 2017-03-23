@@ -7,6 +7,7 @@ public class MPBSettings
 	public static boolean isHttp = false;
 	public static String url = "changelog.txt";
 	
+	
 	public static boolean showChangeLogButton = true;
 	public static boolean showSupport = true;
 	public static boolean showBugReporter = true;
@@ -28,6 +29,9 @@ public class MPBSettings
 	public static String[] contactTypes = new String[] {"Email", "Curse", "GitHub"};
 	public static String[] issueTypes = new String[] {"Bug", "Game Crash", "Config Issue", "Mod Conflict"};
 	public static boolean useDisclaimer = false;
+	
+	
+	public static String faqURL = "faq.txt";
 	
 	
 	

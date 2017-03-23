@@ -20,7 +20,8 @@ import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -28,13 +29,10 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import org.apache.logging.log4j.Level;
 
-import scala.util.parsing.json.JSONObject;
-
 import com.gendeathrow.mputils.configs.ConfigHandler;
 import com.gendeathrow.mputils.core.MPUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -57,6 +55,18 @@ public class Tools
 	        
 	        return inputStreamReader;
 	}
+    
+    
+    
+    public static List<Class> getAllSuperclasses(Class cls) 
+    {
+        List<Class> res = new ArrayList<Class>();
+        while ((cls = cls.getSuperclass()) != null) 
+        {
+            res.add(cls);
+        }
+        return res;
+    }
     
     
     public static void DownloadFile(String url, String fileName) throws IOException 

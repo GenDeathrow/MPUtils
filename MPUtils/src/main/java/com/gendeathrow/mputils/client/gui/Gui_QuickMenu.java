@@ -11,6 +11,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.client.config.GuiCheckBox;
 
 import org.lwjgl.input.Keyboard;
@@ -18,6 +19,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.gendeathrow.mputils.client.gui.elements.CommandButton;
 import com.gendeathrow.mputils.client.gui.elements.iconButton;
+import com.gendeathrow.mputils.client.keybinds.KeyBinds;
 import com.gendeathrow.mputils.client.settings.QuickCommandManager;
 import com.gendeathrow.mputils.client.settings.QuickCommandManager.CommandElement;
 import com.gendeathrow.mputils.core.MPUtils;
@@ -26,15 +28,21 @@ public class Gui_QuickMenu extends GuiScreen
 {
     protected static final ResourceLocation backgroundTexture = new ResourceLocation(MPUtils.MODID, "textures/gui/QMbackground.png");
     protected static final ResourceLocation iconTexture = new ResourceLocation(MPUtils.MODID,"textures/gui/icons.png");
+    
+    public int selectedList = 0;
 
     boolean isFullOpen;
     
     private int xOffset = 0;
     
 	private int xOpened;
-	
+
+	public static boolean pauseGame = false;
 	public static GuiCheckBox isPaused = new GuiCheckBox(200, 0, 0, I18n.format("mp.quickCommands.pause", new Object[0]), false);
-	
+	public static iconButton global = new iconButton(56, 0, 0).setIcon(0, 3);
+	public static iconButton local = new iconButton(57, 0, 0).setIcon(1, 3);
+			
+			
 	CommandButton command1;
 	CommandButton command2;
 	CommandButton command3;
@@ -50,14 +58,19 @@ public class Gui_QuickMenu extends GuiScreen
 	
 	List<CommandButton> commandButtons = new ArrayList<CommandButton>();
 	
+	
 	public Gui_QuickMenu()
 	{
 		super();
-        
 		this.xOpened = 130;
-        
         this.xOffset = xOpened;
-
+	}
+	
+	public Gui_QuickMenu(int selected)
+	{
+        this();
+        this.selectedList = selected;
+        this.xOffset = 0;
 	}
 	
     public boolean doesGuiPauseGame()
@@ -75,16 +88,26 @@ public class Gui_QuickMenu extends GuiScreen
 		
 		this.commandButtons.clear();
 		
-		this.commandButtons.add(command1 = new CommandButton(0, 0, 0, 90, 5, this.getCommandList().get(0), Keyboard.KEY_1, Keyboard.KEY_NUMPAD1, this));
-		this.commandButtons.add(command2 = new CommandButton(1, 0, 0, 90, 5, this.getCommandList().get(1), Keyboard.KEY_2, Keyboard.KEY_NUMPAD2, this));
-		this.commandButtons.add(command3 = new CommandButton(2, 0, 0, 90, 5, this.getCommandList().get(2), Keyboard.KEY_3, Keyboard.KEY_NUMPAD3, this));
-		this.commandButtons.add(command4 = new CommandButton(3, 0, 0, 90, 5, this.getCommandList().get(3), Keyboard.KEY_4, Keyboard.KEY_NUMPAD4, this));
-		this.commandButtons.add(command5 = new CommandButton(4, 0, 0, 90, 5, this.getCommandList().get(4), Keyboard.KEY_5, Keyboard.KEY_NUMPAD5, this));
-		this.commandButtons.add(command6 = new CommandButton(5, 0, 0, 90, 5, this.getCommandList().get(5), Keyboard.KEY_6, Keyboard.KEY_NUMPAD6, this));
-		this.commandButtons.add(command7 = new CommandButton(6, 0, 0, 90, 5, this.getCommandList().get(6), Keyboard.KEY_7, Keyboard.KEY_NUMPAD7, this));
-		this.commandButtons.add(command8 = new CommandButton(7, 0, 0, 90, 5, this.getCommandList().get(7), Keyboard.KEY_8, Keyboard.KEY_NUMPAD8, this));
-		this.commandButtons.add(command9 = new CommandButton(8, 0, 0, 90, 5, this.getCommandList().get(8), Keyboard.KEY_9, Keyboard.KEY_NUMPAD9, this));
-		this.commandButtons.add(command10 = new CommandButton(9, 0, 0, 90, 5, this.getCommandList().get(9), Keyboard.KEY_0, Keyboard.KEY_NUMPAD0, this));
+		this.commandButtons.add(command1 = new CommandButton(0, this.selectedList, 0, 0, 90, 5, this.getCommandList().get(0), Keyboard.KEY_1, Keyboard.KEY_NUMPAD1, this));
+		this.commandButtons.add(command2 = new CommandButton(1, this.selectedList, 0, 0, 90, 5, this.getCommandList().get(1), Keyboard.KEY_2, Keyboard.KEY_NUMPAD2, this));
+		this.commandButtons.add(command3 = new CommandButton(2, this.selectedList, 0, 0, 90, 5, this.getCommandList().get(2), Keyboard.KEY_3, Keyboard.KEY_NUMPAD3, this));
+		this.commandButtons.add(command4 = new CommandButton(3, this.selectedList, 0, 0, 90, 5, this.getCommandList().get(3), Keyboard.KEY_4, Keyboard.KEY_NUMPAD4, this));
+		this.commandButtons.add(command5 = new CommandButton(4, this.selectedList, 0, 0, 90, 5, this.getCommandList().get(4), Keyboard.KEY_5, Keyboard.KEY_NUMPAD5, this));
+		this.commandButtons.add(command6 = new CommandButton(5, this.selectedList, 0, 0, 90, 5, this.getCommandList().get(5), Keyboard.KEY_6, Keyboard.KEY_NUMPAD6, this));
+		this.commandButtons.add(command7 = new CommandButton(6, this.selectedList, 0, 0, 90, 5, this.getCommandList().get(6), Keyboard.KEY_7, Keyboard.KEY_NUMPAD7, this));
+		this.commandButtons.add(command8 = new CommandButton(7, this.selectedList, 0, 0, 90, 5, this.getCommandList().get(7), Keyboard.KEY_8, Keyboard.KEY_NUMPAD8, this));
+		this.commandButtons.add(command9 = new CommandButton(8, this.selectedList, 0, 0, 90, 5, this.getCommandList().get(8), Keyboard.KEY_9, Keyboard.KEY_NUMPAD9, this));
+		this.commandButtons.add(command10 =new CommandButton(9, this.selectedList, 0, 0, 90, 5, this.getCommandList().get(9), Keyboard.KEY_0, Keyboard.KEY_NUMPAD0, this));
+		
+		this.isPaused.setIsChecked(this.pauseGame);
+		
+		if(selectedList == 1) 
+			global.setHighlighted();
+		if(selectedList == 0)
+			local.setHighlighted();
+		
+		this.buttonList.add(global);
+		this.buttonList.add(local);
 		
 		this.buttonList.add(this.isPaused);
 	}
@@ -164,12 +187,22 @@ public class Gui_QuickMenu extends GuiScreen
 	
 	private ArrayList<CommandElement> getCommandList()
 	{
-		return QuickCommandManager.commandList;
+		return QuickCommandManager.getList(this.selectedList);
 	}
 	
 	protected void keyTyped(char typedChar, int keyCode) throws IOException
 	{
 		super.keyTyped(typedChar, keyCode);
+		
+		if(keyCode == KeyBinds.menu.getKeyCode())
+		{
+			if(this.selectedList == 0) 
+				Minecraft.getMinecraft().displayGuiScreen(new Gui_QuickMenu(1));
+			else 
+				Minecraft.getMinecraft().displayGuiScreen(new Gui_QuickMenu(0));
+			
+			return;
+		}
 		
 		for(CommandButton button : this.commandButtons)
 		{
@@ -182,6 +215,8 @@ public class Gui_QuickMenu extends GuiScreen
     protected void actionPerformed(GuiButton button)
     {
     	if(button instanceof CommandButton) ((CommandButton)button).runCommand();
+    	else if(button == this.global) Minecraft.getMinecraft().displayGuiScreen(new Gui_QuickMenu(1));
+    	else if (button == this.local) Minecraft.getMinecraft().displayGuiScreen(new Gui_QuickMenu(0));
     }
 	
 	@Override
@@ -197,18 +232,31 @@ public class Gui_QuickMenu extends GuiScreen
 
 		this.line = 10;
 
-        this.drawTexturedModalRect(xPos, yPos, 0, 0, 205, 210);
-
-        this.drawString(fontRendererObj, I18n.format("mp.quickCommands.title", new Object[0]), xPos + 8, yPos+ 5, Color.WHITE.getRGB());
+        this.drawTexturedModalRect(xPos, yPos, 0, 0, 205, 221);
+        String title = "mp.quickCommands.title";
         
-        this.isPaused.xPosition = xPos + 12;
-        this.isPaused.yPosition = yPos + 18;
- 
+        if(this.selectedList == 0)
+        	title = "mp.quickCommands.title.local";
+        if(this.selectedList == 1)
+        	title = "mp.quickCommands.title.global";
+        
+        this.drawString(fontRendererObj, TextFormatting.BOLD +""+ TextFormatting.UNDERLINE + I18n.format(title, new Object[0]), xPos + 14, yPos+ 5, Color.WHITE.getRGB());
+        
+        this.isPaused.xPosition = xPos + 10;
+        this.isPaused.yPosition = yPos + 33;
+        
+        this.global.xPosition = (this.width - 55) + xOffset;
+        this.global.yPosition = yPos + 16;
+
+        this.local.xPosition = (this.width - 75) + xOffset;
+        this.local.yPosition = yPos + 16;
+
+
+        
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	
-		
         //int i = 0;
-		this.line = yPos + 18;
+		this.line = yPos + 32;
 		
         for (int i = 0; i < this.commandButtons.size(); ++i)
         {
@@ -223,6 +271,15 @@ public class Gui_QuickMenu extends GuiScreen
     			this.drawHoveringText(Arrays.asList(I18n.format("mp.quickCommands.hover", num), I18n.format("mp.quickCommands.hover2", new Object[0])), mouseX, mouseY, fontRendererObj);
     			 GL11.glDisable(GL11.GL_LIGHTING);
     		}
+        }
+        
+        if(this.global.isHovered())
+        {
+        	this.drawHoveringText(Arrays.asList(I18n.format("mp.quickCommands.global")), mouseX, mouseY, fontRendererObj);
+        }
+        else if(this.local.isHovered())
+        {
+        	this.drawHoveringText(Arrays.asList(I18n.format("mp.quickCommands.local")), mouseX, mouseY, fontRendererObj);	
         }
 
 	}
