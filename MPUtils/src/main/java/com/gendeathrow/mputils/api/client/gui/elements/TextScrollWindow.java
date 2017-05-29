@@ -63,7 +63,7 @@ public class TextScrollWindow extends GuiListExtended
 	
     protected void drawListHeader(int x, int y, Tessellator p_148129_3_)
     {
-    	Minecraft.getMinecraft().fontRendererObj.drawString("Whats New", x , this.top, Color.white.getRGB());
+    	Minecraft.getMinecraft().fontRenderer.drawString("Whats New", x , this.top, Color.white.getRGB());
     }
     
  	 @Override
@@ -89,7 +89,7 @@ public class TextScrollWindow extends GuiListExtended
 		
 		for(String line : parsedData)
 		{
-			List<String> lines = mc.fontRendererObj.listFormattedStringToWidth(line, this.width);
+			List<String> lines = mc.fontRenderer.listFormattedStringToWidth(line, this.width);
 			
 			wordWrap.addAll(lines);
 			
@@ -223,7 +223,7 @@ public class TextScrollWindow extends GuiListExtended
 	
 	public void scrollByMultiplied(float p_148145_1_)
 	{
-		super.scrollBy(MathHelper.ceiling_float_int(p_148145_1_ * scrollSpeed));
+		super.scrollBy(MathHelper.ceil(p_148145_1_ * scrollSpeed));
 	}
 	
 	@Override
@@ -290,7 +290,7 @@ public class TextScrollWindow extends GuiListExtended
 	                            }
 
 	                            int l1 = (int)((float)((this.bottom - this.top) * (this.bottom - this.top)) / (float)this.getContentHeight());
-	                            l1 = MathHelper.clamp_int(l1, 32, this.bottom - this.top - 8);
+	                            l1 = MathHelper.clamp(l1, 32, this.bottom - this.top - 8);
 	                            this.scrollMultiplier /= (float)(this.bottom - this.top - l1) / (float)k1;
 	                        }
 	                        else
@@ -321,25 +321,27 @@ public class TextScrollWindow extends GuiListExtended
 	            else
 	            {
 	                this.initialClickY = -1;
-	            }
+	                
+	                
+	                try {
+	                	for (; !this.mc.gameSettings.touchscreen && Mouse.next(); this.mc.currentScreen.handleMouseInput())
+	                	{
+	                		float j1 = Mouse.getEventDWheel();
 
-	            int i2 = Mouse.getEventDWheel();
+	                		if (j1 != 0)
+	                		{
+	                			j1 *= -1F;
 
-	            if (i2 != 0)
-	            {
-	                if (i2 > 0)
-	                {
-	                    i2 = -1;
-	                }
-	                else if (i2 < 0)
-	                {
-	                    i2 = 1;
-	                }
-
-	                this.amountScrolled += (float)(i2 * this.slotHeight / 2);
+	                			this.scrollByMultiplied(j1 * (float)this.slotHeight / 2F);
+	                		}
+	                	}
+	        		} catch (IOException e) {
+	    				// TODO Auto-generated catch block
+	    				e.printStackTrace();
+	    			}
 	            }
 	        }
-	    }
+	}
 
 	   
 	@Override
@@ -435,11 +437,11 @@ public class TextScrollWindow extends GuiListExtended
 			{
 				boolean b= mouseX > x && mouseX < x+listWidth && mouseY > y && mouseY < y+slotHeight;
 				
-				mc.fontRendererObj.drawString(textTypeText(type, line), x, y, b ? RenderAssist.getColorFromRGBA(153,204,255,255) : Color.BLUE.getRGB());
+				mc.fontRenderer.drawString(textTypeText(type, line), x, y, b ? RenderAssist.getColorFromRGBA(153,204,255,255) : Color.BLUE.getRGB());
 			}
 			else
 			{
-				mc.fontRendererObj.drawString(textTypeText(type, line), x, y, textTypeColor(type));
+				mc.fontRenderer.drawString(textTypeText(type, line), x, y, textTypeColor(type));
 			}
 		}
 		
@@ -556,7 +558,7 @@ public class TextScrollWindow extends GuiListExtended
 			
 			case HR:
 				String hr = "---------------------------------------------------------------------------------------";
-				line = Minecraft.getMinecraft().fontRendererObj.trimStringToWidth(hr, 300);
+				line = Minecraft.getMinecraft().fontRenderer.trimStringToWidth(hr, 300);
 				break;
 			
 			default:

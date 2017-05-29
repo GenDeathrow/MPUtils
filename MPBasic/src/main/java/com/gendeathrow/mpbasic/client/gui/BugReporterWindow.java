@@ -2,10 +2,7 @@ package com.gendeathrow.mpbasic.client.gui;
 
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Desktop;
 import java.awt.Font;
-import java.awt.Insets;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,30 +11,24 @@ import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -72,8 +63,6 @@ public class BugReporterWindow
 	private JTextArea resultTextArea;
 	private JTextArea generatedReport;
 	private JTextField emailField;
-	private JComboBox contactdropdown;
-	private JComboBox issuetypedropdown;
 	/**
 	 * Launch the application.
 	 */
@@ -114,14 +103,9 @@ public class BugReporterWindow
 
 		
 		frame = new JFrame();
-		frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		frame.setTitle("MPUtils: Issue Reporter");
 		frame.setBounds(100, 100, 654, 577);
 		
 		final JPanel panelForum = new JPanel();
-		panelForum.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		panelForum.setBorder(null);
-		panelForum.setForeground(Color.WHITE);
 		panelForum.setVisible(false);
 		frame.getContentPane().setLayout(new CardLayout(0, 0));
 		frame.getContentPane().add(panelForum, "name_286846318537830");
@@ -181,7 +165,7 @@ public class BugReporterWindow
 		panelForum.add(label);
 		
 		JLabel label_1 = new JLabel("Description:");
-		label_1.setBounds(10, 176, 149, 14);
+		label_1.setBounds(10, 176, 62, 14);
 		panelForum.add(label_1);
 		
 		JLabel igntext = new JLabel("IGN: "+ Minecraft.getMinecraft().getSession().getUsername());
@@ -205,8 +189,9 @@ public class BugReporterWindow
 		panelForum.add(modsloaded);
 		
 		titlefield = new JTextField();
+		titlefield.setText("Add Title");
 		titlefield.setColumns(10);
-		titlefield.setBounds(40, 148, 280, 20);
+		titlefield.setBounds(40, 148, 337, 20);
 		panelForum.add(titlefield);
 		
 		JScrollPane desciptionpane = new JScrollPane();
@@ -223,7 +208,26 @@ public class BugReporterWindow
 		separator.setBounds(10, 138, 586, 2);
 		panelForum.add(separator);
 		
-
+		JButton button = new JButton("Next");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				if(MPBSettings.sendJsonData)
+				{
+					sendData();
+					panelResult.setVisible(true);
+				}
+				else
+				{
+					createReport();
+					panelOption.setVisible(true);
+				}
+				panelForum.setVisible(false);
+			}
+		});
+		button.setBounds(344, 502, 91, 23);
+		panelForum.add(button);
+		
 		JButton button_1 = new JButton("Cancel");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
@@ -238,7 +242,7 @@ public class BugReporterWindow
 		Border paddingBorder = BorderFactory.createEmptyBorder(10,10,10,10);
 		Border border = BorderFactory.createLineBorder(Color.WHITE);
 		nofiletext.setBorder(BorderFactory.createCompoundBorder(border,paddingBorder));
-		nofiletext.setBounds(151, 398, 271, 23);
+		nofiletext.setBounds(151, 398, 445, 23);
 		panelForum.add(nofiletext);
 		
 		JButton selectlog = new JButton("Select Crash Log");
@@ -246,20 +250,13 @@ public class BugReporterWindow
 			public void actionPerformed(ActionEvent e) 
 			{
 				fc.setCurrentDirectory(new File("crash-reports"));
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("Minecraft Log Files", "txt", "log");
-				fc.setFileFilter(filter);
 				
 				 int returnVal = fc.showOpenDialog(fc);
 
-			        if (returnVal == JFileChooser.APPROVE_OPTION) 
-			        {
+			        if (returnVal == JFileChooser.APPROVE_OPTION) {
 			            
 			        	File file = fc.getSelectedFile();
-			        	
-			        	if(filter.accept(file))
-			        	{
-			        		nofiletext.setText(fc.getSelectedFile().getName());
-			        	}
+			        	nofiletext.setText(fc.getSelectedFile().getName());
 			        	
 			            //This is where a real application would open the file.
 			        } else 
@@ -294,135 +291,31 @@ public class BugReporterWindow
 		gistCheckBox = new JCheckBox("Create Gist Link for Log");
 		gistCheckBox.setSelected(MPBSettings.crashlogsToGist);
 		gistCheckBox.setActionCommand("createGist");
-		gistCheckBox.setBounds(428, 398, 187, 23);
+		gistCheckBox.setBounds(151, 428, 226, 23);
 		
 		if(MPBSettings.sendJsonData)
 		{
 			gistCheckBox.setSelected(false);
 			gistCheckBox.setEnabled(false);
-			gistCheckBox.setVisible(false);
 		}
 		panelForum.add(gistCheckBox);
+	
+		
+		emailField = new JTextField();
+		emailField.setText("example@example.com");
+		emailField.setBounds(151, 458, 290, 20);
+		panelForum.add(emailField);
+		emailField.setColumns(10);
 		
 		JLabel lblEnmail = new JLabel("Contact Info:");
-		lblEnmail.setHorizontalAlignment(SwingConstants.LEFT);
-		lblEnmail.setBounds(10, 435, 72, 14);
+		lblEnmail.setBounds(69, 461, 72, 14);
 		panelForum.add(lblEnmail);
 		
-			
-			emailField = new JTextField();
-			emailField.setBounds(212, 432, 297, 20);
-			panelForum.add(emailField);
-			emailField.setColumns(10);
-		
-			
-			List<String> contacttypes = new ArrayList<String>(); contacttypes.add("Select One"); contacttypes.add("None");
-			for(String type : MPBSettings.contactTypes) contacttypes.add(type); 
-			
-		contactdropdown = new JComboBox();
-		contactdropdown.setModel(new DefaultComboBoxModel(contacttypes.toArray()));
-		contactdropdown.setToolTipText("");
-		contactdropdown.setBounds(89, 431, 113, 22);
-		panelForum.add(contactdropdown);
-		
-		JLabel lblIssueType = new JLabel("Issue Type:");
-		lblIssueType.setHorizontalAlignment(SwingConstants.LEFT);
-		lblIssueType.setBounds(330, 151, 72, 14);
-		panelForum.add(lblIssueType);
-		
-		JButton btnTermsOfService = new JButton("Terms and Conditions");
-		btnTermsOfService.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnTermsOfService.setForeground(Color.BLUE);
-		btnTermsOfService.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				try 
-				{
-					File disclamerfile = new File(MPBSettings.disclaimerFile);
-					if(!disclamerfile.exists()) disclamerfile.createNewFile();
-					Desktop.getDesktop().open(disclamerfile);
-					
-				} catch (IOException e) 
-				{
-					e.printStackTrace();
-				}
-			}
-		});
-		btnTermsOfService.setHorizontalAlignment(SwingConstants.LEFT);
-		btnTermsOfService.setMargin(new Insets(2, 2, 2, 2));
-		btnTermsOfService.setBorderPainted(false);
-		btnTermsOfService.setBounds(285, 463, 137, 23);
-		panelForum.add(btnTermsOfService);
-		
-		final JCheckBox chckbxIAgreeTo = new JCheckBox("I agree to the send my information");
-		chckbxIAgreeTo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		chckbxIAgreeTo.setOpaque(false);
-		chckbxIAgreeTo.setHorizontalAlignment(SwingConstants.LEFT);
-		chckbxIAgreeTo.setBounds(20, 459, 261, 35);
-		panelForum.add(chckbxIAgreeTo);
-		
-		List<String> issuetypes = new ArrayList<String>(); issuetypes.add("Select One");
-		for(String type : MPBSettings.issueTypes) issuetypes.add(type);
-		
-		issuetypedropdown = new JComboBox();
-		issuetypedropdown.setModel(new DefaultComboBoxModel(issuetypes.toArray()));
-		issuetypedropdown.setBounds(401, 147, 195, 22);
-		panelForum.add(issuetypedropdown);
-		
-		
-		if(!MPBSettings.useDisclaimer)
-		{
-			chckbxIAgreeTo.setVisible(false);
-			btnTermsOfService.setVisible(false);
-		}
-		
-		if(!MPBSettings.sendJsonData || !MPBSettings.collectContact)
+		if(!MPBSettings.sendJsonData || !MPBSettings.collectEmails)
 		{
 			emailField.setVisible(false);
 			lblEnmail.setVisible(false);
-			contactdropdown.setVisible(false);
 		}
-		
-		
-		JButton button = new JButton("Next");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
-				
-				if(MPBSettings.useDisclaimer && !chckbxIAgreeTo.isSelected())
-				{
-					 JOptionPane.showMessageDialog(null, "Please Read and Check the Disclaimer", "Error", JOptionPane.ERROR_MESSAGE);
-					 return;
-				}else if(titlefield.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Please Fill out the Title", "Error", JOptionPane.ERROR_MESSAGE);
-					return;
-				}else if(descriptiontextArea.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Please Fill out the Description", "Error", JOptionPane.ERROR_MESSAGE);
-					return;
-				}else if(issuetypedropdown.getSelectedIndex() == 0 || issuetypedropdown.getSelectedIndex() == -1){
-					JOptionPane.showMessageDialog(null, "Please Select Issue Type", "Error", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-
-				if(contactdropdown.getSelectedIndex() == 0 || contactdropdown.getSelectedIndex() == -1)
-					contactdropdown.setSelectedIndex(1);
-					
-				if(MPBSettings.sendJsonData)
-				{
-					sendData();
-					panelResult.setVisible(true);
-				}
-				else
-				{
-					createReport();
-					panelOption.setVisible(true);
-				}
-				panelForum.setVisible(false);
-			}
-		});
-		button.setBounds(370, 502, 91, 23);
-		panelForum.add(button);
-		
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(0, 0, 4, 4);
@@ -462,9 +355,7 @@ public class BugReporterWindow
 		postData.addProperty("title", this.titlefield.getText());
 		postData.addProperty("desc", this.descriptiontextArea.getText());
 		postData.addProperty("ign", Minecraft.getMinecraft().getSession().getUsername());
-		postData.addProperty("contactType", contactdropdown.getSelectedItem().toString());
 		postData.addProperty("email", emailField.getText());
-		postData.addProperty("issueType", issuetypedropdown.getSelectedItem().toString());
 		postData.addProperty("forgeVersion", ForgeVersion.getVersion());
 		postData.addProperty("mcVersion", MinecraftForge.MC_VERSION);
 		postData.addProperty("mpVersion", MPInfo.version);
@@ -492,15 +383,12 @@ public class BugReporterWindow
 			}
 		}
 		
-		String returnText = "";
+		
 		try 
 		{
-			returnText = Tools.sendJsonHttpPost(MPBSettings.issuetrackerURL, postData);
-			handleRecievedData(returnText);
+			handleRecievedData(Tools.sendJsonHttpPost(MPBSettings.issuetrackerURL, postData));
 		} catch (IOException e) {
-			
-			JOptionPane.showMessageDialog(null, "There was an Error trying to send this issue. Please try again in a few minutes.", "Error", JOptionPane.ERROR_MESSAGE);
-			MPUtils.logger.error(returnText + e);
+			e.printStackTrace();
 		}
 	}
 	
@@ -542,7 +430,6 @@ public class BugReporterWindow
 		String title = this.titlefield.getText();
 		String desc = this.descriptiontextArea.getText();
 		String ign = Minecraft.getMinecraft().getSession().getUsername();
-		String issueType = this.issuetypedropdown.getSelectedItem().toString(); 
 		String forgeVersion = ForgeVersion.getVersion();
 		String mcVersion= MinecraftForge.MC_VERSION;
 		String mpVersion = MPInfo.version;

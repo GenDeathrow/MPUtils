@@ -66,7 +66,7 @@ public class ContainerNBTBase extends Container
 				}
 			}
 			
-			if (stack1.stackSize == 0)
+			if (stack1.getCount() == 0)
 			{
 				slot.putStack(null);
 			}
@@ -75,12 +75,12 @@ public class ContainerNBTBase extends Container
 				slot.onSlotChanged();
 			}
 			
-			if (stack1.stackSize == stack.stackSize)
+			if (stack1.getCount() == stack.getCount())
 			{
 				return null;
 			}
 			
-			slot.onPickupFromSlot(player, stack);
+			slot.onTake(player, stack);
 		}
 		
 		return stack;

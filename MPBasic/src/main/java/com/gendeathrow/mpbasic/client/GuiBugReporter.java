@@ -52,9 +52,9 @@ public class GuiBugReporter extends GuiScreen
     {
 
 
-		desc = new GuiTextArea(this.fontRendererObj, (this.width-250)/2 , (this.height-200)/2, 250, 200);
+		desc = new GuiTextArea(this.fontRenderer, (this.width-250)/2 , (this.height-200)/2, 250, 200);
 
-		title = new GuiTextField(0, fontRendererObj, desc.xPosition, desc.yPosition - 20, 250, 15);
+		title = new GuiTextField(0, fontRenderer, desc.xPosition, desc.yPosition - 20, 250, 15);
 		
 		title.setText(titleText);
 		
@@ -138,34 +138,34 @@ public class GuiBugReporter extends GuiScreen
 		RenderAssist.drawRect(2, 2, this.width - 2, this.height - 2, java.awt.Color.black.getRGB());
 		
 		
-		drawString(this.fontRendererObj, "OS: "+ System.getProperty("os.name"), this.title.xPosition + 2, this.title.yPosition - 50, java.awt.Color.yellow.getRGB());
+		drawString(this.fontRenderer, "OS: "+ System.getProperty("os.name"), this.title.xPosition + 2, this.title.yPosition - 50, java.awt.Color.yellow.getRGB());
 		
-		drawString(this.fontRendererObj, "MC: "+ MinecraftForge.MC_VERSION, this.title.xPosition + 2, this.title.yPosition - 20, java.awt.Color.yellow.getRGB());
-		drawString(this.fontRendererObj, "MP: 1.0.0", this.title.xPosition + 2, this.title.yPosition - 35, java.awt.Color.yellow.getRGB());
+		drawString(this.fontRenderer, "MC: "+ MinecraftForge.MC_VERSION, this.title.xPosition + 2, this.title.yPosition - 20, java.awt.Color.yellow.getRGB());
+		drawString(this.fontRenderer, "MP: 1.0.0", this.title.xPosition + 2, this.title.yPosition - 35, java.awt.Color.yellow.getRGB());
 		
-		drawString(this.fontRendererObj, ForgeVersion.getVersion(), this.title.xPosition + (this.title.width/2)+ 2, this.title.yPosition - 20, java.awt.Color.yellow.getRGB());
-		drawString(this.fontRendererObj, "Loaded Mods: "+ Loader.instance().getActiveModList().size(), this.title.xPosition + (this.title.width/2)+ 2, this.title.yPosition - 35, java.awt.Color.yellow.getRGB());
+		drawString(this.fontRenderer, ForgeVersion.getVersion(), this.title.xPosition + (this.title.width/2)+ 2, this.title.yPosition - 20, java.awt.Color.yellow.getRGB());
+		drawString(this.fontRenderer, "Loaded Mods: "+ Loader.instance().getActiveModList().size(), this.title.xPosition + (this.title.width/2)+ 2, this.title.yPosition - 35, java.awt.Color.yellow.getRGB());
 		this.desc.drawTextBox();
 		this.title.drawTextBox();
 		//System.out.println(mouseX);
 		if(this.desc.getText().isEmpty())
 		{
 			//this.fontRendererObj.drawString(, p_78276_2_, p_78276_3_, java.awt.Color.white.getRGB())
-			this.drawCenteredString(this.fontRendererObj, "Enter Description", this.desc.xPosition + (this.desc.width/2), this.desc.yPosition+(this.desc.height/2), java.awt.Color.DARK_GRAY.getRGB());
+			this.drawCenteredString(this.fontRenderer, "Enter Description", this.desc.xPosition + (this.desc.width/2), this.desc.yPosition+(this.desc.height/2), java.awt.Color.DARK_GRAY.getRGB());
 		}
 		
 		if(this.title.getText().isEmpty())
 		{
 			//this.fontRendererObj.drawString(, p_78276_2_, p_78276_3_, java.awt.Color.white.getRGB())
-			this.drawCenteredString(this.fontRendererObj, "Enter Title", this.title.xPosition + (this.title.width/2), this.title.yPosition+(this.title.height/2), java.awt.Color.DARK_GRAY.getRGB());
+			this.drawCenteredString(this.fontRenderer, "Enter Title", this.title.xPosition + (this.title.width/2), this.title.yPosition+(this.title.height/2), java.awt.Color.DARK_GRAY.getRGB());
 		}
 		
-		this.drawCenteredString(this.fontRendererObj, "Issue Tracker", this.width/2, 10, java.awt.Color.yellow.getRGB());
+		this.drawCenteredString(this.fontRenderer, "Issue Tracker", this.width/2, 10, java.awt.Color.yellow.getRGB());
 
 		
 		if((Minecraft.getSystemTime() - this.timeStamp) <= 60000)
 		{
-			this.drawCenteredString(this.fontRendererObj, "Must wait to send another Bug Report", this.width/2, this.height/2, java.awt.Color.red.getRGB());
+			this.drawCenteredString(this.fontRenderer, "Must wait to send another Bug Report", this.width/2, this.height/2, java.awt.Color.red.getRGB());
 		}
 				
 		super.drawScreen(mouseX, mouseY, partialTicks);

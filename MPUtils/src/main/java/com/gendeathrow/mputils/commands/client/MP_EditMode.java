@@ -46,7 +46,7 @@ public class MP_EditMode extends MP_BaseCommand
 		if(args.length > 1) 
 		{
 			Settings.editMode = "true".equals(args[1]) ? true : false;
-			if(Settings.editMode) sender.addChatMessage(new TextComponentTranslation("You have entered MPUtils Edit Mode. This will open up features for MPutils and Addons if Any"));
+			if(Settings.editMode) sender.sendMessage(new TextComponentTranslation("You have entered MPUtils Edit Mode. This will open up features for MPutils and Addons if Any"));
 		}
 	}
 

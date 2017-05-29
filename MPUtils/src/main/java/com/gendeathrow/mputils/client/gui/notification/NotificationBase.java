@@ -141,7 +141,7 @@ public class NotificationBase extends Gui
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL11.GL_LIGHTING);
         
-        int textHeight = mc.fontRendererObj.FONT_HEIGHT * mc.fontRendererObj.listFormattedStringToWidth(this.description, this.getWidth()   - (this.xOffset + 16 )).size();
+        int textHeight = mc.fontRenderer.FONT_HEIGHT * mc.fontRenderer.listFormattedStringToWidth(this.description, this.getWidth()   - (this.xOffset + 16 )).size();
         
         if(getBGTexture() != null)
         {
@@ -152,9 +152,9 @@ public class NotificationBase extends Gui
         
         RenderAssist.drawScalableTextruedBoxBordered(x, y, 96, 202, this.getWidth(), textHeight + 30 + y);
 
-        mc.fontRendererObj.drawString(this.title, x + xOffset + 8, y + 7, -256);
+        mc.fontRenderer.drawString(this.title, x + xOffset + 8, y + 7, -256);
        // mc.fontRenderer.drawSplitString(this.description, x + xOffset + 8, (int) (y + (textHeight * 0.21875)) + 18, this.width - 12 - this.xOffset, -1);
-        mc.fontRendererObj.drawSplitString(this.description, x + xOffset + 8, (int) y + 18, this.getWidth()  - (this.xOffset + 16 ), -1);
+        mc.fontRenderer.drawSplitString(this.description, x + xOffset + 8, (int) y + 18, this.getWidth()  - (this.xOffset + 16 ), -1);
    
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDepthMask(true);

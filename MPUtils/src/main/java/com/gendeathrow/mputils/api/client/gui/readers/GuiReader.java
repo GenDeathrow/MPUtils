@@ -54,7 +54,7 @@ public class GuiReader extends GuiContainer
 		drawRect(5, 5, this.xSize - 5, 17, RenderAssist.getColorFromRGBA(207, 0, 0, 255));
 		
 		ItemStack stack = this.inventorySlots.getSlot(0).getStack();
-		this.drawString("Item: " + (stack == null ? "" : (stack.stackSize + " * " + stack.getDisplayName())), 7, 7);
+		this.drawString("Item: " + (stack == null ? "" : (stack.getCount() + " * " + stack.getDisplayName())), 7, 7);
 		if (stack != null)
 		{
 			if (stack.hasTagCompound())
@@ -219,7 +219,7 @@ public class GuiReader extends GuiContainer
 	}
 	private void drawString(String s, int left, int top, int maxWidth)
 	{
-		this.drawString(this.fontRendererObj, s, left, top, Color.WHITE.getRGB());
+		this.drawString(this.fontRenderer, s, left, top, Color.WHITE.getRGB());
 	}
 	
 	@Override

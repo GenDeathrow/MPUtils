@@ -36,7 +36,7 @@ public class MP_Hotbar extends MP_ItemDump
 				
 				for(int slot = 0; slot < 9; slot++)
 				{
-					ItemStack stack = player.inventory.mainInventory[slot];
+					ItemStack stack = player.inventory.mainInventory.get(slot);
 					
 					if(stack == null)
 					{
@@ -50,7 +50,7 @@ public class MP_Hotbar extends MP_ItemDump
 				
 				if(Tools.CopytoClipbard(clipboard))
 				{
-					player.addChatMessage(new TextComponentTranslation(TextFormatting.YELLOW +" --Copied to Clipboard--"));
+					player.sendMessage(new TextComponentTranslation(TextFormatting.YELLOW +" --Copied to Clipboard--"));
 				}
 			}
 		}

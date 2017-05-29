@@ -3,6 +3,8 @@ package com.gendeathrow.mputils.commands.common;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -22,14 +24,15 @@ public class MP_Commands extends CommandBase
 		//coms.add(new MP_LookAtCommand());
 	}
 	
+	
 	@Override
-	public String getCommandName() 
+	public String getName() 
 	{
 		return "mputil_admin";
 	}
 
 	@Override
-	public String getCommandUsage(ICommandSender sender) 
+	public String getUsage(ICommandSender sender) 
 	{
 		String txt = "";
 		
@@ -55,23 +58,23 @@ public class MP_Commands extends CommandBase
 	
 	@SuppressWarnings("unchecked")
 	@Override
-    public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] strings, BlockPos pos)
+    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos)
     {
-		if(strings.length == 1)
+		if(args.length == 1)
 		{
 			ArrayList<String> base = new ArrayList<String>();
 			for(MP_BaseCommand c : coms)
 			{
 				base.add(c.getCommand());
 			}
-        	return getListOfStringsMatchingLastWord(strings, base.toArray(new String[0]));
-		} else if(strings.length > 1)
+        	return getListOfStringsMatchingLastWord(args, base.toArray(new String[0]));
+		} else if(args.length > 1)
 		{
 			for(MP_BaseCommand c : coms)
 			{
-				if(c.getCommand().equalsIgnoreCase(strings[0]))
+				if(c.getCommand().equalsIgnoreCase(args[0]))
 				{
-					return c.autoComplete(sender, strings);
+					return c.autoComplete(sender, args);
 				}
 			}
 		}
@@ -90,7 +93,7 @@ public class MP_Commands extends CommandBase
 	{
 		if(args.length < 1)
 		{
-			throw new WrongUsageException(this.getCommandUsage(sender));
+			throw new WrongUsageException(this.getUsage(sender));
 		}
 		
 		for(MP_BaseCommand c : coms)
@@ -108,7 +111,9 @@ public class MP_Commands extends CommandBase
 			}
 		}
 		
-		throw new WrongUsageException(this.getCommandUsage(sender));
+		throw new WrongUsageException(this.getUsage(sender));
 	}
+
+
 
 }

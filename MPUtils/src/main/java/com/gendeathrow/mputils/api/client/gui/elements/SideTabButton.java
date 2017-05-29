@@ -36,7 +36,7 @@ public class SideTabButton extends GuiButton
 	public SideTabButton(int buttonId, int x, int y, int widthIn, int heightIn,	String buttonText) 
 	{
 		super(buttonId, x, y, widthIn, heightIn, buttonText);
-		int textInt = Minecraft.getMinecraft().fontRendererObj.getStringWidth(buttonText);
+		int textInt = Minecraft.getMinecraft().fontRenderer.getStringWidth(buttonText);
 
 	    this.xOffset = this.width - 26;
 	    this.xOpened = xOffset;
@@ -106,7 +106,7 @@ public class SideTabButton extends GuiButton
         {
         	this.update();
         	
-            FontRenderer fontRendererObj = mc.fontRendererObj;
+            FontRenderer fontRendererObj = mc.fontRenderer;
             mc.getTextureManager().bindTexture(buttonTexture);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             this.hovered = mouseX >= this.xPosition + xOffset && mouseY >= this.yPosition && mouseX < this.xPosition + this.width + xOffset&& mouseY < this.yPosition + this.height;

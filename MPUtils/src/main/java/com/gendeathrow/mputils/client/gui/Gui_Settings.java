@@ -61,7 +61,7 @@ public class Gui_Settings extends GuiScreen
 	 public void drawScreen(int mouseX, int mouseY, float partialTicks)
 	 {
 	        this.drawDefaultBackground();
-	        this.drawCenteredString(this.fontRendererObj, I18n.format("mp.text.settingsgui.title", new Object[0]), this.width / 2, 25, 16777215);
+	        this.drawCenteredString(this.fontRenderer, I18n.format("mp.text.settingsgui.title", new Object[0]), this.width / 2, 25, 16777215);
 	  
 	        super.drawScreen(mouseX, mouseY, partialTicks);
 	 }

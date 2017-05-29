@@ -19,15 +19,15 @@ import com.gendeathrow.mpbasic.core.proxies.MPBCommonProxy;
 public class MPBasic 
 {
     public static final String MODID = "mpbasic";
-    public static final String VERSION = "1.1.3";
+    public static final String VERSION = "1.2.2";
     public static final String MCVERSION = "1.0.0";
-    public static final String NAME = "ModPack Basic Tools";
+    public static final String NAME = "ModPack Utils";
     public static final String PROXY = "com.gendeathrow.mpbasic.core.proxies";
 	
     @Instance(MODID)
 	public static MPBasic instance;
     
-    public static final String dependencies =  "required-after:mputils@[1.2.3,1.3.0]";
+    public static final String dependencies =  "required-after:mputils@[1.3.0,1.4.0]";
     
 	@SidedProxy(clientSide = PROXY + ".MPBClientProxy", serverSide = PROXY + ".MPBCommonProxy")
 	public static MPBCommonProxy proxy;

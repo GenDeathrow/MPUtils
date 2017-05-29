@@ -12,6 +12,8 @@ public class iconButton extends GuiButton
 {
 	   protected static final ResourceLocation iconTexture = new ResourceLocation(MPUtils.MODID,"textures/gui/icons.png");
 	    
+	    private boolean forcedHighlight = false;
+	    
 		public iconButton(int buttonId, int x, int y)
 	    {
 	        this(buttonId, x, y, 16, 16, "");
@@ -20,8 +22,9 @@ public class iconButton extends GuiButton
 		public iconButton(int buttonId, int x, int y, int widthIn, int heightIn, String buttonText) 
 		{
 			super(buttonId, x, y, widthIn, heightIn, buttonText);
-			
 		}
+		
+		
 		
 		int iconX;
 		int iconY;
@@ -40,11 +43,11 @@ public class iconButton extends GuiButton
 	        if (this.visible)
 	        {
 	        	
-	            FontRenderer fontrenderer = mc.fontRendererObj;
+	            FontRenderer fontrenderer = mc.fontRenderer;
 	            mc.getTextureManager().bindTexture(iconTexture);
 	            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 	            this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
-	            int i = this.getHoverState(this.hovered);
+	            int i = this.getHoverState(this.forcedHighlight ? true : this.hovered);
 	            GlStateManager.enableBlend();
 	            GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 	            GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
@@ -55,6 +58,16 @@ public class iconButton extends GuiButton
 	            int j = 14737632;
 	        }
 	    }
+
+		public boolean isHovered() 
+		{
+			return this.hovered;
+		}
+		
+		public void setHighlighted()
+		{
+			this.forcedHighlight = true;
+		}
 	
 	
 

@@ -1,11 +1,11 @@
 package com.gendeathrow.mputils.core;
 
+import com.gendeathrow.mputils.api.client.gui.readers.GuiReader;
+import com.gendeathrow.mputils.inventory.container.ContainerNBTBase;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
-
-import com.gendeathrow.mputils.api.client.gui.readers.GuiReader;
-import com.gendeathrow.mputils.inventory.container.ContainerNBTBase;
 
 public class GuiHandler implements IGuiHandler
 {

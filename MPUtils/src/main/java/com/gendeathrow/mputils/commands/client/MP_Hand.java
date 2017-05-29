@@ -50,7 +50,7 @@ public class MP_Hand extends MP_ItemDump
 				
 				if(Tools.CopytoClipbard(clipboard))
 				{
-					player.addChatMessage(new TextComponentTranslation(TextFormatting.YELLOW +" --Copied to Clipboard--"));
+					player.sendMessage(new TextComponentTranslation(TextFormatting.YELLOW +" --Copied to Clipboard--"));
 				}
 			
 			}

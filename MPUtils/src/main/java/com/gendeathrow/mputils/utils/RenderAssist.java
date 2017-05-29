@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -29,16 +28,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 
-
-
-
-
-
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
-
 /**
  * 
  * Some methods which are usually in GuiIngame, but since we don't have<br>
@@ -56,7 +45,7 @@ public class RenderAssist {
     public static float zLevel;
     
 	private static TextureManager manager = Minecraft.getMinecraft().getTextureManager();
-	private static FontRenderer fontObj = Minecraft.getMinecraft().fontRendererObj;
+	private static FontRenderer fontObj = Minecraft.getMinecraft().fontRenderer;
 
 	public static String mcColorUni = "\u00A74";
 

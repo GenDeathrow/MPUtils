@@ -29,9 +29,9 @@ public class MP_Inventory extends MP_ItemDump
 
 				EntityPlayer player = (EntityPlayer) sender;
 				
-				for(int slot = 0; slot < player.inventory.mainInventory.length; slot++)
+				for(int slot = 0; slot < player.inventory.mainInventory.size(); slot++)
 				{
-					ItemStack stack = player.inventory.mainInventory[slot];
+					ItemStack stack = player.inventory.mainInventory.get(slot);
 					
 					if(stack == null)
 					{
@@ -43,7 +43,7 @@ public class MP_Inventory extends MP_ItemDump
 
 				if(Tools.CopytoClipbard(clipboard))
 				{
-					player.addChatMessage(new TextComponentTranslation(TextFormatting.YELLOW +" --Copied to Clipboard--"));
+					player.sendMessage(new TextComponentTranslation(TextFormatting.YELLOW +" --Copied to Clipboard--"));
 				}
 			}
 		}

@@ -64,12 +64,12 @@ public class MPInfoEditor extends GuiScreen
     	int spacing = 24;
     	
     	
-        this.name = new GuiTextField(2, this.fontRendererObj, this.width / 2 - 150, pos + j++ * spacing, 300, 20);
+        this.name = new GuiTextField(2, this.fontRenderer, this.width / 2 - 150, pos + j++ * spacing, 300, 20);
         this.name.setMaxStringLength(40);
         this.name.setFocused(true);
         this.name.setText(MPInfo.name);
 
-        this.description = new GuiTextField(3, this.fontRendererObj, this.width / 2 - 150, pos + j++ * spacing, 300, 20);
+        this.description = new GuiTextField(3, this.fontRenderer, this.width / 2 - 150, pos + j++ * spacing, 300, 20);
         this.description.setMaxStringLength(32500);
         this.description.setFocused(false);
         this.description.setText(MPInfo.description);
@@ -78,18 +78,18 @@ public class MPInfoEditor extends GuiScreen
         //String[] verionRaw = MPInfo.version.split("\\.");
         int[] versions = MPInfo.getFormatedMPVer();
 		
-        this.verMax = new GuiTextField(4, this.fontRendererObj, this.width / 2 - 150, pos + j * spacing, 30, 20);
+        this.verMax = new GuiTextField(4, this.fontRenderer, this.width / 2 - 150, pos + j * spacing, 30, 20);
         this.verMax.setMaxStringLength(4);
         this.verMax.setFocused(false);
         this.verMax.setText(""+(versions != null ? versions[0] : 0));
         
-        this.verMin = new GuiTextField(5, this.fontRendererObj, (this.width / 2) - 150 + 50, pos + j * spacing, 30, 20);
+        this.verMin = new GuiTextField(5, this.fontRenderer, (this.width / 2) - 150 + 50, pos + j * spacing, 30, 20);
         this.verMin.setMaxStringLength(4);
         this.verMin.setFocused(false);
         this.verMin.setText(""+(versions != null ? versions[1] : 0));
         
         
-        this.verRev = new GuiTextField(6, this.fontRendererObj, this.width / 2 - 150 + 100, pos + j++ * spacing, 30, 20);
+        this.verRev = new GuiTextField(6, this.fontRenderer, this.width / 2 - 150 + 100, pos + j++ * spacing, 30, 20);
         this.verRev.setMaxStringLength(4);
         this.verRev.setFocused(false);
         this.verRev.setText(""+(versions != null ? versions[2] : 0));
@@ -98,7 +98,7 @@ public class MPInfoEditor extends GuiScreen
       //  System.out.println("1:"+ this.verMin.xPosition +","+ this.verMin.yPosition);
       //  System.out.println("1:"+ this.verRev.xPosition +","+ this.verRev.yPosition);
         
-        this.url = new GuiTextField(7, this.fontRendererObj, this.width / 2 - 150, pos + j++ * spacing, 300, 20);
+        this.url = new GuiTextField(7, this.fontRenderer, this.width / 2 - 150, pos + j++ * spacing, 300, 20);
         this.url.setMaxStringLength(32500);
         this.url.setFocused(false);
         this.url.setText(MPInfo.url); 
@@ -111,12 +111,12 @@ public class MPInfoEditor extends GuiScreen
         	else { authors += ","; }
         	authors += author.replace("\"", "");
         }
-        this.authorList = new GuiTextField(8, this.fontRendererObj, this.width / 2 - 150, pos + j++ * spacing, 300, 20);
+        this.authorList = new GuiTextField(8, this.fontRenderer, this.width / 2 - 150, pos + j++ * spacing, 300, 20);
         this.authorList.setMaxStringLength(32500);
         this.authorList.setFocused(false);
         this.authorList.setText(authors);
         
-        this.credits = new GuiTextField(9, this.fontRendererObj, this.width / 2 - 150, pos + j++ * spacing, 300, 20);
+        this.credits = new GuiTextField(9, this.fontRenderer, this.width / 2 - 150, pos + j++ * spacing, 300, 20);
         this.credits.setMaxStringLength(32500);
         this.credits.setFocused(false);
         this.credits.setText(MPInfo.credits);
@@ -226,15 +226,15 @@ public class MPInfoEditor extends GuiScreen
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRendererObj, I18n.format("mp.mpinfoedit.title", new Object[0]), this.width / 2, 25, 16777215);
-        this.drawString(this.fontRendererObj, I18n.format("mp.text.mpinfo.name", new Object[0]) + ":", this.name.xPosition - 5 - (this.fontRendererObj.getStringWidth(I18n.format("mp.text.mpinfo.name", new Object[0]))), 			this.name.yPosition + 5, 10526880);
-        this.drawString(this.fontRendererObj, I18n.format("mp.text.mpinfo.desc", new Object[0])+ ":", this.description.xPosition - 5 - (this.fontRendererObj.getStringWidth(I18n.format("mp.text.mpinfo.desc", new Object[0]))), 	this.description.yPosition + 5, 10526880);
-        this.drawString(this.fontRendererObj, I18n.format("mp.text.mpinfo.ver", new Object[0])+ ":", this.verMax.xPosition - 5 - (this.fontRendererObj.getStringWidth(I18n.format("mp.text.mpinfo.ver", new Object[0]))), 			this.verMax.yPosition + 5, 10526880);
-        	this.drawString(this.fontRendererObj, ".", this.verMin.xPosition - 2, this.verMax.yPosition + 19, 10526880);
-        	this.drawString(this.fontRendererObj, ".", this.verRev.xPosition - 2, this.verMax.yPosition + 19, 10526880);
-        this.drawString(this.fontRendererObj, I18n.format("mp.text.mpinfo.url", new Object[0])+ ":", this.url.xPosition - 5 - (this.fontRendererObj.getStringWidth(I18n.format("mp.text.mpinfo.url", new Object[0]))), 				this.url.yPosition + 5, 10526880);
-        this.drawString(this.fontRendererObj, I18n.format("mp.text.mpinfo.authors", new Object[0])+ ":", this.authorList.xPosition - 5 - (this.fontRendererObj.getStringWidth(I18n.format("mp.text.mpinfo.authors", new Object[0]))),this.authorList.yPosition + 5, 10526880);
-        this.drawString(this.fontRendererObj, I18n.format("mp.text.mpinfo.credits", new Object[0])+ ":", this.credits.xPosition - 5 - (this.fontRendererObj.getStringWidth(I18n.format("mp.text.mpinfo.credits", new Object[0]))), 	this.credits.yPosition + 5, 10526880);
+        this.drawCenteredString(this.fontRenderer, I18n.format("mp.mpinfoedit.title", new Object[0]), this.width / 2, 25, 16777215);
+        this.drawString(this.fontRenderer, I18n.format("mp.text.mpinfo.name", new Object[0]) + ":", this.name.xPosition - 5 - (this.fontRenderer.getStringWidth(I18n.format("mp.text.mpinfo.name", new Object[0]))), 			this.name.yPosition + 5, 10526880);
+        this.drawString(this.fontRenderer, I18n.format("mp.text.mpinfo.desc", new Object[0])+ ":", this.description.xPosition - 5 - (this.fontRenderer.getStringWidth(I18n.format("mp.text.mpinfo.desc", new Object[0]))), 	this.description.yPosition + 5, 10526880);
+        this.drawString(this.fontRenderer, I18n.format("mp.text.mpinfo.ver", new Object[0])+ ":", this.verMax.xPosition - 5 - (this.fontRenderer.getStringWidth(I18n.format("mp.text.mpinfo.ver", new Object[0]))), 			this.verMax.yPosition + 5, 10526880);
+        	this.drawString(this.fontRenderer, ".", this.verMin.xPosition - 2, this.verMax.yPosition + 19, 10526880);
+        	this.drawString(this.fontRenderer, ".", this.verRev.xPosition - 2, this.verMax.yPosition + 19, 10526880);
+        this.drawString(this.fontRenderer, I18n.format("mp.text.mpinfo.url", new Object[0])+ ":", this.url.xPosition - 5 - (this.fontRenderer.getStringWidth(I18n.format("mp.text.mpinfo.url", new Object[0]))), 				this.url.yPosition + 5, 10526880);
+        this.drawString(this.fontRenderer, I18n.format("mp.text.mpinfo.authors", new Object[0])+ ":", this.authorList.xPosition - 5 - (this.fontRenderer.getStringWidth(I18n.format("mp.text.mpinfo.authors", new Object[0]))),this.authorList.yPosition + 5, 10526880);
+        this.drawString(this.fontRenderer, I18n.format("mp.text.mpinfo.credits", new Object[0])+ ":", this.credits.xPosition - 5 - (this.fontRenderer.getStringWidth(I18n.format("mp.text.mpinfo.credits", new Object[0]))), 	this.credits.yPosition + 5, 10526880);
         
         this.name.drawTextBox();
         this.description.drawTextBox();

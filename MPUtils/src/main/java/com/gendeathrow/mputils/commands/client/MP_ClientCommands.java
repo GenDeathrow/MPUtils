@@ -22,13 +22,14 @@ public class MP_ClientCommands  extends CommandBase
 		coms.add(new MP_Hand());
 		coms.add(new MP_Hotbar());
 		coms.add(new MP_Inventory());
+		coms.add(new MP_ModItemDump());
 		coms.add(new MP_LookAtCommand());
 		coms.add(new MP_EditMode());
 		coms.add(new MP_RecipeDoubles());
 	}
 	
 	@Override
-	public String getCommandName() 
+	public String getName() 
 	{
 		return "mputil";
 	}
@@ -39,7 +40,7 @@ public class MP_ClientCommands  extends CommandBase
 	}
 
 	@Override
-    public List getCommandAliases()
+    public List getAliases()
     {
 		ArrayList<String> al = new ArrayList<String>();
 		al.add("mp");
@@ -48,7 +49,7 @@ public class MP_ClientCommands  extends CommandBase
     }
 	
 	@Override
-	public String getCommandUsage(ICommandSender sender) 
+	public String getUsage(ICommandSender sender) 
 	{
 		
 		
@@ -69,7 +70,7 @@ public class MP_ClientCommands  extends CommandBase
 				txt += ", ";
 			}
 			
-			sender.addChatMessage(new TextComponentTranslation(txt));
+			sender.sendMessage(new TextComponentTranslation(txt));
 		}
 		
 		return "</mp, /mputil, /mputils>";
@@ -77,7 +78,7 @@ public class MP_ClientCommands  extends CommandBase
 	}
 	
 	@Override
-    public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] strings, BlockPos pos)
+    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] strings, BlockPos pos)
     {
 		if(strings.length == 1)
 		{
@@ -112,7 +113,7 @@ public class MP_ClientCommands  extends CommandBase
 	{
 		if(args.length < 1)
 		{
-			throw new WrongUsageException(this.getCommandUsage(sender));
+			throw new WrongUsageException(this.getUsage(sender));
 		}
 		
 		for(MP_BaseCommand c : coms)
@@ -130,7 +131,7 @@ public class MP_ClientCommands  extends CommandBase
 			}
 		}
 		
-		throw new WrongUsageException(this.getCommandUsage(sender));
+		throw new WrongUsageException(this.getUsage(sender));
 	}
 
 }

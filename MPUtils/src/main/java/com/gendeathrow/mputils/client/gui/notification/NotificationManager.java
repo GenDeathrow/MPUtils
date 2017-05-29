@@ -105,7 +105,7 @@ public class NotificationManager extends Gui
 
     public void updateTipWindow()
     {
-        if (this.theNotification != null && this.notificationTime != 0L && Minecraft.getMinecraft().thePlayer != null)
+        if (this.theNotification != null && this.notificationTime != 0L && Minecraft.getMinecraft().player != null)
         {
         	
             double d0 = (double)(Minecraft.getSystemTime() - this.notificationTime) /  this.theNotification.getTimeLenght();

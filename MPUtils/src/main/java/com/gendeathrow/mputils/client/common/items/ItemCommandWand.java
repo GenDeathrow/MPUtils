@@ -71,15 +71,15 @@ public class ItemCommandWand extends Item
 
         if (entityplayer == null || !entityplayer.capabilities.isCreativeMode)
         {
-            if (stack.stackSize <= 0)
-            {
-     //           return new ItemStack(Items.GLASS_BOTTLE);
-            }
-
-            if (entityplayer != null)
-            {
-   //             entityplayer.inventory.addItemStackToInventory(new ItemStack(Items.GLASS_BOTTLE));
-            }
+//            if (stack..stackSize <= 0)
+//            {
+//     //           return new ItemStack(Items.GLASS_BOTTLE);
+//            }
+//
+//            if (entityplayer != null)
+//            {
+//   //             entityplayer.inventory.addItemStackToInventory(new ItemStack(Items.GLASS_BOTTLE));
+//            }
         }
 
         return stack;

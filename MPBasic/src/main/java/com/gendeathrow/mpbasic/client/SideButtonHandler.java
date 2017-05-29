@@ -47,9 +47,6 @@ public class SideButtonHandler implements GuiYesNoCallback
 			
 			if(event.getButton() == bugReportButton)
 			{
-				 //BugReporterWindow.main(null);
-				
-				
 				if(MPBSettings.useInGameForm)
 				{
 					BugReporterWindow window = new BugReporterWindow();
@@ -59,8 +56,6 @@ public class SideButtonHandler implements GuiYesNoCallback
 				{
 					event.getGui().mc.displayGuiScreen(new GuiConfirmOpenLink(this, MPBSettings.issuetrackerURL, 0, true));
 				}
-
-				//event.getGui().mc.displayGuiScreen(new GuiConfirmOpenLink(this, MPBSettings.bugURL, 0, true));
 			}
 			
 			if(event.getButton() == supportButton)
@@ -79,7 +74,7 @@ public class SideButtonHandler implements GuiYesNoCallback
 			return;
 		}
 			try
-			{
+			{ 
 				Class oclass = Class.forName("java.awt.Desktop");
 				Object object = oclass.getMethod("getDesktop", new Class[0]).invoke((Object)null, new Object[0]);
 				String url = "";

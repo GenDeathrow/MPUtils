@@ -20,21 +20,23 @@ import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.oredict.OreDictionary;
 
 import org.apache.logging.log4j.Level;
-
-import scala.util.parsing.json.JSONObject;
+import org.apache.logging.log4j.Logger;
 
 import com.gendeathrow.mputils.configs.ConfigHandler;
 import com.gendeathrow.mputils.core.MPUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -57,6 +59,18 @@ public class Tools
 	        
 	        return inputStreamReader;
 	}
+    
+    
+    
+    public static List<Class> getAllSuperclasses(Class cls) 
+    {
+        List<Class> res = new ArrayList<Class>();
+        while ((cls = cls.getSuperclass()) != null) 
+        {
+            res.add(cls);
+        }
+        return res;
+    }
     
     
     public static void DownloadFile(String url, String fileName) throws IOException 
@@ -339,4 +353,16 @@ public class Tools
 		return itemID + ore + nbt +  ConfigHandler.NEW_LINE;
 	}
 	
+	
+	public static void popUpError(String msg, String msgpop, Logger logger)
+	{
+		final JFrame parent = new JFrame();
+        
+        parent.setSize(400, 400);
+        
+        JOptionPane.showMessageDialog(parent, msgpop, "Incompatible Error",  JOptionPane.ERROR_MESSAGE);
+
+        logger.log(Level.ERROR, msg);
+
+	}
 }

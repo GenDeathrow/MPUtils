@@ -36,7 +36,7 @@ public class BasicNotifcationManager extends NotificationManager
 	@SubscribeEvent
 	public void checkUpdateNotification(TickEvent.PlayerTickEvent event) 
 	{
-		if((!event.player.worldObj.isRemote || hasChecked) && MPInfo.isActive() || MPUtils_SaveHandler.firstSave || !MPBSettings.showUpdateNotification)
+		if((!event.player.world.isRemote || hasChecked) && MPInfo.isActive() || MPUtils_SaveHandler.firstSave || !MPBSettings.showUpdateNotification)
 		{
 			return;
 		}

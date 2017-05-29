@@ -58,7 +58,7 @@ public class ScrollWindowBase extends GuiScreen
 
 		RenderAssist.drawUnfilledRect(this.posX , this.posY- 15, this.posX + this.sizeX + 7, this.posY, Color.white.getRGB());
 
-		this.drawCenteredString(fontRendererObj, title, width/2, this.posY - 12, Color.yellow.getRGB());
+		this.drawCenteredString(fontRenderer, title, width/2, this.posY - 12, Color.yellow.getRGB());
 	}
 	
 	@SuppressWarnings("unused")
@@ -69,7 +69,8 @@ public class ScrollWindowBase extends GuiScreen
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks)
 	{
-		if(Loader.isModLoaded("CustomMainMenu") && this.parent instanceof GuiMainMenu)
+		//CustomMainMenu
+		if(Loader.isModLoaded("custommainmenu") && this.parent instanceof GuiMainMenu)
 		{
 			this.drawDefaultBackground();
 		}
@@ -85,12 +86,12 @@ public class ScrollWindowBase extends GuiScreen
 		 
 		 drawHeader();
 		 
-		 this.drawString(fontRendererObj, versionText, this.width - fontRendererObj.getStringWidth(versionText) - 5, 5, Color.yellow.getRGB());
-		 if(MPInfo.isActive()) this.drawString(fontRendererObj, mpVersion, 2, 5, Color.yellow.getRGB());
+		 this.drawString(fontRenderer, versionText, this.width - fontRenderer.getStringWidth(versionText) - 5, 5, Color.yellow.getRGB());
+		 if(MPInfo.isActive()) this.drawString(fontRenderer, mpVersion, 2, 5, Color.yellow.getRGB());
 		 if(Settings.editMode) 
 		 {
-			 this.drawCenteredString(this.fontRendererObj, "------->EDIT MODE<-------", this.width/2, 5, Color.yellow.getRGB());
-			 this.drawCenteredString(this.fontRendererObj, "Check MPUtils.cfg for Defaults", this.width/2, 5 + 2 + this.fontRendererObj.FONT_HEIGHT, Color.yellow.getRGB());
+			 this.drawCenteredString(this.fontRenderer, "------->EDIT MODE<-------", this.width/2, 5, Color.yellow.getRGB());
+			 this.drawCenteredString(this.fontRenderer, "Check MPUtils.cfg for Defaults", this.width/2, 5 + 2 + this.fontRenderer.FONT_HEIGHT, Color.yellow.getRGB());
 		 }
 		 
 		 super.drawScreen(mouseX, mouseY, partialTicks);

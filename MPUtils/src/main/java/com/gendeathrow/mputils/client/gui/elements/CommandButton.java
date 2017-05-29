@@ -8,9 +8,10 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.util.text.TextFormatting;
 
 import com.gendeathrow.mputils.client.gui.Gui_Edit_Command;
+import com.gendeathrow.mputils.client.gui.Gui_QuickMenu;
 import com.gendeathrow.mputils.client.settings.QuickCommandManager;
 import com.gendeathrow.mputils.client.settings.QuickCommandManager.CommandElement;
 
@@ -22,16 +23,18 @@ public class CommandButton extends GuiButton
 	int keybind1;
 	int keybind2;
 	
-	GuiScreen parent;
+	int listID;
+	
+	Gui_QuickMenu parent;
 	
 	public iconButton edit;
 	public iconButton del;
 	public iconButton add;
 	List<iconButton> buttonList = new ArrayList<iconButton>();
 	
-	FontRenderer fontrenderer = Minecraft.getMinecraft().fontRendererObj;
+	FontRenderer fontrenderer = Minecraft.getMinecraft().fontRenderer;
 	
-	public CommandButton(int buttonId, int x, int y, int widthIn, int heightIn, CommandElement command, int key1, int key2, GuiScreen parent) 
+	public CommandButton(int buttonId,int listID, int x, int y, int widthIn, int heightIn, CommandElement command, int key1, int key2, Gui_QuickMenu parent) 
 	{
 		super(buttonId, x, y, widthIn, heightIn, "");
 		
@@ -41,6 +44,8 @@ public class CommandButton extends GuiButton
 		this.keybind2 = key2;
 		
 		this.id = buttonId;
+		
+		this.listID = listID;
 		
 		this.parent = parent;
 		
@@ -102,16 +107,16 @@ public class CommandButton extends GuiButton
     {
     	if(button.equals(this.edit)) 
     	{
-    		Minecraft.getMinecraft().displayGuiScreen(new Gui_Edit_Command(this.command, this.id));
+    		Minecraft.getMinecraft().displayGuiScreen(new Gui_Edit_Command(this.parent.selectedList, this.command, this.id));
     	}
     	else if(button.equals(this.del)) 
     	{
-    		QuickCommandManager.instance.removeCommand(this.id);
+    		QuickCommandManager.instance.removeCommand(QuickCommandManager.getList(this.parent.selectedList), this.id);
     		this.parent.mc.displayGuiScreen(this.parent);
     	}
     	else if(button.equals(this.add))
     	{
-    		Minecraft.getMinecraft().displayGuiScreen(new Gui_Edit_Command(this.command, this.id));
+    		Minecraft.getMinecraft().displayGuiScreen(new Gui_Edit_Command(this.parent.selectedList,this.command, this.id));
     	}
     }
     
@@ -139,13 +144,13 @@ public class CommandButton extends GuiButton
         		this.edit.visible = false;
         		this.edit.enabled = false;
         	}
-        	FontRenderer fontrenderer = mc.fontRendererObj;
+        	FontRenderer fontrenderer = mc.fontRenderer;
 
             this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition - 2 && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height + 3;
             int i = this.getHoverState(this.hovered);
 
         	
-        	this.drawString(fontrenderer, (id+1) +". "+ title, this.xPosition + 10, this.yPosition, !this.hovered ? Color.WHITE.getRGB() : Color.YELLOW.getRGB());
+        	this.drawString(fontrenderer, TextFormatting.BOLD +""+ TextFormatting.GOLD + (id+1) + TextFormatting.RESET +". "+ title, this.xPosition + 10, this.yPosition, !this.hovered ? Color.WHITE.getRGB() : Color.YELLOW.getRGB());
 
         	int nextX = 0;
         	for(int l=0; l < this.buttonList.size(); l++)

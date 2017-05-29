@@ -71,7 +71,7 @@ public class TabletMain extends TabletWindow
         {
             this(buttonId, x, y, 25, 40, "");
             
-            renderItem = new EntityItem(Minecraft.getMinecraft().theWorld, 0, 0, 0, stack);
+            renderItem = new EntityItem(Minecraft.getMinecraft().world, 0, 0, 0, stack);
             
             this.displayString = "Test String";
             
@@ -99,7 +99,7 @@ public class TabletMain extends TabletWindow
         {
             if (this.visible)
             {
-            	FontRenderer fontrenderer = mc.fontRendererObj;            	
+            	FontRenderer fontrenderer = mc.fontRenderer;            	
 
             	boolean mouseOver = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
             	

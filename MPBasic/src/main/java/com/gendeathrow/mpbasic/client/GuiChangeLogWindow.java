@@ -53,7 +53,7 @@ public class GuiChangeLogWindow extends ScrollWindowBase
 			e.printStackTrace();
 		}
 		
-		scrollWindow = new TextScrollWindow(this.parent.mc, textfile, sizeX, sizeY, posY, posY + sizeY, Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT+2);
+		scrollWindow = new TextScrollWindow(this.parent.mc, textfile, sizeX, sizeY, posY, posY + sizeY, Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT+2);
 		this.scrollWindow.setSlotXBoundsFromLeft(posX);		 
 		this.setTitle(MPBSettings.changeLogTitle);
 		

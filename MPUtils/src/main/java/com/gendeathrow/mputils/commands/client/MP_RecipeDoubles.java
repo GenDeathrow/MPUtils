@@ -95,11 +95,11 @@ public class MP_RecipeDoubles extends MP_BaseCommand
 		String reply = Tools.CreateSaveFile(new File(Minecraft.getMinecraft().mcDataDir, "mputils/recipeDump.txt"), fileData);
 		
 		
-		sender.addChatMessage(new TextComponentTranslation("Shaped Ore Recipes Found: "+ foundShapedOreList.size()));
-		sender.addChatMessage(new TextComponentTranslation("Shaped Recipes Found: "+ foundShapedList.size()));
-		sender.addChatMessage(new TextComponentTranslation("Shapeless Recipes Found: "+ foundShapelessList.size()));
-		sender.addChatMessage(new TextComponentTranslation("Shapeless Ore Recipes Found: "+ foundShapelessOreList.size()));
-		sender.addChatMessage(new TextComponentTranslation(reply));
+		sender.sendMessage(new TextComponentTranslation("Shaped Ore Recipes Found: "+ foundShapedOreList.size()));
+		sender.sendMessage(new TextComponentTranslation("Shaped Recipes Found: "+ foundShapedList.size()));
+		sender.sendMessage(new TextComponentTranslation("Shapeless Recipes Found: "+ foundShapelessList.size()));
+		sender.sendMessage(new TextComponentTranslation("Shapeless Ore Recipes Found: "+ foundShapelessOreList.size()));
+		sender.sendMessage(new TextComponentTranslation(reply));
 		
 		
 	}
