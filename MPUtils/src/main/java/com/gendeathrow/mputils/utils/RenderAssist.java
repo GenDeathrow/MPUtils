@@ -352,6 +352,53 @@ public class RenderAssist {
         Minecraft.getMinecraft().getTextureManager().bindTexture(res);
     }
 
+    
+    
+    public static void drawRectWithBorder(int x1, int g, int x2, int y2, int color, int borderColor, float borderWidth)
+    {
+    	//gui.drawRect(x1, x2, g, y2, color);
+    	drawRect(x1, g, x2, y2, color);
+    	drawUnfilledRect(x1, g, x2, y2, borderColor, borderWidth);
+    }
+    
+    public static void drawUnfilledRect(int left, int top, int right, int bottom, int color, float linew)
+    {
+        if (left < right)
+        {
+            int i = left;
+            left = right;
+            right = i;
+        }
+
+        if (top < bottom)
+        {
+            int j = top;
+            top = bottom;
+            bottom = j;
+        }
+
+        float f = (color >> 24 & 255) / 255.0F;
+        float f1 = (color >> 16 & 255) / 255.0F;
+        float f2 = (color >> 8 & 255) / 255.0F;
+        float f3 = (color & 255) / 255.0F;
+        Tessellator tessellator = Tessellator.getInstance();
+        VertexBuffer vertexbuffer = tessellator.getBuffer();
+        
+        GlStateManager.enableBlend();
+        GlStateManager.disableTexture2D();
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GlStateManager.color(f1, f2, f3, f);
+        
+        vertexbuffer.begin(2, DefaultVertexFormats.POSITION);
+        vertexbuffer.pos((double)left, (double)bottom, 0.0D).endVertex();
+        vertexbuffer.pos((double)right, (double)bottom, 0.0D).endVertex();
+        vertexbuffer.pos((double)right, (double)top, 0.0D).endVertex();
+        vertexbuffer.pos((double)left, (double)top, 0.0D).endVertex();
+        tessellator.draw();
+        
+        GlStateManager.enableTexture2D();
+        GlStateManager.disableBlend();
+    }
     /**
      * Draws a solid color rectangle with the specified coordinates and color.
      * 

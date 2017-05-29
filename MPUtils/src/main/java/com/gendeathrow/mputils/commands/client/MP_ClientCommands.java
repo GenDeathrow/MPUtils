@@ -25,6 +25,7 @@ public class MP_ClientCommands  extends CommandBase
 		coms.add(new MP_LookAtCommand());
 		coms.add(new MP_EditMode());
 		coms.add(new MP_RecipeDoubles());
+		coms.add(new MP_Achievement_Dump());
 	}
 	
 	@Override

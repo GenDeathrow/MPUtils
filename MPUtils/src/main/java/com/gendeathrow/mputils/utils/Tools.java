@@ -42,19 +42,37 @@ public class Tools
 	
     public static InputStreamReader HttpRequest() throws IOException 
     {
-    	
             String stringUrl = "https://api.twitch.tv/kraken/search/streams?q=starcraft";
 	        URL url = new URL(stringUrl);
 	        URLConnection uc = url.openConnection();
-
 	        uc.setRequestProperty("application/vnd.twitchtv.v3+json", "Accept");
-
 	        InputStreamReader inputStreamReader = new InputStreamReader(uc.getInputStream());
-
-	        //System.out.println(IOUtils.toString(inputStreamReader));
-	        
 	        return inputStreamReader;
 	}
+    
+    
+    public static void test() throws IOException
+    {
+    //245239
+    	//https://minecraft.curseforge.com/projects/no-more-achievements
+    	
+    	
+    	//System.out.println(HttpRequest2("https://minecraft.curseforge.com/api/game/versions/245239"));
+    	
+    }
+    
+    public static InputStreamReader HttpRequest2(String stringUrl) throws IOException 
+    {
+            //String stringUrl = "https://api.twitch.tv/kraken/search/streams?q=starcraft";
+	        URL url = new URL(stringUrl);
+	        
+	        URLConnection uc = url.openConnection();
+	        //uc.addRequestProperty("x-api-key", "");
+	        InputStreamReader inputStreamReader = new InputStreamReader(uc.getInputStream());
+	        return inputStreamReader;
+	}
+    
+    
     
     
     
@@ -71,9 +89,8 @@ public class Tools
     
     public static void DownloadFile(String url, String fileName) throws IOException 
     {
-		 
 		 URL link = new URL(url); //The file that you want to download
-		
+
 		 InputStream in = new BufferedInputStream(link.openStream());
 		 ByteArrayOutputStream out = new ByteArrayOutputStream();
 		 byte[] buf = new byte[1024];
@@ -89,14 +106,12 @@ public class Tools
 		 FileOutputStream fos = new FileOutputStream(fileName);
 		 fos.write(response);
 		 fos.close();
-
 	}
     
     public static String CreateSaveFile(File file, String content)
 	{
 		try 
 		{
-
 			// if file doesnt exists, then create it
 			if (!file.exists()) 
 			{

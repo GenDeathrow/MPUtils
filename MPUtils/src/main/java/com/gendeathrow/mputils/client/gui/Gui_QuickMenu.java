@@ -39,8 +39,8 @@ public class Gui_QuickMenu extends GuiScreen
 
 	public static boolean pauseGame = false;
 	public static GuiCheckBox isPaused = new GuiCheckBox(200, 0, 0, I18n.format("mp.quickCommands.pause", new Object[0]), false);
-	public static iconButton global = new iconButton(56, 0, 0).setIcon(0, 3);
-	public static iconButton local = new iconButton(57, 0, 0).setIcon(1, 3);
+	public iconButton global = new iconButton(56, 0, 0).setIcon(0, 3);
+	public iconButton local = new iconButton(57, 0, 0).setIcon(1, 3);
 			
 			
 	CommandButton command1;

@@ -1,10 +1,17 @@
 package com.gendeathrow.mputils.core.proxies;
 
 
+import java.util.ArrayList;
+
+import scala.actors.threadpool.Arrays;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.ModContainer;
+import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -16,6 +23,8 @@ import com.gendeathrow.mputils.client.keybinds.KeyBinds;
 import com.gendeathrow.mputils.client.settings.MPUtils_SaveHandler;
 import com.gendeathrow.mputils.commands.client.MP_ClientCommands;
 import com.gendeathrow.mputils.configs.ConfigHandler;
+import com.gendeathrow.mputils.utils.NewMPInfo;
+import com.google.common.eventbus.Subscribe;
 
 public class MPClientProxy extends MPCommonProxy
 {
@@ -59,12 +68,18 @@ public class MPClientProxy extends MPCommonProxy
     		FMLCommonHandler.instance().bus().register(new KeyBinds());
 	}
 	
+
+    
 	@Override
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		super.preInit(event);
 		
 		ConfigHandler.load();
+		
+
+
+        //Loader.instance().getActiveModList().add(mp);
 	}
 	
 	@Override

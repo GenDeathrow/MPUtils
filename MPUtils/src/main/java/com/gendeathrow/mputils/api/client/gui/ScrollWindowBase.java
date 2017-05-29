@@ -65,15 +65,26 @@ public class ScrollWindowBase extends GuiScreen
 	private String versionText = "MPUtils version: "+ MPUtils.MCVERSION  + (MPUtils.MCVERSION != MPUtils.VERSION ? "("+ MPUtils.VERSION +")" : "");
 	private String mpVersion = "Pack: "+ MPInfo.name + " v"+ MPInfo.version;
 
-
+	boolean flag = false;
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks)
 	{
-		if(Loader.isModLoaded("CustomMainMenu") && this.parent instanceof GuiMainMenu)
+		
+		if(flag || (Loader.isModLoaded("CustomMainMenu") || Loader.isModLoaded("custommainmenu")) && this.parent instanceof GuiMainMenu)
 		{
 			this.drawDefaultBackground();
 		}
-		else this.parent.drawScreen(0, 0, partialTicks);
+		else 
+		{
+			try
+			{
+				this.parent.drawScreen(0, 0, partialTicks);
+			}
+			catch(NullPointerException e)
+			{
+				flag = true;
+			}
+		}
 		 
 		 drawRect(0, 0, width, height, RenderAssist.getColorFromRGBA(0, 0, 0, 150));
 		 

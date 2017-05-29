@@ -66,23 +66,23 @@ public class MPBConfigHandler
 			// issuetracker boolean useIngameForm
 			// issuetracker default crashelogs to create gist. 
 			// issuetracker send json data (automated issue report)
+//			
+//			boolean removeBugURL = false;
+//			
+//			ConfigCategory remove = new ConfigCategory("remove");
+//			if(config.hasKey(Configuration.CATEGORY_GENERAL, "Issue tracker url"))
+//			{
+//				MPBSettings.bugURL = config.getString("Issue tracker url", Configuration.CATEGORY_GENERAL, "http://minecraft.curseforge.com/projects/mputils/issues", "http of your Issue Tracker");
+//				
+//				config.moveProperty(Configuration.CATEGORY_GENERAL, "Issue tracker url", remove.getName());
+//				
+//				config.removeCategory(remove);
+//				removeBugURL = true;	
+//			}
+//			
 			
-			boolean removeBugURL = false;
 			
-			ConfigCategory remove = new ConfigCategory("remove");
-			if(config.hasKey(Configuration.CATEGORY_GENERAL, "Issue tracker url"))
-			{
-				MPBSettings.bugURL = config.getString("Issue tracker url", Configuration.CATEGORY_GENERAL, "http://minecraft.curseforge.com/projects/mputils/issues", "http of your Issue Tracker");
-				
-				config.moveProperty(Configuration.CATEGORY_GENERAL, "Issue tracker url", remove.getName());
-				
-				config.removeCategory(remove);
-				removeBugURL = true;	
-			}
-			
-			
-			
-			MPBSettings.issuetrackerURL = config.getString("Issue Tracker url", issueTrackerCat, removeBugURL ? MPBSettings.bugURL : "https://github.com/GenDeathrow/MPUtils/issues", "http of your IssueTracker");
+			MPBSettings.issuetrackerURL = config.getString("Issue Tracker url", issueTrackerCat, "https://github.com/GenDeathrow/MPUtils/issues", "http of your IssueTracker");
 			MPBSettings.useInGameForm = config.getBoolean("Use in game form", issueTrackerCat, false, "Use an in game form, If false the issue tracker button will just link to the tracker url.");
 			MPBSettings.crashlogsToGist = config.getBoolean("Crashlogs to Gist default", issueTrackerCat, true, "This just changes default setting to create a Gist like for change log. May break if git hub changes api.");
 			MPBSettings.sendJsonData = config.getBoolean("Use Automated issue tracker", issueTrackerCat, false, "This is an Advance Settings, The web address must accept Json data to be able to automate issue reporting."+ NEW_LINE +" It is up to you how you accept the json data on your website. "+ NEW_LINE +" A simple database Example with Google Sheets & Scripts is here: "+ NEW_LINE +" https://minecraft.curseforge.com/projects/mputils-basic-tools/pages/issue-tracker");

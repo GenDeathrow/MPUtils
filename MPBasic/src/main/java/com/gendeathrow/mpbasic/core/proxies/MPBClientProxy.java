@@ -11,6 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.gendeathrow.mpbasic.client.SideButtonHandler;
 import com.gendeathrow.mpbasic.client.MPSave.BTSaveHandler;
+import com.gendeathrow.mpbasic.client.gui.timer.TimerManager;
 import com.gendeathrow.mpbasic.client.notification.BasicNotifcationManager;
 import com.gendeathrow.mpbasic.configs.MPBConfigHandler;
 
@@ -52,6 +53,8 @@ public class MPBClientProxy extends MPBCommonProxy
 		
 		BasicNotifcationManager notification = new BasicNotifcationManager(Minecraft.getMinecraft());
 		MinecraftForge.EVENT_BUS.register(notification);
+		
+		MinecraftForge.EVENT_BUS.register(new TimerManager());
 
 	}
 	
