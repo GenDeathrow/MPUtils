@@ -25,7 +25,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
-public class NBTConverter
+public class NBTJSONConverter
 {
 	/**
 	 * Convert NBT tags to a JSON object

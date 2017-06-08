@@ -19,7 +19,7 @@ public class ccmUtils
 	      cMainMenu = Class.forName("lumien.custommainmenu.gui.GuiCustom");
 	      
 	      cmmExist = true;
-	      System.out.println("Custom Main Menu is loaded");
+	      //System.out.println("Custom Main Menu is loaded");
 	    }
 	    catch (Throwable localThrowable1) 
 	    {

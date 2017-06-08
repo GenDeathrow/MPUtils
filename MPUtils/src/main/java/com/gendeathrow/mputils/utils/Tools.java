@@ -342,7 +342,7 @@ public class Tools
 					nbt += " NBT:";
 					if(nbtdata != null)
 					{
-						nbt += " "+ new GsonBuilder().create().toJson(NBTConverter.NBTtoJSON_Compound(nbtdata, new JsonObject()));
+						nbt += " "+ new GsonBuilder().create().toJson(NBTJSONConverter.NBTtoJSON_Compound(nbtdata, new JsonObject()));
 					}
 					else nbt += " {NBT Null}";
 					flag3 = true;

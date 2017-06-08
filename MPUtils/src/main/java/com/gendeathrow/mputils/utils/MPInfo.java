@@ -178,9 +178,7 @@ public class MPInfo implements ModContainer
 		
 		
 		if(JsonHandler.WriteJsonFile(new File(ConfigHandler.configDir, "mpinfo.info"), json))
-		{
-			System.out.println("Saved File");
-		}
+			MPUtils.logger.info("Saved MPInfo File");
 		
 	}
 

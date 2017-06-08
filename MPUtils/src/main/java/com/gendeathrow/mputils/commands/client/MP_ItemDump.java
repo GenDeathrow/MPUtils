@@ -6,14 +6,21 @@ import java.util.List;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
 
 import com.gendeathrow.mputils.commands.MP_BaseCommand;
 import com.gendeathrow.mputils.configs.ConfigHandler;
-import com.gendeathrow.mputils.utils.NBTConverter;
+import com.gendeathrow.mputils.utils.MTNBTConverter;
+import com.gendeathrow.mputils.utils.NBTJSONConverter;
 import com.gendeathrow.mputils.utils.Tools;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -23,7 +30,7 @@ public class MP_ItemDump extends MP_BaseCommand
 
 
 	//ArrayList options = new ArrayList<String>(Arrays.asList("nbt", "ore", "<>", "|parseexample %s|"));
-	ArrayList options = new ArrayList<String>(Arrays.asList("ore", "nbt", "setPretty", "class", "extendedClass", "<>"));
+	ArrayList options = new ArrayList<String>(Arrays.asList("ore", "nbt", "setPretty", "class", "extendedClass", "<>", "onlyhasrecipes"));
 
 	
 	@Override
@@ -38,7 +45,7 @@ public class MP_ItemDump extends MP_BaseCommand
 	public String getUsageSuffix()
 	{
 		//return " [Args:(nbt, ore, <>, |string|)]";
-		return " [Args:(nbt, ore, setPretty, class, extendedClass, <>)]";
+		return " [Args:(nbt, ore, setPretty, class, extendedClass, <>, onlyhasrecipes)]";
 	}
 	
 	public List<String> autoComplete(ICommandSender sender, String[] args)
@@ -50,12 +57,41 @@ public class MP_ItemDump extends MP_BaseCommand
 	boolean isSilent = false;
 	boolean useParser = false;
 	
-	protected String parseStackData(ICommandSender sender, String[] args, ItemStack stack)
+	public String parseStackData(ICommandSender sender, String[] args, ItemStack stack)
 	{				
 
-		if(stack.isEmpty())
+		if(stack.isEmpty() || stack.getItem() == Items.AIR)
 			return "";
 		
+		List<String> printout = new ArrayList<String>();
+
+		String returnback = parserItemstack(args, stack, printout);
+		
+		if(!isSilent)
+		{
+			for(String print : printout)
+			{
+				sender.sendMessage(new TextComponentTranslation(print));
+			}
+		}
+		
+		return returnback;
+	}
+	
+	@Override
+	public String getCommand() 
+	{
+		return null;
+	}
+
+	@Override
+	public void runCommand(CommandBase command, ICommandSender sender, String[] args) 
+	{
+		
+	}
+
+	public static String parserItemstack(String[] args, ItemStack stack, List<String> printout)
+	{
 		String itemID = stack.getItem().getRegistryName() + (stack.getItemDamage() != 0 ? ":"+ stack.getItemDamage() : "");
 		String ore = "";
 		String clazz = "";
@@ -70,9 +106,9 @@ public class MP_ItemDump extends MP_BaseCommand
 		
 		String returnback = "";
 		
-
+		boolean recipeFlag = false;
+		boolean hasRecipe = false;
 		
-		List<String> printout = new ArrayList<String>();
 		printout.add(itemID);
 		
 		if(args.length > 1)
@@ -91,6 +127,7 @@ public class MP_ItemDump extends MP_BaseCommand
 			boolean extendFlag = false;
 			boolean parseFlag = false;
 			boolean skipFlag = false;
+
 			
 			// Check if pretty printing will happen
 			for(String arg : args)
@@ -145,7 +182,7 @@ public class MP_ItemDump extends MP_BaseCommand
 				}
 				else if((arg.toLowerCase().trim().equals("nbt")) && !nbtflag  && !skipFlag)
 				{
-					NBTTagCompound nbtdata = stack.getTagCompound();
+					NBTBase nbtdata = stack.getTagCompound();
 				
 
 					if(nbtdata != null)
@@ -154,48 +191,44 @@ public class MP_ItemDump extends MP_BaseCommand
 						
 						GsonBuilder gson = new GsonBuilder();
 						gson.setPrettyPrinting();
-						
+
 						printout.add("NBT Data Found");
-						nbt += nbtdata.toString() +")";
-						//nbtPretty += gson.create().toJson(nbtdata.toString());
+						
+						if(Loader.isModLoaded("crafttweaker"))
+							nbt += MTNBTConverter.from(nbtdata, false).toString() +")";
+						else
+							nbt += nbtdata.toString() +")";
 					}								
 
 					nbtflag = true;
+				}else if(arg.toLowerCase().trim().equals("onlyhasrecipes") && !recipeFlag)
+				{
+					
+					recipeFlag = true;
+					
+					List<IRecipe> recipeList = CraftingManager.getInstance().getRecipeList();
+					for(IRecipe recipe : recipeList)
+					{
+						if(recipe.getRecipeOutput().getItem() == stack.getItem() && recipe.getRecipeOutput().getItemDamage() == stack.getItemDamage())
+						{
+							hasRecipe = true;
+							break;
+						}
+					}
+					
+					
 				}
-				
-				
-				
-
-//				else if((arg.toLowerCase().trim().startsWith("|") || skipFlag) && !flag4)
-//				{
-//					formatString += " "+arg;
-//					
-//					if(!arg.toLowerCase().trim().endsWith("|"))
-//					{
-//						skipFlag = true;
-//						continue;
-//					}
-//					else skipFlag = false;
-//					
-//					itemID = String.format(formatString.trim().substring(1, (formatString.trim().length()-1)), itemID);
-//					parseFlag = true;
-//				}
 				
 			}
 		}
 
-		if(!isSilent)
+		if(recipeFlag && !hasRecipe)
 		{
-			printout.add("---------------");
-			for(String print : printout)
-			{
-				sender.sendMessage(new TextComponentTranslation(print));
-			}
+			return "";
 		}
 		
 		if(isPretty)
 		{
-		
 			returnback = "-------------------------------------"+ ConfigHandler.NEW_LINE;
 			returnback += "ItemID: "+ itemID + ConfigHandler.NEW_LINE;
 			returnback += ore + ConfigHandler.NEW_LINE;
@@ -206,33 +239,6 @@ public class MP_ItemDump extends MP_BaseCommand
 		else
 			returnback =  itemID + nbt + ore + clazz + extend + ConfigHandler.NEW_LINE;
 		
-		return returnback;
-	}
-	
-	@Override
-	public String getCommand() 
-	{
-		return null;
-	}
-
-	@Override
-	public void runCommand(CommandBase command, ICommandSender sender, String[] args) 
-	{
-		
-	}
-
-	
-	public class Parser
-	{
-		ArrayList<ItemStack> items = new ArrayList<ItemStack>();
-		
-		public Parser()
-		{
-			
-		}
-		
-		public void addItem(ItemStack stack){
-			this.items.add(stack);
-		}
+		return returnback;		
 	}
 }

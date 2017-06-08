@@ -69,7 +69,7 @@ public class MP_ModItemDump extends MP_ItemDump
 				String modid = args[1];
 				
 				
-				System.out.println(modid +"---------------");
+				//System.out.println(modid +"---------------");
 				EntityPlayer player = (EntityPlayer) sender;
 				
 				int total = Block.REGISTRY.getKeys().size() + Item.REGISTRY.getKeys().size();

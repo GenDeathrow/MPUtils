@@ -12,6 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 
 import com.gendeathrow.mputils.commands.MP_BaseCommand;
+import com.gendeathrow.mputils.commands.common.MP_InContainer;
 
 public class MP_ClientCommands  extends CommandBase
 {
@@ -24,6 +25,7 @@ public class MP_ClientCommands  extends CommandBase
 		coms.add(new MP_Inventory());
 		coms.add(new MP_ModItemDump());
 		coms.add(new MP_LookAtCommand());
+		coms.add(new MP_InContainer());
 		coms.add(new MP_EditMode());
 		coms.add(new MP_RecipeDoubles());
 	}

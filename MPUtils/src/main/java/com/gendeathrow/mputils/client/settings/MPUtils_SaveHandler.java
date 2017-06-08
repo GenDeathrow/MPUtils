@@ -96,7 +96,7 @@ public class MPUtils_SaveHandler
 		
 		QuickCommandManager.save(QuickCommandManager.getList(1), globalTag);
 		
-		System.out.println(globalQuickFile.getAbsolutePath());
+		//System.out.println(globalQuickFile.getAbsolutePath());
 		SaveNBTFile(globalQuickFile, globalTag);
 	}
 	
@@ -142,7 +142,7 @@ public class MPUtils_SaveHandler
 				saveGlobal();	
 			}
 			
-			System.out.println("::"+ globalQuickFile.getAbsolutePath());
+			//System.out.println("::"+ globalQuickFile.getAbsolutePath());
 		} 
 		catch (IOException e) 
 		{

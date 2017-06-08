@@ -38,7 +38,7 @@ public class MPCommonProxy
 	
 	public void init(FMLInitializationEvent event)
 	{
-		
+
 	}
 	
 	public void postInit(FMLPostInitializationEvent event)

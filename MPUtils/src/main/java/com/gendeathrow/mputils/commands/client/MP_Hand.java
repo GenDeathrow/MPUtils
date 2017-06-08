@@ -15,7 +15,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import com.gendeathrow.mputils.commands.MP_BaseCommand;
 import com.gendeathrow.mputils.configs.ConfigHandler;
-import com.gendeathrow.mputils.utils.NBTConverter;
+import com.gendeathrow.mputils.utils.NBTJSONConverter;
 import com.gendeathrow.mputils.utils.Tools;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;

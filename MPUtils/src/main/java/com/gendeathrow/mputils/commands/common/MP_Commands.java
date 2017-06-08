@@ -11,6 +11,7 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
 
 import com.gendeathrow.mputils.commands.MP_BaseCommand;
 import com.gendeathrow.mputils.commands.client.MP_LookAtCommand;
@@ -21,23 +22,34 @@ public class MP_Commands extends CommandBase
 	
 	public MP_Commands()
 	{
-		//coms.add(new MP_LookAtCommand());
+		coms.add(new MP_InContainer());
 	}
 	
 	
 	@Override
 	public String getName() 
 	{
-		return "mputil_admin";
+		return "mputil";
 	}
 
 	@Override
+    public List getAliases()
+    {
+		ArrayList<String> al = new ArrayList<String>();
+		al.add("mp");
+		al.add("mputils");
+        return al;
+    }
+	
+	@Override
 	public String getUsage(ICommandSender sender) 
 	{
-		String txt = "";
+		
 		
 		for(int i = 0; i < coms.size(); i++)
 		{
+			String txt = "";
+			
 			MP_BaseCommand c = coms.get(i);
 			txt += "/mputil " + c.getCommand();
 			
@@ -50,31 +62,32 @@ public class MP_Commands extends CommandBase
 			{
 				txt += ", ";
 			}
+			
+			sender.sendMessage(new TextComponentTranslation(txt));
 		}
 		
-		return txt;
+		return "</mp, /mputil, /mputils>";
 
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
-    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos)
+    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] strings, BlockPos pos)
     {
-		if(args.length == 1)
+		if(strings.length == 1)
 		{
 			ArrayList<String> base = new ArrayList<String>();
 			for(MP_BaseCommand c : coms)
 			{
 				base.add(c.getCommand());
 			}
-        	return getListOfStringsMatchingLastWord(args, base.toArray(new String[0]));
-		} else if(args.length > 1)
+        	return getListOfStringsMatchingLastWord(strings, base.toArray(new String[0]));
+		} else if(strings.length > 1)
 		{
 			for(MP_BaseCommand c : coms)
 			{
-				if(c.getCommand().equalsIgnoreCase(args[0]))
+				if(c.getCommand().equalsIgnoreCase(strings[0]))
 				{
-					return c.autoComplete(sender, args);
+					return c.autoComplete(sender, strings);
 				}
 			}
 		}
@@ -113,7 +126,6 @@ public class MP_Commands extends CommandBase
 		
 		throw new WrongUsageException(this.getUsage(sender));
 	}
-
 
 
 }
