@@ -29,7 +29,7 @@ import com.google.common.eventbus.Subscribe;
 public class MPUtils 
 {
     public static final String MODID = "mputils";
-    public static final String VERSION = "1.2.8";
+    public static final String VERSION = "1.2.9";
     public static final String NAME = "MPUtils";
     public static final String PROXY = "com.gendeathrow.mputils.core.proxies";
     

@@ -37,7 +37,7 @@ public class ConfigHandler
 	
 		loadConfiguration();
 		
-		MPInfo.LoadMPInfo();
+		//MPInfo.LoadMPInfo();
 	}
 	
 	@SuppressWarnings("unused")

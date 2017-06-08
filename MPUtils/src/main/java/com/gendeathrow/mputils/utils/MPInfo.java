@@ -54,7 +54,7 @@ public class MPInfo extends DummyModContainer
     {
         super(new ModMetadata());
         
-        //LoadMPInfo();
+        LoadMPInfo();
         
         ModMetadata meta = getMetadata();
         meta.modId       = "mputils_container";
