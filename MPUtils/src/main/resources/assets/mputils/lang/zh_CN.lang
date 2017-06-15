@@ -1,0 +1,30 @@
+tips.get=帮助提示！
+
+mp.mpinfoedit.title
+
+mp.quickCommands.edit.title=设置你的快捷指令
+mp.quickCommands.title=快捷指令
+mp.quickCommands.title.local=本地指令
+mp.quickCommands.title.global=全局指令G
+mp.quickCommands.hover=按下 %d 运行
+mp.quickCommands.hover2=或者点击
+mp.quickCommands.pause=暂停游戏
+
+mp.quickCommands.local=本地实例指令
+mp.quickCommands.global=全局实例指令
+mp.text.title=标题
+mp.text.newCmd=新建指令
+advMode.toggleBoolean=使用“@t”切换（true，false）
+
+
+mp.text.mpinfoedit.title=编辑 MPInfo.info 文件
+mp.text.mpinfo.name=包名
+mp.text.mpinfo.desc=描述
+mp.text.mpinfo.ver=Ver(Max.Min.Rev)
+mp.text.mpinfo.url=网站
+mp.text.mpinfo.authors=作者
+mp.text.mpinfo.credits=鸣谢
+
+mp.text.settingsgui.title=MPUtils 设置
+mp.buttontext.mpinfoedit=编辑 MPInfo
+mp.buttontext.configfile=编辑 MPUtils.cfg
