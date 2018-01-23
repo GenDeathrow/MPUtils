@@ -3,16 +3,18 @@ package com.gendeathrow.mputils.client.gui;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.lwjgl.input.Keyboard;
+
+import com.gendeathrow.mputils.utils.MPInfo;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
 
-import org.lwjgl.input.Keyboard;
 
-import com.gendeathrow.mputils.core.MPUtils;
-import com.gendeathrow.mputils.utils.MPInfo;
-import com.gendeathrow.mputils.utils.Tools;
+
+
 
 public class MPInfoEditor extends GuiScreen
 {
@@ -227,14 +229,14 @@ public class MPInfoEditor extends GuiScreen
     {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRenderer, I18n.format("mp.mpinfoedit.title", new Object[0]), this.width / 2, 25, 16777215);
-        this.drawString(this.fontRenderer, I18n.format("mp.text.mpinfo.name", new Object[0]) + ":", this.name.xPosition - 5 - (this.fontRenderer.getStringWidth(I18n.format("mp.text.mpinfo.name", new Object[0]))), 			this.name.yPosition + 5, 10526880);
-        this.drawString(this.fontRenderer, I18n.format("mp.text.mpinfo.desc", new Object[0])+ ":", this.description.xPosition - 5 - (this.fontRenderer.getStringWidth(I18n.format("mp.text.mpinfo.desc", new Object[0]))), 	this.description.yPosition + 5, 10526880);
-        this.drawString(this.fontRenderer, I18n.format("mp.text.mpinfo.ver", new Object[0])+ ":", this.verMax.xPosition - 5 - (this.fontRenderer.getStringWidth(I18n.format("mp.text.mpinfo.ver", new Object[0]))), 			this.verMax.yPosition + 5, 10526880);
-        	this.drawString(this.fontRenderer, ".", this.verMin.xPosition - 2, this.verMax.yPosition + 19, 10526880);
-        	this.drawString(this.fontRenderer, ".", this.verRev.xPosition - 2, this.verMax.yPosition + 19, 10526880);
-        this.drawString(this.fontRenderer, I18n.format("mp.text.mpinfo.url", new Object[0])+ ":", this.url.xPosition - 5 - (this.fontRenderer.getStringWidth(I18n.format("mp.text.mpinfo.url", new Object[0]))), 				this.url.yPosition + 5, 10526880);
-        this.drawString(this.fontRenderer, I18n.format("mp.text.mpinfo.authors", new Object[0])+ ":", this.authorList.xPosition - 5 - (this.fontRenderer.getStringWidth(I18n.format("mp.text.mpinfo.authors", new Object[0]))),this.authorList.yPosition + 5, 10526880);
-        this.drawString(this.fontRenderer, I18n.format("mp.text.mpinfo.credits", new Object[0])+ ":", this.credits.xPosition - 5 - (this.fontRenderer.getStringWidth(I18n.format("mp.text.mpinfo.credits", new Object[0]))), 	this.credits.yPosition + 5, 10526880);
+        this.drawString(this.fontRenderer, I18n.format("mp.text.mpinfo.name", new Object[0]) + ":", this.name.x - 5 - (this.fontRenderer.getStringWidth(I18n.format("mp.text.mpinfo.name", new Object[0]))), 			this.name.y + 5, 10526880);
+        this.drawString(this.fontRenderer, I18n.format("mp.text.mpinfo.desc", new Object[0])+ ":", this.description.x - 5 - (this.fontRenderer.getStringWidth(I18n.format("mp.text.mpinfo.desc", new Object[0]))), 	this.description.y + 5, 10526880);
+        this.drawString(this.fontRenderer, I18n.format("mp.text.mpinfo.ver", new Object[0])+ ":", this.verMax.x - 5 - (this.fontRenderer.getStringWidth(I18n.format("mp.text.mpinfo.ver", new Object[0]))), 			this.verMax.y + 5, 10526880);
+        	this.drawString(this.fontRenderer, ".", this.verMin.x - 2, this.verMax.y + 19, 10526880);
+        	this.drawString(this.fontRenderer, ".", this.verRev.x - 2, this.verMax.y + 19, 10526880);
+        this.drawString(this.fontRenderer, I18n.format("mp.text.mpinfo.url", new Object[0])+ ":", this.url.x - 5 - (this.fontRenderer.getStringWidth(I18n.format("mp.text.mpinfo.url", new Object[0]))), 				this.url.y + 5, 10526880);
+        this.drawString(this.fontRenderer, I18n.format("mp.text.mpinfo.authors", new Object[0])+ ":", this.authorList.x - 5 - (this.fontRenderer.getStringWidth(I18n.format("mp.text.mpinfo.authors", new Object[0]))),this.authorList.y + 5, 10526880);
+        this.drawString(this.fontRenderer, I18n.format("mp.text.mpinfo.credits", new Object[0])+ ":", this.credits.x - 5 - (this.fontRenderer.getStringWidth(I18n.format("mp.text.mpinfo.credits", new Object[0]))), 	this.credits.y + 5, 10526880);
         
         this.name.drawTextBox();
         this.description.drawTextBox();

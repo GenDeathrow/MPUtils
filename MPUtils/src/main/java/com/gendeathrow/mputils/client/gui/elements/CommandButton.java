@@ -5,15 +5,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.util.text.TextFormatting;
-
 import com.gendeathrow.mputils.client.gui.Gui_Edit_Command;
 import com.gendeathrow.mputils.client.gui.Gui_QuickMenu;
 import com.gendeathrow.mputils.client.settings.QuickCommandManager;
 import com.gendeathrow.mputils.client.settings.QuickCommandManager.CommandElement;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.util.text.TextFormatting;
 
 public class CommandButton extends GuiButton
 {
@@ -63,7 +63,7 @@ public class CommandButton extends GuiButton
 	
     public boolean mousePressed(Minecraft mc, int mouseX, int mouseY)
     {
-    	return this.enabled && this.visible && mouseX >= this.xPosition && mouseY >= this.yPosition - 2 && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height + 3;
+    	return this.enabled && this.visible && mouseX >= this.x && mouseY >= this.y - 2 && mouseX < this.x + this.width && mouseY < this.y + this.height + 3;
     }
     
     public boolean MousePressedIcon(Minecraft mc, int mouseX, int mouseY)
@@ -146,17 +146,17 @@ public class CommandButton extends GuiButton
         	}
         	FontRenderer fontrenderer = mc.fontRenderer;
 
-            this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition - 2 && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height + 3;
+            this.hovered = mouseX >= this.x && mouseY >= this.y - 2 && mouseX < this.x + this.width && mouseY < this.y + this.height + 3;
             int i = this.getHoverState(this.hovered);
 
         	
-        	this.drawString(fontrenderer, TextFormatting.BOLD +""+ TextFormatting.GOLD + (id+1) + TextFormatting.RESET +". "+ title, this.xPosition + 10, this.yPosition, !this.hovered ? Color.WHITE.getRGB() : Color.YELLOW.getRGB());
+        	this.drawString(fontrenderer, TextFormatting.BOLD +""+ TextFormatting.GOLD + (id+1) + TextFormatting.RESET +". "+ title, this.x + 10, this.y, !this.hovered ? Color.WHITE.getRGB() : Color.YELLOW.getRGB());
 
         	int nextX = 0;
         	for(int l=0; l < this.buttonList.size(); l++)
         	{
-        		this.buttonList.get(l).xPosition = this.xPosition + 95 + (16 * nextX);
-        		this.buttonList.get(l).yPosition = this.yPosition + -5;
+        		this.buttonList.get(l).x = this.x + 95 + (16 * nextX);
+        		this.buttonList.get(l).y = this.y + -5;
         		this.buttonList.get(l).drawButton(mc, mouseX, mouseY);
         		
         		if(this.buttonList.get(l).enabled)
@@ -169,8 +169,8 @@ public class CommandButton extends GuiButton
     
     public void setPosition(int x, int y)
     {
-    	this.xPosition = x;
-    	this.yPosition = y;
+    	this.x = x;
+    	this.y = y;
     }
     
     public boolean isHovered()

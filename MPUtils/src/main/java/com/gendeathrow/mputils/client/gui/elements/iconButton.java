@@ -1,12 +1,12 @@
 package com.gendeathrow.mputils.client.gui.elements;
 
+import com.gendeathrow.mputils.core.MPUtils;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
-
-import com.gendeathrow.mputils.core.MPUtils;
 
 public class iconButton extends GuiButton
 {
@@ -46,13 +46,13 @@ public class iconButton extends GuiButton
 	            FontRenderer fontrenderer = mc.fontRenderer;
 	            mc.getTextureManager().bindTexture(iconTexture);
 	            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-	            this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
+	            this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
 	            int i = this.getHoverState(this.forcedHighlight ? true : this.hovered);
 	            GlStateManager.enableBlend();
 	            GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 	            GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
 
-	        	this.drawTexturedModalRect(this.xPosition, this.yPosition, this.iconX, this.iconY + ((i * 16) - 16), 16, 16);
+	        	this.drawTexturedModalRect(this.x, this.y, this.iconX, this.iconY + ((i * 16) - 16), 16, 16);
 	        	
 	            this.mouseDragged(mc, mouseX, mouseY);
 	            int j = 14737632;

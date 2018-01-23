@@ -2,13 +2,13 @@ package com.gendeathrow.mputils.configs;
 
 import java.io.File;
 
-import net.minecraftforge.common.config.Configuration;
-
 import org.apache.logging.log4j.Level;
 
 import com.gendeathrow.mputils.core.MPUtils;
 import com.gendeathrow.mputils.core.Settings;
 import com.gendeathrow.mputils.utils.MPInfo;
+
+import net.minecraftforge.common.config.Configuration;
 
 public class ConfigHandler 
 {

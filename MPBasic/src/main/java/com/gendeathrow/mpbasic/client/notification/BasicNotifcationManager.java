@@ -1,18 +1,18 @@
 package com.gendeathrow.mpbasic.client.notification;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-
 import com.gendeathrow.mpbasic.client.MPSave.BTSaveHandler;
 import com.gendeathrow.mpbasic.core.MPBSettings;
 import com.gendeathrow.mpbasic.core.MPBasic;
 import com.gendeathrow.mputils.client.gui.notification.NotificationManager;
 import com.gendeathrow.mputils.client.settings.MPUtils_SaveHandler;
 import com.gendeathrow.mputils.utils.MPInfo;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class BasicNotifcationManager extends NotificationManager
 {

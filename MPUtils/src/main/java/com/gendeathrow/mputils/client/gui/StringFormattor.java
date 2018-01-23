@@ -1,12 +1,6 @@
 package com.gendeathrow.mputils.client.gui;
 
-import java.awt.Color;
-
-import javax.swing.WindowConstants;
-
 import net.minecraft.client.gui.GuiScreen;
-
-import com.gendeathrow.mputils.client.gui.elements.TextEditor;
 
 public class StringFormattor extends GuiScreen 
 {

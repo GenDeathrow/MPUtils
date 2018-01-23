@@ -6,14 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.fml.client.config.GuiCheckBox;
-
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
@@ -23,6 +15,14 @@ import com.gendeathrow.mputils.client.keybinds.KeyBinds;
 import com.gendeathrow.mputils.client.settings.QuickCommandManager;
 import com.gendeathrow.mputils.client.settings.QuickCommandManager.CommandElement;
 import com.gendeathrow.mputils.core.MPUtils;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fml.client.config.GuiCheckBox;
 
 public class Gui_QuickMenu extends GuiScreen 
 {
@@ -242,14 +242,14 @@ public class Gui_QuickMenu extends GuiScreen
         
         this.drawString(fontRenderer, TextFormatting.BOLD +""+ TextFormatting.UNDERLINE + I18n.format(title, new Object[0]), xPos + 14, yPos+ 5, Color.WHITE.getRGB());
         
-        this.isPaused.xPosition = xPos + 10;
-        this.isPaused.yPosition = yPos + 33;
+        this.isPaused.x = xPos + 10;
+        this.isPaused.y = yPos + 33;
         
-        this.global.xPosition = (this.width - 55) + xOffset;
-        this.global.yPosition = yPos + 16;
+        this.global.x = (this.width - 55) + xOffset;
+        this.global.y = yPos + 16;
 
-        this.local.xPosition = (this.width - 75) + xOffset;
-        this.local.yPosition = yPos + 16;
+        this.local.x = (this.width - 75) + xOffset;
+        this.local.y = yPos + 16;
 
 
         

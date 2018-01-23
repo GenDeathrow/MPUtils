@@ -3,6 +3,9 @@ package com.gendeathrow.mputils.commands.client;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gendeathrow.mputils.commands.MP_BaseCommand;
+import com.gendeathrow.mputils.commands.common.MP_InContainer;
+
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -10,9 +13,6 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
-
-import com.gendeathrow.mputils.commands.MP_BaseCommand;
-import com.gendeathrow.mputils.commands.common.MP_InContainer;
 
 public class MP_ClientCommands  extends CommandBase
 {
@@ -27,7 +27,7 @@ public class MP_ClientCommands  extends CommandBase
 		coms.add(new MP_LookAtCommand());
 		coms.add(new MP_InContainer());
 		coms.add(new MP_EditMode());
-		coms.add(new MP_RecipeDoubles());
+		//coms.add(new MP_RecipeDoubles());
 	}
 	
 	@Override

@@ -1,9 +1,9 @@
 package com.gendeathrow.mpbasic.client.notification;
 
+import com.gendeathrow.mputils.client.gui.notification.NotificationBase;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-
-import com.gendeathrow.mputils.client.gui.notification.NotificationBase;
 
 public class UpdateNotification extends NotificationBase
 {

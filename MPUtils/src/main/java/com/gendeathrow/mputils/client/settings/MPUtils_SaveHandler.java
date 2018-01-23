@@ -7,13 +7,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.gendeathrow.mputils.api.client.gui.IMPSaveHandler;
+import com.gendeathrow.mputils.core.MPUtils;
+
 import net.minecraft.crash.CrashReport;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ReportedException;
-
-import com.gendeathrow.mputils.api.client.gui.IMPSaveHandler;
-import com.gendeathrow.mputils.core.MPUtils;
 
 public class MPUtils_SaveHandler 
 {
@@ -44,7 +44,7 @@ public class MPUtils_SaveHandler
 		
 		if(mainTag != null && !mainTag.hasNoTags())
 		{
-		
+
 			Iterator<IMPSaveHandler> ite = extraSaveData.iterator();
 			while(ite.hasNext())
 			{

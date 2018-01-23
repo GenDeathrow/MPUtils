@@ -1,14 +1,14 @@
 package com.gendeathrow.mputils.api.client.gui.elements;
 
+import org.lwjgl.opengl.GL11;
+
+import com.gendeathrow.mputils.core.MPUtils;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.util.ResourceLocation;
-
-import org.lwjgl.opengl.GL11;
-
-import com.gendeathrow.mputils.core.MPUtils;
 
 public class SideTabButton extends GuiButton
 {
@@ -36,8 +36,6 @@ public class SideTabButton extends GuiButton
 	public SideTabButton(int buttonId, int x, int y, int widthIn, int heightIn,	String buttonText) 
 	{
 		super(buttonId, x, y, widthIn, heightIn, buttonText);
-		int textInt = Minecraft.getMinecraft().fontRenderer.getStringWidth(buttonText);
-
 	    this.xOffset = this.width - 26;
 	    this.xOpened = xOffset;
 	}
@@ -99,8 +97,8 @@ public class SideTabButton extends GuiButton
 	      
 	}
 	
-	
-    public void drawButton(Minecraft mc, int mouseX, int mouseY)
+	@Override
+    public void drawButton(Minecraft mc, int mouseX, int mouseY,  float partialTicks)
     {
         if (this.visible)
         {
@@ -109,14 +107,14 @@ public class SideTabButton extends GuiButton
             FontRenderer fontRendererObj = mc.fontRenderer;
             mc.getTextureManager().bindTexture(buttonTexture);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            this.hovered = mouseX >= this.xPosition + xOffset && mouseY >= this.yPosition && mouseX < this.xPosition + this.width + xOffset&& mouseY < this.yPosition + this.height;
+            this.hovered = mouseX >= this.x + xOffset && mouseY >= this.y && mouseX < this.x + this.width + xOffset&& mouseY < this.y + this.height;
             int i = this.getHoverState(this.hovered);
             GL11.glEnable(GL11.GL_BLEND);
             OpenGlHelper.glBlendFunc(770, 771, 1, 0);
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             
-            this.drawTexturedModalRect(this.xPosition + xOffset, this.yPosition, 0, 6 + i * 20, this.width / 2, this.height);
-            this.drawTexturedModalRect(this.xPosition + this.width / 2 + xOffset, this.yPosition, 200 - this.width / 2, 6 + i * 20, this.width / 2, this.height);
+            this.drawTexturedModalRect(this.x + xOffset, this.y, 0, 6 + i * 20, this.width / 2, this.height);
+            this.drawTexturedModalRect(this.x + this.width / 2 + xOffset, this.y, 200 - this.width / 2, 6 + i * 20, this.width / 2, this.height);
             
             this.mouseDragged(mc, mouseX, mouseY);
             int j = 14737632;
@@ -135,11 +133,11 @@ public class SideTabButton extends GuiButton
                 j = 16777120;
             }
 
-            this.drawString(fontRendererObj, this.displayString, this.xPosition + 25 + xOffset, this.yPosition + (this.height - 8) / 2, j);
+            this.drawString(fontRendererObj, this.displayString, this.x + 25 + xOffset, this.y + (this.height - 8) / 2, j);
             
             mc.getTextureManager().bindTexture(iconTexture);
             
-            this.drawTexturedModalRect(this.xPosition + 7 + xOffset, this.yPosition + 1, iconX, iconY, 16, 16);
+            this.drawTexturedModalRect(this.x + 7 + xOffset, this.y + 1, iconX, iconY, 16, 16);
         }
     }
 

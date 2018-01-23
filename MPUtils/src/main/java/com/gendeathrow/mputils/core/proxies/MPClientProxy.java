@@ -1,6 +1,12 @@
 package com.gendeathrow.mputils.core.proxies;
 
 
+import com.gendeathrow.mputils.client.gui.GuiEventHandler;
+import com.gendeathrow.mputils.client.keybinds.KeyBinds;
+import com.gendeathrow.mputils.client.settings.MPUtils_SaveHandler;
+import com.gendeathrow.mputils.commands.client.MP_ClientCommands;
+import com.gendeathrow.mputils.configs.ConfigHandler;
+
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
@@ -10,12 +16,6 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import com.gendeathrow.mputils.client.gui.GuiEventHandler;
-import com.gendeathrow.mputils.client.keybinds.KeyBinds;
-import com.gendeathrow.mputils.client.settings.MPUtils_SaveHandler;
-import com.gendeathrow.mputils.commands.client.MP_ClientCommands;
-import com.gendeathrow.mputils.configs.ConfigHandler;
 
 public class MPClientProxy extends MPCommonProxy
 {

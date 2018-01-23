@@ -1,17 +1,16 @@
 package com.gendeathrow.mpbasic.configs;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-
-import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.common.config.ConfigCategory;
-import net.minecraftforge.common.config.Configuration;
+import java.util.ArrayList;
 
 import com.gendeathrow.mpbasic.core.MPBSettings;
 import com.gendeathrow.mpbasic.core.MPBasic;
 import com.gendeathrow.mputils.configs.ConfigHandler;
+import com.gendeathrow.mputils.utils.MPFileUtils;
+
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.common.config.Configuration;
 
 public class MPBConfigHandler 
 {
@@ -37,7 +36,8 @@ public class MPBConfigHandler
 			
 			loadConfiguration();
 			
-			generateChangeLog();
+			if(!MPBSettings.isHttp)
+				generateChangeLog();
 		}
 		
 		private final static String changelogCat = "changeLog_settings";
@@ -78,43 +78,25 @@ public class MPBConfigHandler
 		 */
 		private static void generateChangeLog()
 		{
-	        try 
-	        {	
-	        	File file = new File(ConfigHandler.configDir, "/changelog.txt");
-			
-	        	if (file.getParentFile() != null)
-	        	{
+			File file = new File(ConfigHandler.configDir, "/changelog.txt");
+				
+			if (file.getParentFile() != null) {
 	        		file.getParentFile().mkdirs();
 	        	}
 
-
-				if (file.exists())
-				{
+				if (file.exists()) {
 				    return;
 				}
-				else
-				{
-					file.createNewFile();
-				}
 				
-	            if (file.canWrite())
-	            {
-//	                FileOutputStream fos = new FileOutputStream(file);
-//	                BufferedWriter buffer = new BufferedWriter(new OutputStreamWriter(fos, "UTF-8"));
+				ArrayList<String> lines = new ArrayList<String>();
+				lines.add(TextFormatting.YELLOW +"# Add Your ChangeLog to "+TextFormatting.RED+"'changelog.txt'"+TextFormatting.RESET+" in the config files" + NEW_LINE + NEW_LINE + "You can use Minecrafts "+TextFormatting.BLUE+"Color "+TextFormatting.DARK_GREEN+"Codes "+TextFormatting.GOLD+"to"+TextFormatting.RESET+" "+TextFormatting.UNDERLINE+"make your changlogs look Good.");
 
-	            	FileWriter fos = new FileWriter(file);
-	                BufferedWriter buffer = new BufferedWriter(fos);
-	                
-	                buffer.write(TextFormatting.YELLOW +"# Add Your ChangeLog to "+TextFormatting.RED+"'changelog.txt'"+TextFormatting.RESET+" in the config files" + NEW_LINE + NEW_LINE + "You can use Minecrafts "+TextFormatting.BLUE+"Color "+TextFormatting.DARK_GREEN+"Codes "+TextFormatting.GOLD+"to"+TextFormatting.RESET+" "+TextFormatting.UNDERLINE+"make your changlogs look Good.");
+				try {
+					MPFileUtils.CreateTextFile(file, lines);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 
-	                
-	                
-	                buffer.close();
-	                fos.close();
-	            }
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 		
 		

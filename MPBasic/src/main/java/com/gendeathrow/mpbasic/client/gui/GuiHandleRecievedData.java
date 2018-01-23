@@ -1,16 +1,12 @@
 package com.gendeathrow.mpbasic.client.gui;
 
 import java.awt.Color;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
 
 import com.gendeathrow.mputils.utils.RenderAssist;
 import com.google.gson.JsonObject;
+
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
 
 public class GuiHandleRecievedData extends GuiScreen
 {

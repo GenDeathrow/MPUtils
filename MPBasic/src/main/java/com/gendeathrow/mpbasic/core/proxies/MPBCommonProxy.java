@@ -1,11 +1,12 @@
 package com.gendeathrow.mpbasic.core.proxies;
 
+import com.gendeathrow.mpbasic.BTEventHandler;
+import com.gendeathrow.mpbasic.commands.MPInfoPanelCommand;
+
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-
-import com.gendeathrow.mpbasic.BTEventHandler;
 
 public class MPBCommonProxy
 {
@@ -37,7 +38,7 @@ public class MPBCommonProxy
 	
 	public void init(FMLInitializationEvent event)
 	{
-		
+		MPInfoPanelCommand.register();
 	}
 	
 	public void postInit(FMLPostInitializationEvent event)

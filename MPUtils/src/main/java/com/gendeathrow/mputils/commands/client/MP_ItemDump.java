@@ -2,28 +2,25 @@ package com.gendeathrow.mputils.commands.client;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
-
-import net.minecraft.command.CommandBase;
-import net.minecraft.command.ICommandSender;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.oredict.OreDictionary;
 
 import com.gendeathrow.mputils.commands.MP_BaseCommand;
 import com.gendeathrow.mputils.configs.ConfigHandler;
 import com.gendeathrow.mputils.utils.MTNBTConverter;
-import com.gendeathrow.mputils.utils.NBTJSONConverter;
 import com.gendeathrow.mputils.utils.Tools;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
+
+import net.minecraft.command.CommandBase;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class MP_ItemDump extends MP_BaseCommand
 {
@@ -48,6 +45,7 @@ public class MP_ItemDump extends MP_BaseCommand
 		return " [Args:(nbt, ore, setPretty, class, extendedClass, <>, onlyhasrecipes)]";
 	}
 	
+	@Override
 	public List<String> autoComplete(ICommandSender sender, String[] args)
 	{
 		if(args.length >= 1) return options; 
@@ -206,9 +204,11 @@ public class MP_ItemDump extends MP_BaseCommand
 					
 					recipeFlag = true;
 					
-					List<IRecipe> recipeList = CraftingManager.getInstance().getRecipeList();
-					for(IRecipe recipe : recipeList)
+					 Iterator<IRecipe> recipeList = CraftingManager.REGISTRY.iterator();
+					while(recipeList.hasNext())
 					{
+						IRecipe recipe = recipeList.next();
+						
 						if(recipe.getRecipeOutput().getItem() == stack.getItem() && recipe.getRecipeOutput().getItemDamage() == stack.getItemDamage())
 						{
 							hasRecipe = true;

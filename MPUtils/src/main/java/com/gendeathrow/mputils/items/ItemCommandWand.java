@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.lwjgl.input.Keyboard;
 
+import com.gendeathrow.mputils.client.settings.QuickCommandManager.CommandElement;
+import com.gendeathrow.mputils.core.MPUtils;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,9 +18,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import com.gendeathrow.mputils.client.settings.QuickCommandManager.CommandElement;
-import com.gendeathrow.mputils.core.MPUtils;
 
 public class ItemCommandWand extends Item
 {

@@ -1,15 +1,15 @@
 package com.gendeathrow.mputils.client.keybinds;
 
+import org.lwjgl.input.Keyboard;
+
+import com.gendeathrow.mputils.client.gui.Gui_QuickMenu;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
-
-import org.lwjgl.input.Keyboard;
-
-import com.gendeathrow.mputils.client.gui.Gui_QuickMenu;
 
 public class KeyBinds 
 {

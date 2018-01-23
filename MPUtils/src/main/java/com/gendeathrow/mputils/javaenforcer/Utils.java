@@ -2,16 +2,12 @@ package com.gendeathrow.mputils.javaenforcer;
 
 import java.io.File;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
-import net.minecraftforge.common.config.Configuration;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 
 import com.gendeathrow.mputils.configs.ConfigHandler;
-import com.gendeathrow.mputils.core.Settings;
+
+import net.minecraftforge.common.config.Configuration;
 
 public class Utils 
 {

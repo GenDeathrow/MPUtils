@@ -3,6 +3,8 @@ package com.gendeathrow.mputils.commands.client;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gendeathrow.mputils.utils.Tools;
+
 import net.minecraft.block.Block;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -16,8 +18,6 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
-
-import com.gendeathrow.mputils.utils.Tools;
 
 public class MP_ModItemDump extends MP_ItemDump
 {
@@ -115,13 +115,10 @@ public class MP_ModItemDump extends MP_ItemDump
 					
 					ItemStack stack = new ItemStack(item);
 					
-					NonNullList<ItemStack> list = NonNullList.create();
-					item.getSubItems(stack.getItem(),(CreativeTabs)null,list);
+					if(stack.isEmpty()) continue;
 					
-					if(stack == null)
-					{
-						continue;
-					}
+					NonNullList<ItemStack> list = NonNullList.create();
+					item.getSubItems(CreativeTabs.SEARCH,list);
 					
 					if(list.size() > 0)
 					{

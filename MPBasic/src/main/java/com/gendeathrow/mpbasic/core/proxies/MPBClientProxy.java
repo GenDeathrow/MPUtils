@@ -1,6 +1,12 @@
 package com.gendeathrow.mpbasic.core.proxies;
 
 
+import com.gendeathrow.mpbasic.client.SideButtonHandler;
+import com.gendeathrow.mpbasic.client.MPSave.BTSaveHandler;
+import com.gendeathrow.mpbasic.client.notification.BasicNotifcationManager;
+import com.gendeathrow.mpbasic.configs.InfoPanelConfigHandler;
+import com.gendeathrow.mpbasic.configs.MPBConfigHandler;
+
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -8,11 +14,6 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import com.gendeathrow.mpbasic.client.SideButtonHandler;
-import com.gendeathrow.mpbasic.client.MPSave.BTSaveHandler;
-import com.gendeathrow.mpbasic.client.notification.BasicNotifcationManager;
-import com.gendeathrow.mpbasic.configs.MPBConfigHandler;
 
 public class MPBClientProxy extends MPBCommonProxy
 {
@@ -71,6 +72,8 @@ public class MPBClientProxy extends MPBCommonProxy
 		registerEventHandlers();
 		
 		MPBConfigHandler.load();
+		
+		InfoPanelConfigHandler.readInfoPanelConfigs();
 		
 		SideButtonHandler.RegisterSideButtons();
 	}

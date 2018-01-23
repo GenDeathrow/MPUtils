@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import com.gendeathrow.mpbasic.configs.MPBConfigHandler;
 import com.gendeathrow.mpbasic.core.MPBasic;
-import com.gendeathrow.mputils.configs.ConfigHandler;
-import com.gendeathrow.mputils.core.MPUtils;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;

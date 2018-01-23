@@ -2,6 +2,12 @@ package com.gendeathrow.mputils.core;
 
 import java.io.IOException;
 
+import org.apache.logging.log4j.Logger;
+
+import com.gendeathrow.mputils.commands.common.MP_Commands;
+import com.gendeathrow.mputils.core.proxies.MPCommonProxy;
+import com.gendeathrow.mputils.network.RequestTEPacket;
+
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -14,24 +20,18 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
-import org.apache.logging.log4j.Logger;
-
-import com.gendeathrow.mputils.core.proxies.MPCommonProxy;
-import com.gendeathrow.mputils.javaenforcer.ModChecker;
-import com.gendeathrow.mputils.network.RequestTEPacket;
-
 // 1.11.2 Minecraft
 
 @Mod(modid = MPUtils.MODID, name=MPUtils.NAME, version = MPUtils.VERSION, guiFactory = "com.gendeathrow.mputils.configs.ConfigGuiFactory")
 public class MPUtils 
 {
     public static final String MODID = "mputils";
-    public static final String VERSION = "1.3.9";
+    public static final String VERSION = "1.5.1";
     public static final String NAME = "MPUtils";
     public static final String PROXY = "com.gendeathrow.mputils.core.proxies";
     public static final String CHANNELNAME = "genmputils";
 
-    public static final String MCVERSION = "1.3.0";
+    public static final String MCVERSION = "1.4.0";
     public static final String VERSION_MAX = "1.0.0";
 	public static final String version_group = "required-after:" + MODID + "@[" + VERSION + "," + VERSION_MAX + ");";
 	
@@ -53,8 +53,6 @@ public class MPUtils
     	logger = event.getModLog();
     	
     	proxy.preInit(event);
-    	
-    	ModChecker.run();
     	
 		this.network = NetworkRegistry.INSTANCE.newSimpleChannel(CHANNELNAME);
     	network.registerMessage(RequestTEPacket.ServerHandler.class, RequestTEPacket.class, 0, Side.SERVER);
@@ -81,7 +79,7 @@ public class MPUtils
 	@EventHandler
 	public void serverStart(FMLServerStartingEvent event)
 	{
-
+		event.registerServerCommand(new MP_Commands());
 	}
     
 }

@@ -3,13 +3,13 @@ package com.gendeathrow.mputils.javaenforcer;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import net.minecraftforge.fml.client.FMLClientHandler;
-import net.minecraftforge.fml.common.Loader;
-
 import org.apache.logging.log4j.Level;
 
 import com.gendeathrow.mputils.core.MPUtils;
 import com.gendeathrow.mputils.utils.Tools;
+
+import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.Loader;
 
 public class ModChecker 
 {

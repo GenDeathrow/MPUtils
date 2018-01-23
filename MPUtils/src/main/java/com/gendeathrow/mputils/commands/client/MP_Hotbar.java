@@ -1,8 +1,6 @@
 package com.gendeathrow.mputils.commands.client;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import com.gendeathrow.mputils.utils.Tools;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -10,9 +8,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-
-import com.gendeathrow.mputils.commands.MP_BaseCommand;
-import com.gendeathrow.mputils.utils.Tools;
 
 public class MP_Hotbar extends MP_ItemDump
 {

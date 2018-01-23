@@ -2,16 +2,16 @@ package com.gendeathrow.mputils.client.gui;
 
 import java.io.IOException;
 
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.client.resources.I18n;
-
 import org.lwjgl.input.Keyboard;
 
 import com.gendeathrow.mputils.client.settings.MPUtils_SaveHandler;
 import com.gendeathrow.mputils.client.settings.QuickCommandManager;
 import com.gendeathrow.mputils.client.settings.QuickCommandManager.CommandElement;
+
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.resources.I18n;
 
 public class Gui_ItemParser extends GuiScreen
 {

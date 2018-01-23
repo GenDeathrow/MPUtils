@@ -1,14 +1,13 @@
 package com.gendeathrow.mputils.client.gui.notification;
 
-import java.awt.Color;
+import org.lwjgl.opengl.GL11;
+
+import com.gendeathrow.mputils.core.MPUtils;
+import com.gendeathrow.mputils.utils.RenderAssist;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.ResourceLocation;
-
-import org.lwjgl.opengl.GL11;
-
-import com.gendeathrow.mputils.utils.RenderAssist;
 
 public class NotificationBase extends Gui
 {
@@ -30,7 +29,7 @@ public class NotificationBase extends Gui
 	
 	//Minecraft mc;
 	
-	private static final ResourceLocation Bg = new ResourceLocation("textures/gui/achievement/achievement_background.png");
+	private static final ResourceLocation Bg = new ResourceLocation(MPUtils.MODID, "textures/gui/achievement_background.png");
 
 	 
 	public NotificationBase()

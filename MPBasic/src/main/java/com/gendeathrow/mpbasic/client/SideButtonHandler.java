@@ -2,25 +2,31 @@ package com.gendeathrow.mpbasic.client;
 
 import java.net.URI;
 
+import com.gendeathrow.mpbasic.client.gui.BugReporterWindow;
+import com.gendeathrow.mpbasic.client.gui.GuiChangeLogWindow;
+import com.gendeathrow.mpbasic.client.gui.GuiInfoPanel;
+import com.gendeathrow.mpbasic.configs.InfoPanelConfigHandler;
+import com.gendeathrow.mpbasic.core.MPBSettings;
+import com.gendeathrow.mputils.api.client.gui.elements.SideTabButton;
+import com.gendeathrow.mputils.client.TabRegistry;
+import com.gendeathrow.mputils.core.MPUtils;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiConfirmOpenLink;
 import net.minecraft.client.gui.GuiIngameMenu;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiYesNoCallback;
+import net.minecraft.init.Items;
 import net.minecraftforge.client.event.GuiScreenEvent.ActionPerformedEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import com.gendeathrow.mpbasic.client.gui.BugReporterWindow;
-import com.gendeathrow.mpbasic.core.MPBSettings;
-import com.gendeathrow.mputils.api.client.gui.elements.SideTabButton;
-import com.gendeathrow.mputils.client.TabRegistry;
-import com.gendeathrow.mputils.core.MPUtils;
 
 public class SideButtonHandler implements GuiYesNoCallback
 {
 	public static SideTabButton changelogButton;
 	public static SideTabButton bugReportButton;
 	public static SideTabButton supportButton;
+	public static SideTabButton testButton;
 	
 	Minecraft mc = Minecraft.getMinecraft();
 	
@@ -34,12 +40,18 @@ public class SideButtonHandler implements GuiYesNoCallback
 		if(!MPBSettings.showBugReporter) TabRegistry.disableTab(bugReportButton);
 		if(!MPBSettings.showSupport) TabRegistry.disableTab(supportButton);
 	}
+	
+
 
 	@SubscribeEvent
 	public void action(ActionPerformedEvent.Post event)
 	{
 		if(event.getGui() instanceof GuiMainMenu || event.getGui() instanceof GuiIngameMenu)
 		{
+			if(event.getButton() == testButton)
+			{
+				event.getGui().mc.displayGuiScreen(new GuiInfoPanel(event.getGui(), InfoPanelConfigHandler.PAGES.get("welcome")));				
+			}
 			if(event.getButton() == changelogButton)
 			{
 				event.getGui().mc.displayGuiScreen(new GuiChangeLogWindow(event.getGui()));

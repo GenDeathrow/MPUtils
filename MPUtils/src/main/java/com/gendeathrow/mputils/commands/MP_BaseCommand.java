@@ -1,12 +1,12 @@
 package com.gendeathrow.mputils.commands;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
+
 
 public abstract class MP_BaseCommand 
 {

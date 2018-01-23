@@ -1,12 +1,10 @@
 package com.gendeathrow.mputils.utils;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.List;
 
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.WeightedRandom;
 
 /**
  * Common class for all runtime hacks (stuff requiring reflection). It is not

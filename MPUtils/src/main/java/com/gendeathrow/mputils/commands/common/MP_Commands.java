@@ -3,7 +3,7 @@ package com.gendeathrow.mputils.commands.common;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nullable;
+import com.gendeathrow.mputils.commands.MP_BaseCommand;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -13,31 +13,31 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 
-import com.gendeathrow.mputils.commands.MP_BaseCommand;
-import com.gendeathrow.mputils.commands.client.MP_LookAtCommand;
-
 public class MP_Commands extends CommandBase
 {
-	ArrayList<MP_BaseCommand> coms = new ArrayList<MP_BaseCommand>();
+	public static ArrayList<MP_BaseCommand> coms = new ArrayList<MP_BaseCommand>();
 	
 	public MP_Commands()
 	{
-		coms.add(new MP_InContainer());
+	
 	}
 	
+	public static void registerCmd(MP_BaseCommand cmd)
+	{
+		coms.add(cmd);
+	}
 	
 	@Override
 	public String getName() 
 	{
-		return "mputil";
+		return "mpadmin";
 	}
 
 	@Override
     public List getAliases()
     {
 		ArrayList<String> al = new ArrayList<String>();
-		al.add("mp");
-		al.add("mputils");
+		al.add("mpa");
         return al;
     }
 	
@@ -51,7 +51,7 @@ public class MP_Commands extends CommandBase
 			String txt = "";
 			
 			MP_BaseCommand c = coms.get(i);
-			txt += "/mputil " + c.getCommand();
+			txt += "/mpadmin " + c.getCommand();
 			
 			if(c.getUsageSuffix().length() > 0)
 			{
@@ -66,7 +66,7 @@ public class MP_Commands extends CommandBase
 			sender.sendMessage(new TextComponentTranslation(txt));
 		}
 		
-		return "</mp, /mputil, /mputils>";
+		return "</mpadmin, /mpa>";
 
 	}
 	
@@ -126,6 +126,10 @@ public class MP_Commands extends CommandBase
 		
 		throw new WrongUsageException(this.getUsage(sender));
 	}
+
+
+
+
 
 
 }

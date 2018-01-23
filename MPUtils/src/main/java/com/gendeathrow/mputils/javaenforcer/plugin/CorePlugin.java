@@ -1,14 +1,6 @@
 package com.gendeathrow.mputils.javaenforcer.plugin;
 
-import java.util.Map;
-
-import net.minecraftforge.fml.relauncher.IFMLCallHook;
-import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
-
 import org.apache.logging.log4j.LogManager;
-
-import com.gendeathrow.mputils.javaenforcer.JavaChecker;
-import com.gendeathrow.mputils.javaenforcer.Utils;
 
 //@TransformerExclusions(value = "com.gendeathrow.mputils.javaenforcer")
 public class CorePlugin //implements IFMLCallHook

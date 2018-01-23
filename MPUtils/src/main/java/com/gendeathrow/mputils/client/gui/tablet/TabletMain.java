@@ -4,20 +4,15 @@ import java.awt.Color;
 
 import org.lwjgl.opengl.GL11;
 
+import com.gendeathrow.mputils.client.gui.elements.iconButton;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-
-import com.gendeathrow.mputils.client.gui.elements.iconButton;
-import com.gendeathrow.mputils.utils.RenderAssist;
 
 
 public class TabletMain extends TabletWindow
@@ -39,8 +34,8 @@ public class TabletMain extends TabletWindow
 	int row = 0;
 	protected void AddApp(iconButton button)
 	{
-		button.xPosition = 25 + (index * 20);
-		button.yPosition = 12 + (row * 40);
+		button.x = 25 + (index * 20);
+		button.y = 12 + (row * 40);
 		this.buttonList.add(button);
 		
 		if(index++ > 8) 
@@ -101,12 +96,12 @@ public class TabletMain extends TabletWindow
             {
             	FontRenderer fontrenderer = mc.fontRenderer;            	
 
-            	boolean mouseOver = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
+            	boolean mouseOver = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
             	
             	drawObject(mouseOver);
             	
             	
-            	if(mouseOver) fontrenderer.drawString(this.displayString, this.xPosition + (fontrenderer.getStringWidth(this.displayString + this.width)/2), this.yPosition + 15, Color.BLACK.getRGB());
+            	if(mouseOver) fontrenderer.drawString(this.displayString, this.x + (fontrenderer.getStringWidth(this.displayString + this.width)/2), this.y + 15, Color.BLACK.getRGB());
             	
 
             	
@@ -143,7 +138,7 @@ public class TabletMain extends TabletWindow
     		GL11.glEnable(32826 /* GL_RESCALE_NORMAL_EXT */);
     		GL11.glEnable(2903 /* GL_COLOR_MATERIAL */);
     		GL11.glPushMatrix();
-    		GL11.glTranslatef(this.xPosition + 12, this.yPosition + 12, 50F);
+    		GL11.glTranslatef(this.x + 12, this.y + 12, 50F);
     		float f1 = 75F;
     		GL11.glScalef(-f1, f1, f1);
     		GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);

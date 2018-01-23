@@ -1,5 +1,10 @@
 package com.gendeathrow.mputils.network;
 
+import org.apache.logging.log4j.Level;
+
+import com.gendeathrow.mputils.commands.common.MP_InContainer;
+import com.gendeathrow.mputils.core.MPUtils;
+
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -12,11 +17,6 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-
-import org.apache.logging.log4j.Level;
-
-import com.gendeathrow.mputils.commands.common.MP_InContainer;
-import com.gendeathrow.mputils.core.MPUtils;
 
 
 public class RequestTEPacket implements IMessage 

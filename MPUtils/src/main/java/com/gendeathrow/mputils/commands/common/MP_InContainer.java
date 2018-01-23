@@ -2,6 +2,11 @@ package com.gendeathrow.mputils.commands.common;
 
 import java.util.ArrayList;
 
+import com.gendeathrow.mputils.commands.client.MP_ItemDump;
+import com.gendeathrow.mputils.core.MPUtils;
+import com.gendeathrow.mputils.network.RequestTEPacket;
+import com.gendeathrow.mputils.utils.Tools;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
@@ -16,11 +21,6 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-
-import com.gendeathrow.mputils.commands.client.MP_ItemDump;
-import com.gendeathrow.mputils.core.MPUtils;
-import com.gendeathrow.mputils.network.RequestTEPacket;
-import com.gendeathrow.mputils.utils.Tools;
 
 public class MP_InContainer extends MP_ItemDump
 {

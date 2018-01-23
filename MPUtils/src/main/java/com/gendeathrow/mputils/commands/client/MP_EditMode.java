@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.gendeathrow.mputils.commands.MP_BaseCommand;
+import com.gendeathrow.mputils.core.Settings;
+
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.text.TextComponentTranslation;
-
-import com.gendeathrow.mputils.commands.MP_BaseCommand;
-import com.gendeathrow.mputils.configs.ConfigHandler;
-import com.gendeathrow.mputils.core.Settings;
 
 public class MP_EditMode extends MP_BaseCommand
 {

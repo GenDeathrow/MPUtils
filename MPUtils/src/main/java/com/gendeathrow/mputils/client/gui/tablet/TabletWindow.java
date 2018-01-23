@@ -1,10 +1,10 @@
 package com.gendeathrow.mputils.client.gui.tablet;
 
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.util.ResourceLocation;
-
 import com.gendeathrow.mputils.core.MPUtils;
 import com.gendeathrow.mputils.utils.RenderAssist;
+
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.util.ResourceLocation;
 
 public class TabletWindow extends GuiScreen
 {

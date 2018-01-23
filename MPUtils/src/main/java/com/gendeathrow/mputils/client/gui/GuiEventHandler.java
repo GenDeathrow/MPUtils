@@ -2,6 +2,11 @@ package com.gendeathrow.mputils.client.gui;
 
 import java.util.ArrayList;
 
+import com.gendeathrow.mputils.api.client.gui.elements.SideTabButton;
+import com.gendeathrow.mputils.client.TabRegistry;
+import com.gendeathrow.mputils.core.Settings;
+import com.gendeathrow.mputils.utils.MPInfo;
+
 import net.minecraft.client.gui.GuiIngameMenu;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraftforge.client.event.GuiScreenEvent.ActionPerformedEvent;
@@ -10,11 +15,6 @@ import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
 import net.minecraftforge.fml.client.GuiModList;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import com.gendeathrow.mputils.api.client.gui.elements.SideTabButton;
-import com.gendeathrow.mputils.client.TabRegistry;
-import com.gendeathrow.mputils.core.Settings;
-import com.gendeathrow.mputils.utils.MPInfo;
 
 public class GuiEventHandler 
 {
@@ -44,7 +44,7 @@ public class GuiEventHandler
 	
 	public void addButtonTab(SideTabButton button)
 	{
-		button.yPosition = yOffset += button.height + 4;
+		button.y = yOffset += button.height + 4;
 		
 		tablist.add(button);
 	}
@@ -69,7 +69,7 @@ public class GuiEventHandler
 			
 			for(SideTabButton b : TabRegistry.getActiveTabList())
 			{
-				b.xPosition = event.getGui().width - b.width + 2;
+				b.x = event.getGui().width - b.width + 2;
 				addButtonTab(b);
 			}
 			

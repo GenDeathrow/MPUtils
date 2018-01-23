@@ -8,27 +8,25 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiConfirmOpenLink;
-import net.minecraft.client.gui.GuiListExtended;
-import net.minecraft.client.gui.GuiYesNoCallback;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.EntityLiving.SpawnPlacementType;
-import net.minecraft.entity.EntitySpawnPlacementRegistry;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
 import org.lwjgl.input.Mouse;
 
 import com.gendeathrow.mputils.client.gui.elements.TextEditor;
 import com.gendeathrow.mputils.core.MPUtils;
 import com.gendeathrow.mputils.utils.RenderAssist;
 import com.google.common.collect.Lists;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiConfirmOpenLink;
+import net.minecraft.client.gui.GuiListExtended;
+import net.minecraft.client.gui.GuiYesNoCallback;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class TextScrollWindow extends GuiListExtended
 {
@@ -124,7 +122,7 @@ public class TextScrollWindow extends GuiListExtended
 	 * Pass String and will wordwrap it to screen and add to list to be drawn
 	 * @param wordWrap
 	 */
-	private synchronized  void addWordWrap(List<String> wordWrap, List<String> LineBreaks)
+	private synchronized void addWordWrap(List<String> wordWrap, List<String> LineBreaks)
 	{
 		textType type;
 		textType lasttype =  textType.DEFAULT;
@@ -141,7 +139,7 @@ public class TextScrollWindow extends GuiListExtended
 
 			type = parseChangelog(line.toString());
 			Lines.add((new TextScrollWindow.Line(line.toString(), type).setURL((type == textType.URL ? getURL(line.toString()) : ""))));
-			}
+		}
 	}
 	
 	
@@ -360,11 +358,11 @@ public class TextScrollWindow extends GuiListExtended
 	
 
 	@Override
-    protected void drawSlot(int entryID, int x, int y, int p_180791_4_, int mouseXIn, int mouseYIn)
+    protected void drawSlot(int slotIndex, int x, int y, int slotHeight, int mouseXIn, int mouseYIn, float partialTicks)
     {
     	if(isYWithinSlotBounds(y))
     	{
-    		this.getListEntry(entryID).drawEntry(entryID, x, y, this.getListWidth(), p_180791_4_, mouseXIn, mouseYIn, this.isMouseYWithinSlotBounds(mouseYIn) && this.getSlotIndexFromScreenCoords(mouseXIn, mouseYIn) == entryID);
+    		this.getListEntry(slotIndex).drawEntry(slotIndex, x, y, this.getListWidth(), slotHeight, mouseXIn, mouseYIn, this.isMouseYWithinSlotBounds(mouseYIn) && this.getSlotIndexFromScreenCoords(mouseXIn, mouseYIn) == slotIndex, partialTicks);
     	}
     }
 
@@ -373,7 +371,7 @@ public class TextScrollWindow extends GuiListExtended
 	@Override
     protected void drawContainerBackground(Tessellator tessellator)
     {
-        VertexBuffer buffer = tessellator.getBuffer();
+        BufferBuilder buffer = tessellator.getBuffer();
         this.mc.getTextureManager().bindTexture(bg);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         float f = 32.0F;
@@ -415,7 +413,6 @@ public class TextScrollWindow extends GuiListExtended
 		
 		public Line(String line, textType type)//
 		{
-			
 			this.line = line;
 			this.type = type;
 			this.url = "";
@@ -431,12 +428,11 @@ public class TextScrollWindow extends GuiListExtended
 		int color;
 
 		@Override
-		public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected) 
+		public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float num) 
 		{
 			if(this.type == textType.URL)
 			{
 				boolean b= mouseX > x && mouseX < x+listWidth && mouseY > y && mouseY < y+slotHeight;
-				
 				mc.fontRenderer.drawString(textTypeText(type, line), x, y, b ? RenderAssist.getColorFromRGBA(153,204,255,255) : Color.BLUE.getRGB());
 			}
 			else
@@ -475,7 +471,7 @@ public class TextScrollWindow extends GuiListExtended
 			}
 				try
 				{
-					Class oclass = Class.forName("java.awt.Desktop");
+					Class<?> oclass = Class.forName("java.awt.Desktop");
 					Object object = oclass.getMethod("getDesktop", new Class[0]).invoke((Object)null, new Object[0]);
 					oclass.getMethod("browse", new Class[] {URI.class}).invoke(object, new Object[] {new URI(this.url)});
 				}	
@@ -487,11 +483,10 @@ public class TextScrollWindow extends GuiListExtended
 		}
 
 		@Override
-		public void setSelected(int p_178011_1_, int p_178011_2_,int p_178011_3_) 
+		public void updatePosition(int p_192633_1_, int p_192633_2_, int p_192633_3_, float p_192633_4_) 
 		{
 			
 		}
-
 
 
 	}

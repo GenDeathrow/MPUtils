@@ -2,17 +2,17 @@ package com.gendeathrow.mputils.api.client.gui;
 
 import java.awt.Color;
 
+import com.gendeathrow.mputils.core.MPUtils;
+import com.gendeathrow.mputils.core.Settings;
+import com.gendeathrow.mputils.utils.MPInfo;
+import com.gendeathrow.mputils.utils.RenderAssist;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiListExtended;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.common.Loader;
-
-import com.gendeathrow.mputils.core.MPUtils;
-import com.gendeathrow.mputils.core.Settings;
-import com.gendeathrow.mputils.utils.MPInfo;
-import com.gendeathrow.mputils.utils.RenderAssist;
 
 public class ScrollWindowBase extends GuiScreen
 {
@@ -26,10 +26,11 @@ public class ScrollWindowBase extends GuiScreen
 	
 	public GuiListExtended scrollWindow;
 	
+	protected GuiButton close;
+	
 	String title= "needs title";
 	
-	public ScrollWindowBase(GuiScreen paramGuiBase) 
-	{
+	public ScrollWindowBase(GuiScreen paramGuiBase) {
 		this.parent = paramGuiBase;
 	}
 	
@@ -41,7 +42,7 @@ public class ScrollWindowBase extends GuiScreen
 		
 		updateSize(this.width, this.height);
 		
-		GuiButton close = new GuiButton(2, posX + (sizeX - 10), posY - 12, 10,10,  "X");
+		close = new GuiButton(2, posX + (sizeX - 10), posY - 12, 10,10,  "X");
 		
 		this.buttonList.add(close);
 
@@ -58,7 +59,7 @@ public class ScrollWindowBase extends GuiScreen
 
 		RenderAssist.drawUnfilledRect(this.posX , this.posY- 15, this.posX + this.sizeX + 7, this.posY, Color.white.getRGB());
 
-		this.drawCenteredString(fontRenderer, title, width/2, this.posY - 12, Color.yellow.getRGB());
+		this.drawCenteredString(this.fontRenderer, title, width/2, this.posY - 12, Color.yellow.getRGB());
 	}
 	
 	@SuppressWarnings("unused")
@@ -70,7 +71,7 @@ public class ScrollWindowBase extends GuiScreen
 	public void drawScreen(int mouseX, int mouseY, float partialTicks)
 	{
 		//CustomMainMenu
-		if(Loader.isModLoaded("custommainmenu") && this.parent instanceof GuiMainMenu)
+		if((Loader.isModLoaded("custommainmenu") && this.parent instanceof GuiMainMenu) || parent == null)
 		{
 			this.drawDefaultBackground();
 		}
@@ -82,7 +83,8 @@ public class ScrollWindowBase extends GuiScreen
 		 
 		 RenderAssist.drawUnfilledRect(this.posX, this.posY-1, this.posX + this.sizeX + 7, this.posY + this.sizeY, Color.white.getRGB());
 
-		 this.scrollWindow.drawScreen(mouseX, mouseY, partialTicks);
+		 if(this.scrollWindow != null)
+			 this.scrollWindow.drawScreen(mouseX, mouseY, partialTicks);
 		 
 		 drawHeader();
 		 
@@ -98,22 +100,25 @@ public class ScrollWindowBase extends GuiScreen
 	}
 	 
 	
+	@Override
+	public void setWorldAndResolution(Minecraft mcIn, int w, int h)
+	{
+		if(parent != null)
+			this.parent.setWorldAndResolution(mcIn, w, h);
+
+		super.setWorldAndResolution(mcIn, w, h);
+	}
 	
-	 public void setWorldAndResolution(Minecraft mcIn, int w, int h)
-	 {
-		 this.parent.setWorldAndResolution(mcIn, w, h);
-		 super.setWorldAndResolution(mcIn, w, h);
-	 }
-	 
-	 public void updateSize(int w, int h)
-	 {
-			//this.sizeX = w/2;
-			if(this.sizeX > w) this.sizeX = w - 40;
-			this.sizeY = h/2;
+	
+	public void updateSize(int w, int h)
+	{
+		//this.sizeX = w/2;
+		if(this.sizeX > w) this.sizeX = w - 40;
+		this.sizeY = h/2;
 			
-			this.posX = (w/2) - (sizeX/2);
-			this.posY = (h/2) - (sizeY/2);
-	 }
+		this.posX = (w/2) - (sizeX/2);
+		this.posY = (h/2) - (sizeY/2);
+	}
 	 
 	 public void updatePositions()
 	 {

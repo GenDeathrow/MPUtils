@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
 import java.net.URL;
 
 import javax.swing.AbstractAction;
@@ -23,9 +22,7 @@ import javax.swing.text.DefaultEditorKit;
 
 import com.gendeathrow.mputils.api.client.gui.ScrollWindowBase;
 import com.gendeathrow.mputils.api.client.gui.elements.TextScrollWindow;
-import com.gendeathrow.mputils.configs.ConfigHandler;
 import com.gendeathrow.mputils.core.MPUtils;
-import com.gendeathrow.mputils.utils.Tools;
 
 public class TextEditor extends JFrame
 {

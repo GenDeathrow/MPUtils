@@ -3,10 +3,10 @@ package com.gendeathrow.mputils.client;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.nbt.NBTTagCompound;
-
 import com.gendeathrow.mputils.api.client.gui.elements.SideTabButton;
 import com.gendeathrow.mputils.core.MPUtils;
+
+import net.minecraft.nbt.NBTTagCompound;
 
 public class TabRegistry 
 {

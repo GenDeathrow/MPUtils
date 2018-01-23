@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.gendeathrow.mputils.commands.MP_BaseCommand;
+import com.gendeathrow.mputils.configs.ConfigHandler;
+import com.gendeathrow.mputils.utils.Tools;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -18,10 +22,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.ModContainer;
-
-import com.gendeathrow.mputils.commands.MP_BaseCommand;
-import com.gendeathrow.mputils.configs.ConfigHandler;
-import com.gendeathrow.mputils.utils.Tools;
 
 public class MP_LookAtDump extends MP_BaseCommand
 {

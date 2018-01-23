@@ -9,14 +9,17 @@ import java.nio.ByteOrder;
 
 import javax.imageio.ImageIO;
 
+import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -24,9 +27,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL11;
 
 /**
  * 
@@ -45,7 +45,7 @@ public class RenderAssist {
     public static float zLevel;
     
 	private static TextureManager manager = Minecraft.getMinecraft().getTextureManager();
-	private static FontRenderer fontObj = Minecraft.getMinecraft().fontRenderer;
+	public static FontRenderer fontObj = Minecraft.getMinecraft().fontRenderer;
 
 	public static String mcColorUni = "\u00A74";
 
@@ -65,7 +65,7 @@ public class RenderAssist {
 	        float f2 = (color >> 8 & 255) / 255.0F;
 	        float f3 = (color & 255) / 255.0F;
 	        Tessellator tessellator = Tessellator.getInstance();
-	        VertexBuffer renderer = tessellator.getBuffer();
+	        BufferBuilder renderer = tessellator.getBuffer();
 
 	        GlStateManager.enableBlend();
 	        GlStateManager.disableTexture2D();
@@ -156,7 +156,7 @@ public class RenderAssist {
         float f2 = (color >> 8 & 255) / 255.0F;
         float f3 = (color & 255) / 255.0F;
         Tessellator tessellator = Tessellator.getInstance();
-        VertexBuffer vertexbuffer = tessellator.getBuffer();
+        BufferBuilder vertexbuffer = tessellator.getBuffer();
         
         GlStateManager.enableBlend();
         GlStateManager.disableTexture2D();
@@ -223,7 +223,7 @@ public class RenderAssist {
 		float f = (float)alpha / 255.0F;
 		
 	    Tessellator tessellator = Tessellator.getInstance();
-	    VertexBuffer renderer = tessellator.getBuffer();
+	    BufferBuilder renderer = tessellator.getBuffer();
 	    renderer.begin(7, DefaultVertexFormats.POSITION_TEX);
 		renderer.pos(x + 0, y + height, (double)RenderAssist.zLevel).tex(0, 1).endVertex();
 		renderer.pos(x + width, y + height, RenderAssist.zLevel).tex(1, 1).endVertex();;
@@ -237,7 +237,7 @@ public class RenderAssist {
     {
         float f = 0.00390625F;
 	    Tessellator tessellator = Tessellator.getInstance();
-	    VertexBuffer renderer = tessellator.getBuffer();
+	    BufferBuilder renderer = tessellator.getBuffer();
 	    renderer.begin(7, DefaultVertexFormats.POSITION_TEX);
 	    renderer.pos(x + 0, y + height, RenderAssist.zLevel).tex((u + 0) * f, (v + height) * f).endVertex();
 	    renderer.pos(x + width, y + height, RenderAssist.zLevel).tex((u + width) * f, (v + height) * f).endVertex();
@@ -250,7 +250,7 @@ public class RenderAssist {
     {
         float f = 0.00390625F;
 	    Tessellator tessellator = Tessellator.getInstance();
-	    VertexBuffer renderer = tessellator.getBuffer();
+	    BufferBuilder renderer = tessellator.getBuffer();
 	    renderer.begin(7, DefaultVertexFormats.POSITION_TEX);
 	    renderer.pos(x + 0, y + height, RenderAssist.zLevel).tex((uMin + 0) * f, (vMin + vMax) * f).endVertex();
 	    renderer.pos(x + width, y + height, RenderAssist.zLevel).tex((uMin + uMax) * f, (vMin + vMax) * f).endVertex();
@@ -264,7 +264,7 @@ public class RenderAssist {
         float f = 0.00390625F;
         
 	    Tessellator tessellator = Tessellator.getInstance();
-	    VertexBuffer renderer = tessellator.getBuffer();
+	    BufferBuilder renderer = tessellator.getBuffer();
 	    
 	    renderer.begin(7, DefaultVertexFormats.POSITION_TEX);
 	    renderer.pos(x + 0, y + height, RenderAssist.zLevel).tex((uMin + 0) * f, (vMin + vMax) * f).endVertex();
@@ -374,7 +374,7 @@ public class RenderAssist {
         float f2 = (color >> 8 & 255) / 255.0F;
         float f3 = (color & 255) / 255.0F;
         Tessellator tessellator = Tessellator.getInstance();
-        VertexBuffer worldrenderer = tessellator.getBuffer();
+        BufferBuilder worldrenderer = tessellator.getBuffer();
 //        GL11.glEnable(GL11.GL_BLEND);
  //       GL11.glDisable(GL11.GL_TEXTURE_2D);
 //        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -518,7 +518,7 @@ public class RenderAssist {
         Tessellator tessellator = Tessellator.getInstance();
         
        
-        VertexBuffer worldrenderer = tessellator.getBuffer();
+        BufferBuilder worldrenderer = tessellator.getBuffer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
         worldrenderer.pos(0.0D, (double)par2, -90.0D).tex(0.0D, 1.0D).endVertex();;
         worldrenderer.pos((double)par1, (double)par2, -90.0D).tex(1.0D, 1.0D).endVertex();;
@@ -539,7 +539,7 @@ public class RenderAssist {
 		float f = 0.00390625F;
 		float f1 = 0.00390625F;
         Tessellator tessellator = Tessellator.getInstance();
-        VertexBuffer worldrenderer = tessellator.getBuffer();
+        BufferBuilder worldrenderer = tessellator.getBuffer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
         worldrenderer.pos((double)(x + 0), (double)(y + (height * scale)), 0).tex((double)((float)(u + 0) * f), (double)((float)(v + height) * f1)).endVertex();
         worldrenderer.pos((double)(x + (width * scale)), (double)(y + (height * scale)), 0).tex((double)((float)(u + width) * f), (double)((float)(v + height) * f1)).endVertex();

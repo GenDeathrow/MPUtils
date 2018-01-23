@@ -2,9 +2,9 @@ package com.gendeathrow.mputils.client.settings;
 
 import java.util.ArrayList;
 
-import net.minecraft.nbt.NBTTagCompound;
-
 import com.gendeathrow.mputils.client.gui.Gui_QuickMenu;
+
+import net.minecraft.nbt.NBTTagCompound;
 
 public class QuickCommandManager
 {

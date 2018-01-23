@@ -9,6 +9,7 @@ import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -26,10 +27,6 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.oredict.OreDictionary;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 
@@ -39,6 +36,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class Tools 
 {
@@ -121,6 +122,19 @@ public class Tools
 			return "Error: While creating/saving file. Check Logs!";
 		}
 	}
+    public static void CopyandPasteResourceToFile(InputStream ddlStream, String outputUrl) throws FileNotFoundException, IOException{
+//        InputStream ddlStream = Tools.class
+//        	    .getClassLoader().getResourceAsStream("some/pack/age/somelib.dll");
+
+        	try (FileOutputStream fos = new FileOutputStream(outputUrl);){
+        	    byte[] buf = new byte[2048];
+        	    int r;
+        	    while(-1 != (r = ddlStream.read(buf))) {
+        	        fos.write(buf, 0, r);
+        	    }
+        	}
+    	
+    }
     
     @SuppressWarnings("resource")
 	public static String URLReader(String urlString) throws Exception 
@@ -170,6 +184,13 @@ public class Tools
 	    }
 	    return choice;
 	}
+	
+	
+	public static String readFile(File path, Charset encoding) throws IOException 
+	{
+		return readFile(path.getPath(), encoding);
+	}
+	
 	
 	public static String readFile(String path, Charset encoding) throws IOException 
 	{

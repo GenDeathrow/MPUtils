@@ -2,25 +2,18 @@ package com.gendeathrow.mputils.client.gui;
 
 import java.io.IOException;
 
-import javax.annotation.Nullable;
+import org.lwjgl.input.Keyboard;
 
-import net.minecraft.client.Minecraft;
+import com.gendeathrow.mputils.client.settings.MPUtils_SaveHandler;
+import com.gendeathrow.mputils.client.settings.QuickCommandManager;
+import com.gendeathrow.mputils.client.settings.QuickCommandManager.CommandElement;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.util.TabCompleter;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import org.lwjgl.input.Keyboard;
-
-import com.gendeathrow.mputils.client.settings.QuickCommandManager;
-import com.gendeathrow.mputils.client.settings.QuickCommandManager.CommandElement;
-import com.gendeathrow.mputils.client.settings.MPUtils_SaveHandler;
 
 @SideOnly(Side.CLIENT)
 public class Gui_Edit_Command extends GuiScreen

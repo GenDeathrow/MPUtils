@@ -4,19 +4,18 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
+
+import com.gendeathrow.mputils.core.MPUtils;
+import com.gendeathrow.mputils.utils.RenderAssist;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
-
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
-
-import com.gendeathrow.mputils.core.MPUtils;
-import com.gendeathrow.mputils.inventory.container.ContainerNBTBase;
-import com.gendeathrow.mputils.utils.RenderAssist;
 
 /**
  * @author thislooksfun

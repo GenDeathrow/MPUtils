@@ -1,14 +1,12 @@
 package com.gendeathrow.mputils.items;
 
+import com.gendeathrow.mputils.client.gui.StringFormattor;
+
 import net.minecraft.client.Minecraft;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-
-import com.gendeathrow.mputils.client.gui.StringFormattor;
-import com.gendeathrow.mputils.core.MPUtils;
 
 public class Tablet extends Item 
 {
