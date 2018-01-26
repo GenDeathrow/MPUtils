@@ -120,7 +120,8 @@ public class CommandButton extends GuiButton
     	}
     }
     
-    public void drawButton(Minecraft mc, int mouseX, int mouseY)
+    @Override
+    public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks)
     {
         if (this.visible)
         {
@@ -157,7 +158,7 @@ public class CommandButton extends GuiButton
         	{
         		this.buttonList.get(l).x = this.x + 95 + (16 * nextX);
         		this.buttonList.get(l).y = this.y + -5;
-        		this.buttonList.get(l).drawButton(mc, mouseX, mouseY);
+        		this.buttonList.get(l).drawButton(mc, mouseX, mouseY, partialTicks);
         		
         		if(this.buttonList.get(l).enabled)
         		{

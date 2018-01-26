@@ -123,6 +123,7 @@ public class Gui_QuickMenu extends GuiScreen
 	double ns = 1000 / ticks;    
 	double delta = 0;
 	
+	
 	public void update()
 	{
 	    long now = Minecraft.getSystemTime();
@@ -190,6 +191,7 @@ public class Gui_QuickMenu extends GuiScreen
 		return QuickCommandManager.getList(this.selectedList);
 	}
 	
+	@Override
 	protected void keyTyped(char typedChar, int keyCode) throws IOException
 	{
 		super.keyTyped(typedChar, keyCode);
@@ -212,6 +214,7 @@ public class Gui_QuickMenu extends GuiScreen
 		Minecraft.getMinecraft().displayGuiScreen(null);
 	}
 	
+	@Override
     protected void actionPerformed(GuiButton button)
     {
     	if(button instanceof CommandButton) ((CommandButton)button).runCommand();
@@ -264,7 +267,7 @@ public class Gui_QuickMenu extends GuiScreen
     		line = getNextLine();
     		this.commandButtons.get(i).setPosition(xPos, line);
     		//updateButton(xPos, line, i);
-            this.commandButtons.get(i).drawButton(this.mc, mouseX, mouseY);
+            this.commandButtons.get(i).drawButton(this.mc, mouseX, mouseY, partialTicks);
     		
             if(this.commandButtons.get(i).isHovered()) 
     		{
@@ -273,11 +276,11 @@ public class Gui_QuickMenu extends GuiScreen
     		}
         }
         
-        if(this.global.isHovered())
+        if(this.global.isMouseOver())
         {
         	this.drawHoveringText(Arrays.asList(I18n.format("mp.quickCommands.global")), mouseX, mouseY, fontRenderer);
         }
-        else if(this.local.isHovered())
+        else if(this.local.isMouseOver())
         {
         	this.drawHoveringText(Arrays.asList(I18n.format("mp.quickCommands.local")), mouseX, mouseY, fontRenderer);	
         }

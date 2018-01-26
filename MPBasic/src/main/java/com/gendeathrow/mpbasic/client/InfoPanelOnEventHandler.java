@@ -1,8 +1,8 @@
 package com.gendeathrow.mpbasic.client;
 
-import com.gendeathrow.mpbasic.client.MPSave.BTSaveHandler;
 import com.gendeathrow.mpbasic.client.gui.GuiInfoPanel;
 import com.gendeathrow.mpbasic.configs.InfoPanelConfigHandler;
+import com.gendeathrow.mpbasic.world.SaveData;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngameMenu;
@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(Side.CLIENT)
 public class InfoPanelOnEventHandler {
 
 	public static boolean isLoaded = false;
@@ -24,18 +24,17 @@ public class InfoPanelOnEventHandler {
 	@SubscribeEvent
 	public static void onTick(TickEvent.PlayerTickEvent event){
 		if(event.side == Side.CLIENT && !isLoaded){
-			System.out.println((InfoPanelConfigHandler.onLogInLoadInfoPage == null) +":"+InfoPanelConfigHandler.hasOnLoginPage() +":"+ (BTSaveHandler.hasSeenStartInfoPanel == null));
-			if(InfoPanelConfigHandler.hasOnLoginPage() && BTSaveHandler.hasSeenStartInfoPanel == null) {
+			
+			if(InfoPanelConfigHandler.hasOnLoginPage() && !SaveData.get(event.player.world).hasSeenPanel(InfoPanelConfigHandler.onLogInLoadInfoPage)) {
 				isLoaded = true;
 				Minecraft.getMinecraft().displayGuiScreen(new GuiInfoPanel(new GuiIngameMenu(), InfoPanelConfigHandler.onLogInLoadInfoPage));
-				BTSaveHandler.setSeenInfoPanel(InfoPanelConfigHandler.onLogInLoadInfoPage.getPanelID());
 			}else {
 				isLoaded = true;
 			}
 		}
 	}
 	
-	
+	@SideOnly(Side.CLIENT)	
 	@SubscribeEvent
 	public static void onBookCheck(PlayerInteractEvent.RightClickItem event)
 	{
@@ -45,7 +44,7 @@ public class InfoPanelOnEventHandler {
 			NBTTagCompound tag = event.getItemStack().getTagCompound();
 			if(tag.hasKey("infopanel")) {
 				if(InfoPanelConfigHandler.PAGES.containsKey(tag.getString("infopanel")))
-					Minecraft.getMinecraft().displayGuiScreen(new GuiInfoPanel(null, InfoPanelConfigHandler.PAGES.get(tag.getString("infopanel"))));
+					Minecraft.getMinecraft().displayGuiScreen(new GuiInfoPanel(null, InfoPanelConfigHandler.PAGES.get(tag.getString("infopanel")), true));
 			}
 		}
 	}

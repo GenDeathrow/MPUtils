@@ -45,7 +45,7 @@ public class MPBasic
     {
     	logger = event.getModLog();
     	
-    	this.network = NetworkRegistry.INSTANCE.newSimpleChannel(CHANNELNAME);
+    	network = NetworkRegistry.INSTANCE.newSimpleChannel(CHANNELNAME);
     	network.registerMessage(InfoPanelUpdate.ClientHandler.class, InfoPanelUpdate.class, 0, Side.CLIENT);
 
     	

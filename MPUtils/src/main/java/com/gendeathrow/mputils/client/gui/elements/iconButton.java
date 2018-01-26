@@ -24,8 +24,6 @@ public class iconButton extends GuiButton
 			super(buttonId, x, y, widthIn, heightIn, buttonText);
 		}
 		
-		
-		
 		int iconX;
 		int iconY;
 		
@@ -37,8 +35,8 @@ public class iconButton extends GuiButton
 			return this;
 		}
 		
-		
-	    public void drawButton(Minecraft mc, int mouseX, int mouseY)
+		@Override
+	    public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks)
 	    {
 	        if (this.visible)
 	        {
@@ -59,8 +57,8 @@ public class iconButton extends GuiButton
 	        }
 	    }
 
-		public boolean isHovered() 
-		{
+	    public boolean isMouseOver()
+	    {
 			return this.hovered;
 		}
 		

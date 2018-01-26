@@ -133,7 +133,7 @@ public class InfoPanelConfigHandler {
 		p3lines.add("Look page 3!");
 		
 		p3lines.add("You can use Minecrafts "+TextFormatting.BLUE+"Color "+TextFormatting.DARK_GREEN+"Codes "+TextFormatting.GOLD+"to"+TextFormatting.RESET+" "+TextFormatting.UNDERLINE+"make your InfoPanels look Good.");
-
+		p3lines.add("Setting the 'mustRead' in your json file will force the player to read the infopanel for at least 20 secs. Unless its was opened from a book... This will change to forcing player to read something new only once. At the moment it is what it is. ");
 		List<String> jsonLines = new ArrayList<String>();
 		jsonLines.add(dumpJson());
 			
@@ -152,6 +152,7 @@ public class InfoPanelConfigHandler {
 		JsonObject json = new JsonObject();
 		
 		json.addProperty(NBTONLOGIN, true);
+		json.addProperty(NBTMUSTREAD, true);
 		
 		JsonArray pageArray = new JsonArray();
 		
@@ -182,7 +183,7 @@ public class InfoPanelConfigHandler {
 	public static String NBTGIVEBOOK = "";
 	public static String NBTFILE = "file";
 	public static String NBTPAGES = "pages";
-	public static String NBTMUSTREAD = "title";
+	public static String NBTMUSTREAD = "mustRead";
 	public static String NBTONLOGIN = "loadOnLogin";
 	public static String NBTCANCHANGEPAGES = "canChangePages";
 

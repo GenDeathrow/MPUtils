@@ -22,6 +22,7 @@ public class InfoPanelPages {
 	boolean canChangePages = true;
 	boolean isLoaded = false;
 	protected ArrayList<PageProperties> pages = new ArrayList<PageProperties>();
+	protected boolean mustRead = false;
 	
 	public InfoPanelPages(String name, File fileIn) {
 		file = fileIn;
@@ -35,6 +36,10 @@ public class InfoPanelPages {
 	
 	public boolean canSwitchPages() {
 		return this.canChangePages;
+	}
+	
+	public boolean forceRead() {
+		return mustRead;
 	}
 	
 	public int getPageCnt() {
@@ -102,6 +107,9 @@ public class InfoPanelPages {
 		
 		if(json.has(InfoPanelConfigHandler.NBTCANCHANGEPAGES))
 			canChangePages = json.get(InfoPanelConfigHandler.NBTCANCHANGEPAGES).getAsBoolean();
+		
+		if(json.has(InfoPanelConfigHandler.NBTMUSTREAD))
+			mustRead = json.get(InfoPanelConfigHandler.NBTMUSTREAD).getAsBoolean();
 		
 		JsonArray pageArray = json.get(InfoPanelConfigHandler.NBTPAGES).getAsJsonArray();
 		
