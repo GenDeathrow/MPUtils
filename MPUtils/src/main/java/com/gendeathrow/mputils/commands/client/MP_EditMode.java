@@ -9,6 +9,7 @@ import com.gendeathrow.mputils.core.Settings;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentTranslation;
 
 public class MP_EditMode extends MP_BaseCommand
@@ -40,7 +41,7 @@ public class MP_EditMode extends MP_BaseCommand
 	}
 	
 	@Override
-	public void runCommand(CommandBase command, ICommandSender sender, String[] args) 
+	public void runCommand(CommandBase command, MinecraftServer server, ICommandSender sender, String[] args) 
 	{
 		if(args.length > 1) 
 		{

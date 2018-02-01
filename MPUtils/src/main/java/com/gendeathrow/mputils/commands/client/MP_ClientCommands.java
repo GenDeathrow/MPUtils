@@ -96,7 +96,7 @@ public class MP_ClientCommands  extends CommandBase
 			{
 				if(c.getCommand().equalsIgnoreCase(strings[0]))
 				{
-					return c.autoComplete(sender, strings);
+					return c.autoComplete(server, sender, strings);
 				}
 			}
 		}
@@ -124,7 +124,7 @@ public class MP_ClientCommands  extends CommandBase
 			{
 				if(c.validArgs(args))
 				{
-					c.runCommand(this, sender, args);
+					c.runCommand(this, server, sender, args);
 					return;
 				} else
 				{

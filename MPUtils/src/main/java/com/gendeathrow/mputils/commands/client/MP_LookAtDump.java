@@ -14,6 +14,7 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -53,7 +54,7 @@ public class MP_LookAtDump extends MP_BaseCommand
 	}
 	
 	@Override
-	public void runCommand(CommandBase command, ICommandSender sender, String[] args) 
+	public void runCommand(CommandBase command, MinecraftServer server, ICommandSender sender, String[] args) 
 	{
 		
 	}

@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
+import net.minecraft.server.MinecraftServer;
 
 
 public abstract class MP_BaseCommand 
@@ -26,12 +28,12 @@ public abstract class MP_BaseCommand
 		return args.length == 1;
 	}
 	
-	public List<String> autoComplete(ICommandSender sender, String[] args)
+	public List<String> autoComplete(MinecraftServer server, ICommandSender sender, String[] args)
 	{
 		return new ArrayList<String>();
 	}
 	
-	public abstract void runCommand(CommandBase command, ICommandSender sender, String[] args);
+	public abstract void runCommand(CommandBase command, MinecraftServer server, ICommandSender sender, String[] args) throws CommandException;
 	
 	public final WrongUsageException getException(CommandBase command)
 	{

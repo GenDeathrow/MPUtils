@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.apache.logging.log4j.Logger;
 
+import com.gendeathrow.mpbasic.common.infopanel.CapabilityInfoPanel;
 import com.gendeathrow.mpbasic.core.proxies.MPBCommonProxy;
 import com.gendeathrow.mpbasic.network.InfoPanelUpdate;
 
@@ -23,7 +24,7 @@ import net.minecraftforge.fml.relauncher.Side;
 public class MPBasic 
 {
     public static final String MODID = "mpbasic";
-    public static final String VERSION = "1.4.0";
+    public static final String VERSION = "1.4.1";
     public static final String MCVERSION = "1.0.0";
     public static final String NAME = "ModPack Utils";
     public static final String PROXY = "com.gendeathrow.mpbasic.core.proxies";
@@ -31,7 +32,7 @@ public class MPBasic
     @Instance(MODID)
 	public static MPBasic instance;
     
-    public static final String dependencies =  "required-after:mputils@[1.5.0,1.6.0]";
+    public static final String dependencies =  "required-after:mputils@[1.5.3,1.6.0]";
     
 	@SidedProxy(clientSide = PROXY + ".MPBClientProxy", serverSide = PROXY + ".MPBCommonProxy")
 	public static MPBCommonProxy proxy;
@@ -47,8 +48,9 @@ public class MPBasic
     	
     	network = NetworkRegistry.INSTANCE.newSimpleChannel(CHANNELNAME);
     	network.registerMessage(InfoPanelUpdate.ClientHandler.class, InfoPanelUpdate.class, 0, Side.CLIENT);
-
+    	network.registerMessage(InfoPanelUpdate.ServerHandler.class, InfoPanelUpdate.class, 1, Side.SERVER);
     	
+    	CapabilityInfoPanel.register();
     	proxy.preInit(event);
     }
 	
@@ -56,7 +58,6 @@ public class MPBasic
     public void init(FMLInitializationEvent event) throws IOException
     {
     	proxy.init(event);
-
     }
     
     @EventHandler

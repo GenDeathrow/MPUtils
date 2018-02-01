@@ -6,6 +6,7 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
@@ -23,7 +24,7 @@ public class MP_LookAtCommand extends MP_LookAtDump
 
 	
 	@Override
-	public void runCommand(CommandBase command, ICommandSender sender,	String[] args) 
+	public void runCommand(CommandBase command, MinecraftServer server, ICommandSender sender,	String[] args) 
 	{
 		if(sender != null && sender instanceof EntityPlayer)
 		{

@@ -6,10 +6,10 @@ import java.util.TimerTask;
 
 import org.apache.logging.log4j.Level;
 
-import com.gendeathrow.mpbasic.client.InfoPanelPages;
-import com.gendeathrow.mpbasic.client.InfoPanelPages.PageProperties;
-import com.gendeathrow.mpbasic.configs.InfoPanelConfigHandler;
-import com.gendeathrow.mpbasic.world.SaveData;
+import com.gendeathrow.mpbasic.common.infopanel.InfoPanelPages;
+import com.gendeathrow.mpbasic.common.infopanel.InfoPanelPages.PageProperties;
+import com.gendeathrow.mpbasic.core.MPBasic;
+import com.gendeathrow.mpbasic.network.InfoPanelUpdate;
 import com.gendeathrow.mputils.api.client.gui.ScrollWindowBase;
 import com.gendeathrow.mputils.api.client.gui.elements.TextScrollWindow;
 import com.gendeathrow.mputils.client.gui.elements.TextEditor;
@@ -45,6 +45,8 @@ public class GuiInfoPanel extends ScrollWindowBase
 		
 		if(infoFile.forceRead() && !dontRead)
 			setupTimer();
+		
+		MPBasic.network.sendToServer(new InfoPanelUpdate(infoFileIn.getPanelID()));
 	}
 	
 	@Override
@@ -70,8 +72,8 @@ public class GuiInfoPanel extends ScrollWindowBase
 		hasLoaded = true;
 		
 
+
 		
-		SaveData.get(mc.world).addSeenPanel(InfoPanelConfigHandler.onLogInLoadInfoPage);		
 //		if(Settings.editMode)
 //		{
 //			this.buttonList.add(new GuiButton(12, (this.width - 200)/2 , posY + sizeY + 5 , "Use Editor"));
@@ -98,7 +100,7 @@ public class GuiInfoPanel extends ScrollWindowBase
 	
 	public void setupTimer() {
 		timer = new Timer();
-		setCountDown(20);
+		setCountDown(10);
 		TimerReset();
 	}
 	

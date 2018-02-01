@@ -1,4 +1,4 @@
-package com.gendeathrow.mpbasic.client;
+package com.gendeathrow.mpbasic.common.infopanel;
 
 import java.io.File;
 import java.io.IOException;

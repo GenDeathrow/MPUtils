@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTBase;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
@@ -46,7 +47,7 @@ public class MP_ItemDump extends MP_BaseCommand
 	}
 	
 	@Override
-	public List<String> autoComplete(ICommandSender sender, String[] args)
+	public List<String> autoComplete(MinecraftServer server, ICommandSender sender, String[] args)
 	{
 		if(args.length >= 1) return options; 
 		return new ArrayList<String>();
@@ -83,7 +84,7 @@ public class MP_ItemDump extends MP_BaseCommand
 	}
 
 	@Override
-	public void runCommand(CommandBase command, ICommandSender sender, String[] args) 
+	public void runCommand(CommandBase command, MinecraftServer server, ICommandSender sender, String[] args) 
 	{
 		
 	}

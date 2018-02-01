@@ -12,6 +12,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -58,13 +59,13 @@ public class MP_ModItemDump extends MP_ItemDump
 	}
 	
 	@Override
-	public void runCommand(CommandBase command, ICommandSender sender, String[] args) 
+	public void runCommand(CommandBase command, MinecraftServer server, ICommandSender sender, String[] args) 
 	{
 		if(sender != null && sender instanceof EntityPlayer)
 		{
 			if(sender.getEntityWorld().isRemote)
 			{
-				String clipboard = "";
+				String clipboard = "";  
 				
 				String modid = args[1];
 				

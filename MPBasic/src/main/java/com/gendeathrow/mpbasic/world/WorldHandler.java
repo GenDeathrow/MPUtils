@@ -9,7 +9,7 @@ public class WorldHandler {
 
 	@SubscribeEvent
 	public static void onSave(WorldEvent.Save event) {
-		SaveData.get(event.getWorld());
+			//SaveData.get(event.getWorld());
 	}
 	
 }

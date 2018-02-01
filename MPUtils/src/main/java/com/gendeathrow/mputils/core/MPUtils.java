@@ -22,11 +22,11 @@ import net.minecraftforge.fml.relauncher.Side;
 
 // 1.11.2 Minecraft
 
-@Mod(modid = MPUtils.MODID, name=MPUtils.NAME, version = MPUtils.VERSION, guiFactory = "com.gendeathrow.mputils.configs.ConfigGuiFactory")
+@Mod(modid = MPUtils.MODID, name=MPUtils.NAME, version = MPUtils.VERSION, dependencies="before:mpbasic@[1.4.1,)", guiFactory = "com.gendeathrow.mputils.configs.ConfigGuiFactory")
 public class MPUtils 
 {
     public static final String MODID = "mputils";
-    public static final String VERSION = "1.5.1";
+    public static final String VERSION = "1.5.3";
     public static final String NAME = "MPUtils";
     public static final String PROXY = "com.gendeathrow.mputils.core.proxies";
     public static final String CHANNELNAME = "genmputils";
@@ -49,7 +49,6 @@ public class MPUtils
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-    	
     	logger = event.getModLog();
     	
     	proxy.preInit(event);

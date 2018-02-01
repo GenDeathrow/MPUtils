@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import com.gendeathrow.mpbasic.client.InfoPanelPages;
+import com.gendeathrow.mpbasic.common.infopanel.InfoPanelPages;
 import com.gendeathrow.mputils.configs.ConfigHandler;
 import com.gendeathrow.mputils.utils.MPFileUtils;
 import com.google.gson.GsonBuilder;
@@ -114,7 +114,7 @@ public class InfoPanelConfigHandler {
 		p1lines.add("Info panels allow you to write tutorials, welcome messages, or any type of information you would like to add into the game.");p1lines.add("");
 		p1lines.add("If you just want it to start up on first world load. add "+ TextFormatting.YELLOW +"'loadOnLogin:true'"+ TextFormatting.RESET +" to your infopanel json file.");p1lines.add("");
 		p1lines.add("You can also use minecraft books to open the gui. All you have to do is create a minecraft book with nbt data. "+TextFormatting.BLUE+" '{infopanel:<json file name>}' ");p1lines.add(TextFormatting.YELLOW + "~~Command Example (For welcome.json example):"+TextFormatting.BLUE+" /give <player name> minecraft:book 1 0 {infopanel:welcome}"+ TextFormatting.RESET); p1lines.add("");
-		p1lines.add("A quicker command to give the command sender a book for a specfic infopanel. '/mpadmin infopanel <json file name>', Auto complete is set up to help you out."); p1lines.add("");
+		p1lines.add("A quicker command to give the command sender a book for a specfic infopanel. '/mpadmin infopanel <playername> <giveBook/opengui> <json file name>', Auto complete is set up to help you out."); p1lines.add("");
 		p1lines.add("If you have load on login true, And you want it to retrigger with a new modpack update, just change the json file name.");p1lines.add("");
 		p1lines.add(TextFormatting.RED +"Files are read in UTF-8 Encoding! So if you get strange characters. Your file may be the incorrect encoding. Using a tool like Notpad++ will tell your encoding in the bottom right corner. And in a dropdown you can convert the text file. Some editing my be needed. "+ TextFormatting.RESET);
 		p1lines.add("						  "+TextFormatting.BOLD +""+ TextFormatting.BLUE +"Click Next for more info on infopanels...");
