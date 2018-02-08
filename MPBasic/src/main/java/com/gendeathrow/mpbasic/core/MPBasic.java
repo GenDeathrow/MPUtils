@@ -24,7 +24,7 @@ import net.minecraftforge.fml.relauncher.Side;
 public class MPBasic 
 {
     public static final String MODID = "mpbasic";
-    public static final String VERSION = "1.4.1";
+    public static final String VERSION = "1.4.3";
     public static final String MCVERSION = "1.0.0";
     public static final String NAME = "ModPack Utils";
     public static final String PROXY = "com.gendeathrow.mpbasic.core.proxies";
