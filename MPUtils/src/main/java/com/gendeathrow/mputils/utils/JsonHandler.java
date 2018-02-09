@@ -46,7 +46,7 @@ public class JsonHandler
 	        		FileWriter fw = new FileWriter(file);
 	        			
 	         		new GsonBuilder().setPrettyPrinting().create().toJson(json, fw);
-	        			
+
 	        		fw.flush();
 	        		fw.close();
 	        		

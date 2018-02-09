@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import com.gendeathrow.mputils.commands.common.MP_Commands;
 import com.gendeathrow.mputils.core.proxies.MPCommonProxy;
 import com.gendeathrow.mputils.network.RequestTEPacket;
+import com.gendeathrow.mputils.network.ScreenNotificationPacket;
 
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -22,11 +23,11 @@ import net.minecraftforge.fml.relauncher.Side;
 
 // 1.11.2 Minecraft
 
-@Mod(modid = MPUtils.MODID, name=MPUtils.NAME, version = MPUtils.VERSION, dependencies="before:mpbasic@[1.4.1,)", guiFactory = "com.gendeathrow.mputils.configs.ConfigGuiFactory")
+@Mod(modid = MPUtils.MODID, name=MPUtils.NAME, version = MPUtils.VERSION, dependencies="before:mpbasic@[1.4.4,)", guiFactory = "com.gendeathrow.mputils.configs.ConfigGuiFactory")
 public class MPUtils 
 {
     public static final String MODID = "mputils";
-    public static final String VERSION = "1.5.3";
+    public static final String VERSION = "1.5.4";
     public static final String NAME = "MPUtils";
     public static final String PROXY = "com.gendeathrow.mputils.core.proxies";
     public static final String CHANNELNAME = "genmputils";
@@ -56,6 +57,7 @@ public class MPUtils
 		this.network = NetworkRegistry.INSTANCE.newSimpleChannel(CHANNELNAME);
     	network.registerMessage(RequestTEPacket.ServerHandler.class, RequestTEPacket.class, 0, Side.SERVER);
     	network.registerMessage(RequestTEPacket.ClientHandler.class, RequestTEPacket.class, 1, Side.CLIENT);
+    	network.registerMessage(ScreenNotificationPacket.ClientHandler.class, ScreenNotificationPacket.class, 2, Side.CLIENT);
 
     }
 	

@@ -14,7 +14,8 @@ import net.minecraftforge.common.config.Configuration;
 
 public class MPBConfigHandler 
 {
-		public static final File configFile = new File(ConfigHandler.configDir +"/addons/"+MPBasic.MODID, MPBasic.MODID+".cfg");
+		public static final File MPBConfigDir =  new File(ConfigHandler.configDir +"/addons/"+MPBasic.MODID);
+		public static final File configFile = new File(MPBConfigDir, MPBasic.MODID+".cfg");
 		
 		public static Configuration config;
 		

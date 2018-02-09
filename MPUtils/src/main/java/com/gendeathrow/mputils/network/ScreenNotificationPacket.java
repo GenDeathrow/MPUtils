@@ -1,6 +1,7 @@
 package com.gendeathrow.mputils.network;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.logging.log4j.Level;
 
@@ -19,18 +20,18 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 public class ScreenNotificationPacket implements IMessage 
 {
 	private int count;
-	private ArrayList<String> lines = new ArrayList<String>();
+	private List<String> lines = new ArrayList<String>();
 	private String soundFile;
 	
 	public ScreenNotificationPacket(){	}
 
 	
-	public ScreenNotificationPacket(ArrayList<String> linesIn) // Use PacketDataTypes to instantiate new packets
+	public ScreenNotificationPacket(List<String> lines) // Use PacketDataTypes to instantiate new packets
 	{
-		this(linesIn, SoundEvents.ENTITY_PLAYER_LEVELUP.getRegistryName().toString());
+		this(lines, SoundEvents.ENTITY_PLAYER_LEVELUP.getRegistryName().toString());
 	}
 	
-	public ScreenNotificationPacket(ArrayList<String> linesIn, String sound) // Use PacketDataTypes to instantiate new packets
+	public ScreenNotificationPacket(List<String> linesIn, String sound) // Use PacketDataTypes to instantiate new packets
 	{
 		lines = linesIn;
 		count = linesIn.size();
@@ -53,6 +54,7 @@ public class ScreenNotificationPacket implements IMessage
 	@Override
 	public void toBytes(ByteBuf buf) 
 	{
+
 		ByteBufUtils.writeUTF8String(buf, soundFile);
 		
 		// write amount of lines.

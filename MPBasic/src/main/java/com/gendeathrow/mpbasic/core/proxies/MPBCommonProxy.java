@@ -2,7 +2,9 @@ package com.gendeathrow.mpbasic.core.proxies;
 
 import com.gendeathrow.mpbasic.BTEventHandler;
 import com.gendeathrow.mpbasic.commands.MPInfoPanelCommand;
+import com.gendeathrow.mpbasic.commands.SendOnScreenNoticeCommand;
 import com.gendeathrow.mpbasic.configs.InfoPanelConfigHandler;
+import com.gendeathrow.mpbasic.configs.NotificationsConfigs;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -40,7 +42,11 @@ public class MPBCommonProxy
 	public void init(FMLInitializationEvent event)
 	{
 		MPInfoPanelCommand.register();
+		SendOnScreenNoticeCommand.register();
+		
 		InfoPanelConfigHandler.readInfoPanelConfigs();
+		NotificationsConfigs.load();
+		
 	}
 	
 	public void postInit(FMLPostInitializationEvent event)

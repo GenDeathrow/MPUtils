@@ -1,11 +1,9 @@
 package com.gendeathrow.mpbasic.common.infopanel;
 
-import com.gendeathrow.mpbasic.api.IInfoPanelData;
 import com.gendeathrow.mpbasic.client.gui.GuiInfoPanel;
 import com.gendeathrow.mpbasic.configs.InfoPanelConfigHandler;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.nbt.NBTTagCompound;
@@ -15,7 +13,6 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
