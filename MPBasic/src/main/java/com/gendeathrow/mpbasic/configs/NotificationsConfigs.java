@@ -100,10 +100,10 @@ public class NotificationsConfigs {
 					darkostoObject.addProperty("soundlocation", SoundEvents.ENTITY_PLAYER_LEVELUP.getRegistryName().toString());
 					JsonArray darkLines = new JsonArray();
 						darkLines.add(TextFormatting.BLUE + "" + TextFormatting.UNDERLINE + "Happy Birthday!!!");
-						darkLines.add(TextFormatting.DARK_GREEN + "Happy BirthDay to you!");
-						darkLines.add(TextFormatting.DARK_GREEN +"Happy BirthDay to you!");
-						darkLines.add(TextFormatting.DARK_PURPLE +"Happy BirthDay Darkosto!");
-						darkLines.add(TextFormatting.DARK_GREEN +"Happy BirthDay to you!");
+						darkLines.add(TextFormatting.DARK_GREEN + "Happy Birthday to you!");
+						darkLines.add(TextFormatting.DARK_GREEN +"Happy Birthday to you!");
+						darkLines.add(TextFormatting.DARK_PURPLE +"Happy Birthday Darkosto!");
+						darkLines.add(TextFormatting.DARK_GREEN +"Happy Birthday to you!");
 					darkostoObject.add("lines", darkLines);
 				notificationList.add(darkostoObject);
 				JsonObject exampleObject = new JsonObject();

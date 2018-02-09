@@ -23,7 +23,7 @@ import net.minecraftforge.fml.relauncher.Side;
 
 // 1.11.2 Minecraft
 
-@Mod(modid = MPUtils.MODID, name=MPUtils.NAME, version = MPUtils.VERSION, dependencies="before:mpbasic@[1.4.4,)", guiFactory = "com.gendeathrow.mputils.configs.ConfigGuiFactory")
+@Mod(modid = MPUtils.MODID, name=MPUtils.NAME, version = MPUtils.VERSION, dependencies="before:mpbasic@[1.4.5,)", guiFactory = "com.gendeathrow.mputils.configs.ConfigGuiFactory")
 public class MPUtils 
 {
     public static final String MODID = "mputils";
