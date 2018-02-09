@@ -12,6 +12,7 @@ out
 *.iws
 *.iml
 .idea
+*.zip
 
 # gradle
 build
@@ -20,3 +21,7 @@ build
 # other
 eclipse
 run
+runServer
+classes
+oldsrc
+workspace
