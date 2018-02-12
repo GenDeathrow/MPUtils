@@ -17,6 +17,8 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GlStateManager.DestFactor;
+import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.Tessellator;
@@ -696,7 +698,11 @@ public class RenderAssist {
         GlStateManager.enableRescaleNormal();
         GlStateManager.enableColorMaterial();
         GlStateManager.enableLighting();
-
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
+		
+		
+		GlStateManager.color(1F, 1F, 1F, .5f);
         	GL11.glTranslatef(-x, -y, 0);
         	GL11.glScalef(scale, scale, 0);
         	render.renderItemAndEffectIntoGUI(stack, x, y);
@@ -705,6 +711,9 @@ public class RenderAssist {
         GlStateManager.depthMask(true);
         GlStateManager.enableDepth();
     }
+    
+    
+    
     
     /**
      *  push

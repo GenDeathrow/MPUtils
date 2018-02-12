@@ -21,16 +21,16 @@ public class InfoPanelOnHandler {
 
 	//public static boolean isLoaded = false;
 	
-	@SideOnly(Side.SERVER)
+
     @SubscribeEvent
     public static void playerLoggedIn(PlayerLoggedInEvent event)
     {
 		
-        if ((event.player instanceof FakePlayer) || (event.player.getClass().getName().equals("mezz.jei.util.FakeClientPlayer"))) return;
-       
-    	if(event.player instanceof EntityPlayerMP) {
-    		MinecraftForge.EVENT_BUS.register(new PlayerInfoDelay(10, event.player));
-    	}
+        if (event.player instanceof FakePlayer || (event.player.getClass().getName().equals("mezz.jei.util.FakeClientPlayer"))) return;
+        
+    	if(event.player instanceof EntityPlayerMP) 
+    			MinecraftForge.EVENT_BUS.register(new PlayerInfoDelay(10, event.player));
+   
     }
     
 	@SideOnly(Side.CLIENT)	

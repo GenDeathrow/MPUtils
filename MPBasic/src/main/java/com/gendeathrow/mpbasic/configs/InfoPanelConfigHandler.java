@@ -32,6 +32,12 @@ public class InfoPanelConfigHandler {
 	public static File infoDirectory = new File(ConfigHandler.configDir, "infopanel");
 	
 	
+	public static void reloadConfig() {
+		onLogInLoadInfoPage = null;
+		PAGES.clear();
+		readInfoPanelConfigs();
+	}
+	
 	public static boolean hasOnLoginPage() {
 		return onLogInLoadInfoPage != null;
 	}

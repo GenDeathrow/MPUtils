@@ -2,6 +2,7 @@ package com.gendeathrow.mpbasic.common.infopanel;
 
 import com.gendeathrow.mpbasic.api.IInfoPanelData;
 import com.gendeathrow.mpbasic.configs.InfoPanelConfigHandler;
+import com.gendeathrow.mpbasic.core.MPBasic;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -23,16 +24,22 @@ public class PlayerInfoDelay {
 	@SubscribeEvent
 	public void onTick(TickEvent.PlayerTickEvent event){
 		
-		if(event.player.world == null || delay-- > 0 || !(player instanceof EntityPlayerMP)) return;
+		if(event.player.world == null || delay-- > 0) return;
 
 		if(InfoPanelConfigHandler.hasOnLoginPage()) {
-				IInfoPanelData cap = CapabilityInfoPanel.getInfoPanelData(event.player);
-				if(cap != null) {
-					if(!cap.hasBeenGivinBook(InfoPanelConfigHandler.onLogInLoadInfoPage.getPanelID())) {
-						CapabilityInfoPanel.sendToPlayer(InfoPanelConfigHandler.onLogInLoadInfoPage.getPanelID(), (EntityPlayerMP)event.player);
+			IInfoPanelData cap = CapabilityInfoPanel.getInfoPanelData(event.player);
+			if(cap != null) {
+				if(!cap.hasBeenGivinBook(InfoPanelConfigHandler.onLogInLoadInfoPage.getPanelID())) {
+					try {
+						if(player instanceof EntityPlayerMP)
+							CapabilityInfoPanel.sendToPlayer(InfoPanelConfigHandler.onLogInLoadInfoPage.getPanelID(), (EntityPlayerMP)event.player);
+					}catch(Exception e) {
+						MPBasic.logger.error("Error trying send packet for infopanel: ");
+						e.printStackTrace();	
 					}
 				}
 			}
-    	MinecraftForge.EVENT_BUS.unregister(this);
+		}
+	  	MinecraftForge.EVENT_BUS.unregister(this);
 	}
 }

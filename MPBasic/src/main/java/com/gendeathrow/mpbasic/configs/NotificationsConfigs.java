@@ -1,5 +1,6 @@
 package com.gendeathrow.mpbasic.configs;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import com.gendeathrow.mpbasic.core.MPBasic;
 import com.gendeathrow.mputils.utils.MPFileUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -34,7 +36,16 @@ public class NotificationsConfigs {
 			
 	}
 
-	
+	public static void reloadConfig() {
+		
+		LoadedNotifications.clear();
+		
+		try {
+			readJson();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	protected static void readJson() throws IOException {
 		
@@ -49,9 +60,12 @@ public class NotificationsConfigs {
 					JsonObject single = notifications.get(i).getAsJsonObject();
 					
 					String id = null;
-					String soundFile = SoundEvents.ENTITY_PLAYER_LEVELUP.toString();
+					String soundFile = null;
 					List<String> lines = new ArrayList<String>();
 					String itemID = ItemStack.EMPTY.getItem().getRegistryName().toString();
+					int bgColor = Color.GRAY.getRGB();
+					int borderColor = Color.BLACK.getRGB();
+					
 					if(single.has("id"))
 						id = single.get("id").getAsString();
 					
@@ -60,6 +74,26 @@ public class NotificationsConfigs {
 					
 					if(single.has("itemstack"))
 						itemID = single.get("itemstack").getAsString();
+					
+					if(single.has("bgColor")) {
+						try {
+							bgColor = Color.decode(single.get("bgColor").getAsString()).getRGB();
+						}catch(NumberFormatException e) {
+							MPBasic.logger.error("Error converting Hex number bgColor : '"+ single.get("bgColor").getAsString()+"'");
+							e.printStackTrace();
+						}
+						
+					}
+					
+					if(single.has("borderColor")) {
+						try {
+							borderColor = Color.decode(single.get("borderColor").getAsString()).getRGB();
+						}catch(NumberFormatException e) {
+							MPBasic.logger.error("Error converting Hex number borderColor : '"+ single.get("bgColor").getAsString()+"'");
+							e.printStackTrace();
+						}
+
+					}
 					
 					if(single.has("lines")) {
 						JsonArray jsonlist = single.get("lines").getAsJsonArray();
@@ -71,7 +105,7 @@ public class NotificationsConfigs {
 					}
 					
 					if(id != null && !lines.isEmpty())
-						LoadedNotifications.put(id, new NotificationObject(id, itemID, soundFile, lines));
+						LoadedNotifications.put(id, new NotificationObject(id, itemID, soundFile, lines, bgColor, borderColor));
 						
 				}
 		}
@@ -98,6 +132,9 @@ public class NotificationsConfigs {
 					darkostoObject.addProperty("id","darkosto");
 					//darkostoObject.addProperty("itemstack", Items.CAKE.getRegistryName().toString());
 					darkostoObject.addProperty("soundlocation", SoundEvents.ENTITY_PLAYER_LEVELUP.getRegistryName().toString());
+					
+					darkostoObject.addProperty("bgColor","#"+ Integer.toHexString(Color.GRAY.getRGB()).substring(2));
+					darkostoObject.addProperty("borderColor","#"+ Integer.toHexString(Color.BLACK.getRGB()).substring(2));
 					JsonArray darkLines = new JsonArray();
 						darkLines.add(TextFormatting.BLUE + "" + TextFormatting.UNDERLINE + "Happy Birthday!!!");
 						darkLines.add(TextFormatting.DARK_GREEN + "Happy Birthday to you!");
@@ -134,12 +171,16 @@ public class NotificationsConfigs {
 		public String itemstackID;
 		public String soundLocation;
 		public List<String> lines;
+		public int bgColor;
+		public int borderColor;
 		
-		public NotificationObject(String idIn, String itemIn, String soundLocationIn, List<String> linesIn) {
+		public NotificationObject(String idIn, String itemIn, String soundLocationIn, List<String> linesIn, int bgColorIn, int borderColorIn) {
 			this.id = idIn;
 			this.itemstackID = itemIn;
 			this.soundLocation = soundLocationIn;
 			this.lines = linesIn;
+			this.bgColor = bgColorIn;
+			this.borderColor = borderColorIn;
 		}
 	}
 }

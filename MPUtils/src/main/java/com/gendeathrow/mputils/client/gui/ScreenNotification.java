@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -27,12 +28,12 @@ import net.minecraftforge.fml.relauncher.Side;
 public class ScreenNotification 
 {
 	
-	static ArrayList<QuestNotice> notices = new ArrayList<QuestNotice>();
+	static ArrayList<Notice> notices = new ArrayList<Notice>();
 
 	
-	public static void ScheduleNotice(List<String> lines, String sound)
+	public static void ScheduleNotice(List<String> lines, String sound,int bgColorIn,int borderColorIn)
 	{
-		notices.add(new QuestNotice(lines, sound));
+		notices.add(new Notice(lines, sound, bgColorIn, borderColorIn));
 	}
 	
 	@SubscribeEvent
@@ -47,7 +48,7 @@ public class ScreenNotification
 		ScaledResolution resolution = new ScaledResolution(mc);
 		int width = resolution.getScaledWidth();
 		int height = resolution.getScaledHeight();
-		QuestNotice notice = notices.get(0);
+		Notice notice = notices.get(0);
 		
 		if(!notice.init)
 		{
@@ -59,7 +60,10 @@ public class ScreenNotification
 			notice.init = true;
 			notice.startTime = Minecraft.getSystemTime();
 			notice.lengthSecs = 6 + (notice.lines.size() * 0.5f);
-			mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(new SoundEvent(new ResourceLocation(notice.sound)), 1.0F));
+			if(notice.sound != null)
+				mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(new SoundEvent(new ResourceLocation(notice.sound)), 1.0F));
+			
+
 		}
 		
 		if(notice.getTime() >= notice.lengthSecs)
@@ -78,15 +82,24 @@ public class ScreenNotification
 		
 		float alpha = notice.getTime() <= notice.lengthSecs - 2? Math.min(1F, notice.getTime()) : Math.max(0F, notice.lengthSecs - 1 - notice.getTime());
 		alpha = MathHelper.clamp(alpha, 0.02F, 1F);
-		int color = new Color(1F, 1F, 1F, alpha).getRGB();
-		Color bg = new Color(1/Color.DARK_GRAY.getRed(), 1/Color.DARK_GRAY.getGreen(), 1/Color.DARK_GRAY.getBlue(), alpha/2);
-		Color bg2 = new Color(0, 0, 0, alpha);
 		
-		GlStateManager.color(1F, 1F, 1F, alpha);
+		float[] bgRBG = new Color(notice.bgColor).getColorComponents(null);
+		float[] borderRBG = new Color(notice.borderColor).getColorComponents(null);
+
+		
+		int color = new Color(1F, 1F, 1F, alpha).getRGB();
+		int shadow = new Color(0F, 0F, 0F, alpha).getRGB();
+		
+		Color bg = new Color(bgRBG[0],bgRBG[1], bgRBG[2] , alpha*.90f);
+		Color bg2 = new Color(borderRBG[0], borderRBG[1], borderRBG[2], alpha);
+		
 		
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
-     	
+		
+		
+		//GlStateManager.color(1F, 1F, 1F, alpha);
+
 		String tmp = I18n.format(notice.getLine(0));
 		int txtW = mc.fontRenderer.getStringWidth(tmp);
 		
@@ -96,39 +109,44 @@ public class ScreenNotification
 		float posY = (float)height/4 - 8; 
 		
 		GuiScreen.drawRect(0, (int)posY - 4, width, height/4 + (12 * notice.lines.size()), bg.getRGB());
-
 		RenderAssist.drawUnfilledRect(-5, (int)posY - 4, width+5, height/4 + (12 * notice.lines.size()), bg2.getRGB());
-		GlStateManager.pushMatrix();
 
+		GlStateManager.pushMatrix();
 			GlStateManager.scale(scaleing, scaleing, 0);
 			GlStateManager.translate(0, 0, 0);
-
-			mc.fontRenderer.drawString(tmp, ((float)posX) / scaleing, ((float)posY) / scaleing, color, true);
+			mc.fontRenderer.drawString(tmp, ((float)posX) / scaleing, ((float)posY) / scaleing, color, false);
 		GlStateManager.popMatrix();
+		
 		for(int i = 1; i < notice.lines.size(); i++) {
 			tmp = I18n.format(notice.getLine(i));
 			txtW = mc.fontRenderer.getStringWidth(tmp);
-			mc.fontRenderer.drawString(tmp, width/2 - txtW/2, height/4 + (12 * i), color, true);
+			mc.fontRenderer.drawString(tmp, width/2 - txtW/2, height/4 + (12 * i), color, false);
 		}
 		
+
 		//GlStateManager.disableBlend();
 		GlStateManager.popMatrix();
 	}
 	
-	public static class QuestNotice
+	public static class Notice
 	{
 		long startTime = 0;
 		public float lengthSecs = 6f;
 		public boolean init = false;
 		public List<String> lines = new ArrayList<String>();
 		public ItemStack icon = null;
-		public String sound = "random.levelup";
+		public String sound = null;
+		public int bgColor;
+		public int borderColor;
 		
-		public QuestNotice(List<String> lines2, String sound)
+		public Notice(List<String> lines2, String sound,int bgColorIn,int borderColorIn)
 		{
 			this.startTime = Minecraft.getSystemTime();
 			lines = lines2;
 			this.sound = sound;
+			this.icon = new ItemStack(Items.CAKE);
+			this.bgColor = bgColorIn;
+			this.borderColor = borderColorIn;
 		}
 		
 		public String getLine(int line) {

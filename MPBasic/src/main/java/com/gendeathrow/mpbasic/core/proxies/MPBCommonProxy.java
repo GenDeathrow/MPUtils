@@ -2,6 +2,7 @@ package com.gendeathrow.mpbasic.core.proxies;
 
 import com.gendeathrow.mpbasic.BTEventHandler;
 import com.gendeathrow.mpbasic.commands.MPInfoPanelCommand;
+import com.gendeathrow.mpbasic.commands.ReloadCommand;
 import com.gendeathrow.mpbasic.commands.SendOnScreenNoticeCommand;
 import com.gendeathrow.mpbasic.configs.InfoPanelConfigHandler;
 import com.gendeathrow.mpbasic.configs.NotificationsConfigs;
@@ -43,7 +44,7 @@ public class MPBCommonProxy
 	{
 		MPInfoPanelCommand.register();
 		SendOnScreenNoticeCommand.register();
-		
+		ReloadCommand.register();
 		InfoPanelConfigHandler.readInfoPanelConfigs();
 		NotificationsConfigs.load();
 		

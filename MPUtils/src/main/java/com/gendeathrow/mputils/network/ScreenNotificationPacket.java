@@ -1,5 +1,6 @@
 package com.gendeathrow.mputils.network;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,9 @@ public class ScreenNotificationPacket implements IMessage
 	private int count;
 	private List<String> lines = new ArrayList<String>();
 	private String soundFile;
+//	private ItemStack stack = ItemStack.EMPTY;
+	private int bgColor = Color.GRAY.getRGB();
+	private int borderColor = Color.BLACK.getRGB();
 	
 	public ScreenNotificationPacket(){	}
 
@@ -33,9 +37,17 @@ public class ScreenNotificationPacket implements IMessage
 	
 	public ScreenNotificationPacket(List<String> linesIn, String sound) // Use PacketDataTypes to instantiate new packets
 	{
+		this(linesIn, sound, Color.GRAY.getRGB(),Color.BLACK.getRGB());
+	}
+	
+	public ScreenNotificationPacket(List<String> linesIn, String sound, int bgcolorIn, int bordercolorIn ) // Use PacketDataTypes to instantiate new packets
+	{
 		lines = linesIn;
 		count = linesIn.size();
 		soundFile = sound;
+		bgColor = bgcolorIn;
+		borderColor = bordercolorIn;
+//		stack = stackIn;
 	}
 		
 	@Override
@@ -44,18 +56,28 @@ public class ScreenNotificationPacket implements IMessage
 		lines.clear();
 		
 		soundFile = ByteBufUtils.readUTF8String(buf);
+		bgColor = ByteBufUtils.readVarInt(buf, 5);
+		borderColor = ByteBufUtils.readVarInt(buf, 5);
+//		stack = ByteBufUtils.readItemStack(buf);
 		
 		count = ByteBufUtils.readVarShort(buf);
-		
 		for(int i = 0; i < count; i++)
 			lines.add(ByteBufUtils.readUTF8String(buf));
+		
+		
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) 
 	{
 
-		ByteBufUtils.writeUTF8String(buf, soundFile);
+		ByteBufUtils.writeUTF8String(buf, soundFile == null ? "null" : soundFile);
+		
+		
+		ByteBufUtils.writeVarInt(buf, bgColor, 5);
+		
+		ByteBufUtils.writeVarInt(buf, borderColor, 5);
+//		ByteBufUtils.writeItemStack(buf, stack);
 		
 		// write amount of lines.
 		ByteBufUtils.writeVarShort(buf, lines.size());
@@ -76,7 +98,7 @@ public class ScreenNotificationPacket implements IMessage
 		{
 			if(message == null || message.lines.isEmpty())
 			{
-				MPUtils.logger.log(Level.ERROR, "A critical NPE error occured during while handling a Raiders notification packet Client side", new NullPointerException());
+				MPUtils.logger.log(Level.ERROR, "A critical NPE error occured during while handling a MPUtils notification packet Client side", new NullPointerException());
 				return null;
 			}
 				
@@ -84,9 +106,8 @@ public class ScreenNotificationPacket implements IMessage
 			mainThread.addScheduledTask(new Runnable() 
 			{
 				@Override
-				public void run() 
-				{
-					ScreenNotification.ScheduleNotice(message.lines,  message.soundFile);
+				public void run() {
+					ScreenNotification.ScheduleNotice(message.lines,  message.soundFile.equals("null") ? null : message.soundFile, message.bgColor, message.borderColor);
 				}
 			});
 			return null;

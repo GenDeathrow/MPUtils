@@ -7,7 +7,6 @@ import java.io.IOException;
 
 import org.apache.logging.log4j.Level;
 
-import com.gendeathrow.mputils.configs.ConfigHandler;
 import com.gendeathrow.mputils.core.MPUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -33,12 +32,11 @@ public class JsonHandler
 	}
 	
 	
-	public static boolean WriteJsonFile(File f, JsonObject json) 
+	public static boolean WriteJsonFile(File file, JsonObject json) 
 	{
 		 try 
 	        {	
-	        	File file = new File(ConfigHandler.configDir, "mpinfo.info");
-	        	
+	         	
 	        	file.createNewFile();
 				
 	        	if (file.canWrite())

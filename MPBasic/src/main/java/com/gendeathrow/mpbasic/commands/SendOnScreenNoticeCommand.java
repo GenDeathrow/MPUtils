@@ -72,10 +72,10 @@ public class SendOnScreenNoticeCommand extends MP_BaseCommand
         else {
             EntityPlayerMP entityplayer = MP_Commands.getPlayer(server, sender, args[1]);
             
-        	if(NotificationsConfigs.LoadedNotifications.containsKey(args[2])) {
+        	if(NotificationsConfigs.LoadedNotifications.containsKey(args[2])) {  
         		NotificationObject notify = NotificationsConfigs.LoadedNotifications.get(args[2]);
         		if(sender.getCommandSenderEntity() instanceof EntityPlayerMP)
-        			MPUtils.network.sendTo(new ScreenNotificationPacket(notify.lines, notify.soundLocation), (EntityPlayerMP) sender.getCommandSenderEntity());
+        			MPUtils.network.sendTo(new ScreenNotificationPacket(notify.lines, notify.soundLocation, notify.bgColor, notify.borderColor), (EntityPlayerMP) sender.getCommandSenderEntity());
      		}
         		else
         			throw new WrongUsageException("Error with "+ args[2] + " || "+ getUsageSuffix(), new Object[0]);
