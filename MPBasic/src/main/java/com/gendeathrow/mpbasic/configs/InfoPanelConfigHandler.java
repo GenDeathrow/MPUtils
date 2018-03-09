@@ -144,10 +144,10 @@ public class InfoPanelConfigHandler {
 		jsonLines.add(dumpJson());
 			
 		try {
-			MPFileUtils.CreateTextFile(new File(exampleFolder, "page1.txt"), p1lines);
-			MPFileUtils.CreateTextFile(new File(exampleFolder, "page2.txt"), p2lines);
-			MPFileUtils.CreateTextFile(new File(exampleFolder, "page3.txt"), p3lines);
-			MPFileUtils.CreateTextFile(new File(exampleFolder, "welcome.json"), jsonLines);
+			MPFileUtils.createSaveTextFile(new File(exampleFolder, "page1.txt"), p1lines);
+			MPFileUtils.createSaveTextFile(new File(exampleFolder, "page2.txt"), p2lines);
+			MPFileUtils.createSaveTextFile(new File(exampleFolder, "page3.txt"), p3lines);
+			MPFileUtils.createSaveTextFile(new File(exampleFolder, "welcome.json"), jsonLines);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

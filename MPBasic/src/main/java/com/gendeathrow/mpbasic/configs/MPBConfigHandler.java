@@ -93,7 +93,7 @@ public class MPBConfigHandler
 				lines.add(TextFormatting.YELLOW +"# Add Your ChangeLog to "+TextFormatting.RED+"'changelog.txt'"+TextFormatting.RESET+" in the config files" + NEW_LINE + NEW_LINE + "You can use Minecrafts "+TextFormatting.BLUE+"Color "+TextFormatting.DARK_GREEN+"Codes "+TextFormatting.GOLD+"to"+TextFormatting.RESET+" "+TextFormatting.UNDERLINE+"make your changlogs look Good.");
 
 				try {
-					MPFileUtils.CreateTextFile(file, lines);
+					MPFileUtils.createSaveTextFile(file, lines);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

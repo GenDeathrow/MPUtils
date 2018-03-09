@@ -2,8 +2,8 @@ package com.gendeathrow.mpbasic.client.gui;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 
+import com.gendeathrow.mputils.utils.MPFileUtils;
 import com.gendeathrow.mputils.utils.MPInfo;
 import com.gendeathrow.mputils.utils.RenderAssist;
 import com.gendeathrow.mputils.utils.Tools;
@@ -188,7 +188,7 @@ public class GuiBugReporter extends GuiScreen
 			try 
 			{
 				postData.addProperty("crashLogFile", getCrashLog().getName());
-				postData.addProperty("crashLog", Tools.readFile(getCrashLog().getPath(), Charset.defaultCharset()));
+				postData.addProperty("crashLog", MPFileUtils.readFile(getCrashLog().getPath()));
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

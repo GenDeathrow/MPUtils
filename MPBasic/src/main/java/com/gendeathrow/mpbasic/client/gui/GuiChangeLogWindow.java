@@ -2,6 +2,7 @@ package com.gendeathrow.mpbasic.client.gui;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.logging.log4j.Level;
 
@@ -14,6 +15,7 @@ import com.gendeathrow.mputils.core.MPUtils;
 import com.gendeathrow.mputils.core.Settings;
 import com.gendeathrow.mputils.utils.MPFileUtils;
 import com.gendeathrow.mputils.utils.Tools;
+import com.google.common.collect.Lists;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -21,6 +23,7 @@ import net.minecraft.client.gui.GuiScreen;
 
 public class GuiChangeLogWindow extends ScrollWindowBase
 {
+	private static final int List = 0;
 	String textfile = "Found no File";
 	private TextEditor editor;
 	
@@ -77,7 +80,13 @@ public class GuiChangeLogWindow extends ScrollWindowBase
 	
 	private void EditorSaveFile()
 	{
-		Tools.CreateSaveFile(new File(ConfigHandler.configDir + "/"+ MPBSettings.url), ((TextScrollWindow)this.scrollWindow).getRawData());
+		List<String> data = Lists.newArrayList(((TextScrollWindow)this.scrollWindow).getRawData());
+		
+		try {
+			MPFileUtils.createSaveTextFile(new File(ConfigHandler.configDir + "/"+ MPBSettings.url), data);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	protected void actionPerformed(GuiButton button)

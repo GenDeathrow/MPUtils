@@ -24,7 +24,7 @@ import net.minecraftforge.fml.relauncher.Side;
 public class MPBasic 
 {
     public static final String MODID = "mpbasic";
-    public static final String VERSION = "1.4.6";
+    public static final String VERSION = "1.4.7";
     public static final String MCVERSION = "1.0.0";
     public static final String NAME = "ModPack Utils";
     public static final String PROXY = "com.gendeathrow.mpbasic.core.proxies";
@@ -32,7 +32,7 @@ public class MPBasic
     @Instance(MODID)
 	public static MPBasic instance;
     
-    public static final String dependencies =  "required-after:mputils@[1.5.5,1.6.0]";
+    public static final String dependencies =  "required-after:mputils@[1.5.6,1.6.0]";
     
 	@SidedProxy(clientSide = PROXY + ".MPBClientProxy", serverSide = PROXY + ".MPBCommonProxy")
 	public static MPBCommonProxy proxy;

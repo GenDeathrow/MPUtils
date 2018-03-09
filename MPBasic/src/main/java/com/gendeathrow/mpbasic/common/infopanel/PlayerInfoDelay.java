@@ -24,15 +24,15 @@ public class PlayerInfoDelay {
 	@SubscribeEvent
 	public void onTick(TickEvent.PlayerTickEvent event){
 		
-		if(event.player.world == null || delay-- > 0) return;
+		if(event.player.world == null || delay-- > 0 || event.player != player) return;
 
 		if(InfoPanelConfigHandler.hasOnLoginPage()) {
-			IInfoPanelData cap = CapabilityInfoPanel.getInfoPanelData(event.player);
+			IInfoPanelData cap = CapabilityInfoPanel.getInfoPanelData(player);
 			if(cap != null) {
 				if(!cap.hasBeenGivinBook(InfoPanelConfigHandler.onLogInLoadInfoPage.getPanelID())) {
 					try {
 						if(player instanceof EntityPlayerMP)
-							CapabilityInfoPanel.sendToPlayer(InfoPanelConfigHandler.onLogInLoadInfoPage.getPanelID(), (EntityPlayerMP)event.player);
+							CapabilityInfoPanel.sendToPlayer(InfoPanelConfigHandler.onLogInLoadInfoPage.getPanelID(), (EntityPlayerMP)player);
 					}catch(Exception e) {
 						MPBasic.logger.error("Error trying send packet for infopanel: ");
 						e.printStackTrace();	

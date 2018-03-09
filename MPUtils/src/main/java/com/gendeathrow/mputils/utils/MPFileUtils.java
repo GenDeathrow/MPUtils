@@ -22,14 +22,12 @@ public class MPFileUtils {
     }
     
 	
-	public static void CreateTextFile(File dest, List<String> lines) throws IOException {
+	public static void createSaveTextFile(File dest, List<String> lines) throws IOException {
 		
     	if (dest.getParentFile() != null)
     		dest.getParentFile().mkdirs();
 
-		if (dest.exists())
-		    return;
-		else
+		if (!dest.exists())
 			dest.createNewFile();
 		
         if (dest.canWrite())

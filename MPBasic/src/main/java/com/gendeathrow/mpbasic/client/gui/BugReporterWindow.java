@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -34,6 +33,7 @@ import org.lwjgl.opengl.Display;
 
 import com.gendeathrow.mpbasic.core.MPBSettings;
 import com.gendeathrow.mputils.core.MPUtils;
+import com.gendeathrow.mputils.utils.MPFileUtils;
 import com.gendeathrow.mputils.utils.MPInfo;
 import com.gendeathrow.mputils.utils.Tools;
 import com.google.common.collect.Lists;
@@ -372,10 +372,10 @@ public class BugReporterWindow
 			try 
 			{
 				postData.addProperty("crashLogFile", fc.getSelectedFile().getName());
-				String data = Tools.readFile(fc.getSelectedFile().getPath(), Charset.defaultCharset());
+				String data = MPFileUtils.readFile(fc.getSelectedFile().getPath());
 				if(MPBSettings.crashlogsToGist && gistCheckBox.isSelected())
 				{
-					data = Tools.createGist(fc.getSelectedFile().getName(), Tools.readFile(fc.getSelectedFile().getPath(), Charset.defaultCharset()), this.titlefield.getText());
+					data = Tools.createGist(fc.getSelectedFile().getName(), MPFileUtils.readFile(fc.getSelectedFile().getPath()), this.titlefield.getText());
 				}
 				postData.addProperty("crashLog", data);
 			} catch (IOException e1) {
@@ -446,10 +446,10 @@ public class BugReporterWindow
 		{
 			try 
 			{
-				data = Tools.readFile(fc.getSelectedFile().getPath(), Charset.defaultCharset());
+				data = MPFileUtils.readFile(fc.getSelectedFile().getPath());
 				if(MPBSettings.crashlogsToGist && gistCheckBox.isSelected())
 				{
-					data = Tools.createGist(fc.getSelectedFile().getName(), Tools.readFile(fc.getSelectedFile().getPath(), Charset.defaultCharset()), this.titlefield.getText());
+					data = Tools.createGist(fc.getSelectedFile().getName(), MPFileUtils.readFile(fc.getSelectedFile().getPath()), this.titlefield.getText());
 				}
 
 			} catch (IOException e) {

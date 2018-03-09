@@ -158,7 +158,7 @@ public class NotificationsConfigs {
 		jsonLines.add(new GsonBuilder().setPrettyPrinting().create().toJson(json));
 
 		try {
-			MPFileUtils.CreateTextFile(notification, jsonLines);
+			MPFileUtils.createSaveTextFile(notification, jsonLines);
 		} catch (IOException e) {
 				e.printStackTrace();
 		}

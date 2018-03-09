@@ -23,11 +23,11 @@ import net.minecraftforge.fml.relauncher.Side;
 
 // 1.11.2 Minecraft
 
-@Mod(modid = MPUtils.MODID, name=MPUtils.NAME, version = MPUtils.VERSION, dependencies="before:mpbasic@[1.4.6,)", guiFactory = "com.gendeathrow.mputils.configs.ConfigGuiFactory")
+@Mod(modid = MPUtils.MODID, name=MPUtils.NAME, version = MPUtils.VERSION, dependencies="before:mpbasic@[1.4.7,)", guiFactory = "com.gendeathrow.mputils.configs.ConfigGuiFactory")
 public class MPUtils 
 {
     public static final String MODID = "mputils";
-    public static final String VERSION = "1.5.5";
+    public static final String VERSION = "1.5.6";
     public static final String NAME = "MPUtils";
     public static final String PROXY = "com.gendeathrow.mputils.core.proxies";
     public static final String CHANNELNAME = "genmputils";

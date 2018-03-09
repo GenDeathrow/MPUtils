@@ -97,31 +97,32 @@ public class Tools
 
 	}
     
-    public static String CreateSaveFile(File file, String content)
-	{
-		try 
-		{
-
-			// if file doesnt exists, then create it
-			if (!file.exists()) 
-			{
-				file.createNewFile();
-			}
-
-			FileWriter fw = new FileWriter(file.getAbsoluteFile());
-			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(content);
-			bw.close();
-			
-			
-			return "File saved to: "+ file.getPath();
-		} catch (IOException e) 
-		{
-			e.printStackTrace();
-			
-			return "Error: While creating/saving file. Check Logs!";
-		}
-	}
+//    @Deprecated
+//    public static String CreateSaveFile(File file, String content)
+//	{
+//		try 
+//		{
+//
+//			// if file doesnt exists, then create it
+//			if (!file.exists()) 
+//			{
+//				file.createNewFile();
+//			}
+//
+//			FileWriter fw = new FileWriter(file.getAbsoluteFile());
+//			BufferedWriter bw = new BufferedWriter(fw);
+//			bw.write(content);
+//			bw.close();
+//			
+//			
+//			return "File saved to: "+ file.getPath();
+//		} catch (IOException e) 
+//		{
+//			e.printStackTrace();
+//			
+//			return "Error: While creating/saving file. Check Logs!";
+//		}
+//	}
     public static void CopyandPasteResourceToFile(InputStream ddlStream, String outputUrl) throws FileNotFoundException, IOException{
 //        InputStream ddlStream = Tools.class
 //        	    .getClassLoader().getResourceAsStream("some/pack/age/somelib.dll");
@@ -185,18 +186,18 @@ public class Tools
 	    return choice;
 	}
 	
-	
-	public static String readFile(File path, Charset encoding) throws IOException 
-	{
-		return readFile(path.getPath(), encoding);
-	}
-	
-	
-	public static String readFile(String path, Charset encoding) throws IOException 
-	{
-		byte[] encoded = Files.readAllBytes(Paths.get(path));
-		return removeUTF8BOM(new String(encoded, encoding));
-	}
+//	@Deprecated
+//	public static String readFile(File path, Charset encoding) throws IOException 
+//	{
+//		return readFile(path.getPath(), encoding);
+//	}
+//	
+//	@Deprecated
+//	public static String readFile(String path, Charset encoding) throws IOException 
+//	{
+//		byte[] encoded = Files.readAllBytes(Paths.get(path));
+//		return removeUTF8BOM(new String(encoded, encoding));
+//	}
 	
 	public static String sendJsonHttpPost(String url, JsonObject postData) throws IOException
 	{
