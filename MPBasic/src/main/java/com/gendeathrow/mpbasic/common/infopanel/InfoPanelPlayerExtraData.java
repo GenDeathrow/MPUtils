@@ -1,6 +1,6 @@
 package com.gendeathrow.mpbasic.common.infopanel;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import com.gendeathrow.mpbasic.api.IInfoPanelData;
 
@@ -11,7 +11,7 @@ import net.minecraftforge.common.util.Constants.NBT;
 
 public class InfoPanelPlayerExtraData implements IInfoPanelData{
 	
-	public ArrayList<String> booksGiven = new ArrayList<String>();
+	public HashSet<String> booksGiven = new HashSet<String>();
 	
 	public InfoPanelPlayerExtraData(){}
 	
